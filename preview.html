@@ -120,7 +120,8 @@ footer{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)} footer 
 @media print{
  .nav{position:static;background:none;border-bottom:1px solid var(--ink)} .pin,.cside{position:static}
  .mapbox,.video,.vico{display:none} .seg{transform:none!important;transition:none}
- .heroimg img{max-height:60vh} .plan,.meet,.compare{break-inside:avoid-page} .ws{break-before:page}
+ .heroimg img{max-height:40vh} .pgrid,.mgrid,.cgrid{grid-template-columns:1fr;gap:18px} .ws .pics{display:none}
+ .tt,.steps li,.teacher,.quote,.wfacts,img{break-inside:avoid} .plan,.meet,.compare,.ws{padding:24px 0 28px}
  .choose{display:none} a{color:inherit}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto} .seg{transform:none;transition:none}}
