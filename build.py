@@ -203,7 +203,7 @@ dl,dd,ol,ul{{margin:0;padding:0}} ol,ul{{list-style:none}}
 .meet{{border-top:1px solid var(--ink);padding:36px 0 64px}}
 .meet .mgrid{{display:grid;grid-template-columns:1fr;gap:26px}}
 .meet h2{{font-size:clamp(32px,5vw,60px);font-stretch:75%;line-height:1;letter-spacing:-.015em}}
-.meet p{{margin:14px 0 0;font-size:17px;max-width:520px}} .meet .hint{{color:var(--mute);font-size:15px}}
+.meet p{{margin:14px 0 0;font-size:17px;max-width:520px}} .meet .addr a{{font-weight:600;text-underline-offset:3px}} .meet .hint{{color:var(--mute);font-size:15px}}
 .meet .mapbox{{margin:0}}
 footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} footer .wrap{{padding-top:22px;padding-bottom:56px}} footer p{{margin:0 0 8px}}
 .cred summary{{cursor:pointer;text-decoration:underline;text-underline-offset:3px;list-style:none;display:inline-block}} .cred summary::-webkit-details-marker{{display:none}}
@@ -222,6 +222,12 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
  .meet .mgrid{{grid-template-columns:5fr 7fr;gap:56px}} .mapbox iframe{{height:380px}}
 }}
 @media(min-width:1100px){{.wrap{{padding:0 40px}} :root{{--gut:40px}}}}
+@media print{{
+ .nav{{position:static;background:none;border-bottom:1px solid var(--ink)}} .pin,.cside{{position:static}}
+ .mapbox,.video,.vico{{display:none}} .seg{{transform:none!important;transition:none}}
+ .heroimg img{{max-height:60vh}} .plan,.meet,.compare{{break-inside:avoid-page}} .ws{{break-before:page}}
+ .choose{{display:none}} a{{color:inherit}}
+}}
 @media(prefers-reduced-motion:reduce){{html{{scroll-behavior:auto}} .seg{{transform:none;transition:none}}}}
 </style></head><body>
 <nav class="nav"><div class="wrap"><a href="#compare">{"Compare" if N > 1 else "Timeline"}</a><a href="#workshop">Workshop</a>{"".join(f'<a href="#detail-{c["id"]}">{"Plan " + c["id"] if N > 1 else "Plan"}</a>' for c in COURSES)}<a class="sp" href="#meet">Meeting point</a></div></nav>
@@ -243,7 +249,7 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
 {ws()}
 {''.join(plan(c) for c in COURSES)}
 <section class="meet" id="meet"><div class="wrap mgrid">
-<div><h2>{html.escape(PAGE['meet_sub'])}, 13:00</h2><p>{html.escape(PAGE['meet_text'])}</p><p class="hint">{html.escape(PAGE['meet_hint'])}</p></div>
+<div><h2>{html.escape(PAGE['meet_sub'])}, 13:00</h2><p>{html.escape(PAGE['meet_text'])}</p><p class="addr"><a href="{gm(PAGE['meet_place'])}" target="_blank" rel="noopener">{html.escape(PAGE.get('meet_addr', PAGE['meet_place']))} ↗</a></p><p class="hint">{html.escape(PAGE['meet_hint'])}</p></div>
 <div class="mapbox"><iframe src="{emb(PAGE['meet_place'])}" loading="lazy" title="{html.escape(PAGE['meet_place'])}" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
 </div></section>
 </main>
