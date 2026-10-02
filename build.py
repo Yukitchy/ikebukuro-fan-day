@@ -244,8 +244,8 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
  body>*:not(.sheet){{display:none!important}} .sheet{{display:block}}
  body{{background:#fff;color:#111;font-size:11.5pt;line-height:1.35}}
  .sh{{display:flex;justify-content:space-between;align-items:baseline;gap:12pt;border-bottom:2pt solid #111;padding-bottom:5pt;margin-bottom:9pt}}
- .sh h1{{font-size:20pt;font-stretch:75%;font-weight:800;letter-spacing:-.01em;margin:0;white-space:nowrap}} .sh p{{margin:0;font-size:10pt;font-weight:600;text-align:right}}
- .sheet h2{{font-size:12.5pt;font-weight:800;margin:0 0 4pt;letter-spacing:0}}
+ .sh h1{{font-size:20pt;font-stretch:75%;font-weight:800;letter-spacing:-.01em;margin:0;white-space:nowrap}} .sh p{{margin:0 0 0 auto;padding-left:18pt;font-size:10pt;font-weight:600;text-align:right}}
+ .sheet h2{{font-size:12.5pt;font-weight:800;margin:0 0 4pt;letter-spacing:0}} .sshops h2,.sws h2{{margin-top:4pt}}
  .sgrid{{display:grid;grid-template-columns:1fr 1fr;gap:0 16pt;margin-bottom:10pt;break-inside:avoid}}
  .saddr{{margin:0 0 5pt;font-weight:700;font-size:11pt}} .sdirs{{margin:0;padding-left:14pt;font-size:10.5pt}} .sdirs li{{margin-bottom:3pt}}
  .sheet table{{border-collapse:collapse;width:100%;font-size:10.5pt}} .sheet td{{padding:2.5pt 4pt 2.5pt 0;border-bottom:.6pt solid #cfc9bb;vertical-align:top}}
