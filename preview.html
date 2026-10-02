@@ -87,6 +87,14 @@ dl,dd,ol,ul{margin:0;padding:0} ol,ul{list-style:none}
 .teacher img{width:96px;aspect-ratio:1;object-fit:cover;background:var(--seg)} .teacher p{margin:0;font-size:15px} .teacher strong{display:block;font-size:17px;margin-bottom:3px} .teacher span{color:var(--mute)}
 .note{margin:22px 0 0;padding:14px 16px;background:var(--seg);font-size:14.5px}
 
+.video{margin:8px 0 0}
+.vplay{display:block;position:relative;width:100%;aspect-ratio:16/9;padding:0;border:0;background:var(--ink);cursor:pointer;overflow:hidden}
+.vplay img{width:100%;height:100%;object-fit:cover;opacity:.92;transition:transform .6s,opacity .3s} .vplay:hover img{transform:scale(1.03);opacity:1}
+.vico{position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px 0 0 -38px;background:var(--red);border-radius:50%}
+.vico::after{content:"";position:absolute;left:31px;top:24px;border-left:22px solid var(--paper);border-top:14px solid transparent;border-bottom:14px solid transparent}
+.video iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:var(--ink)}
+.vcap{margin:8px 0 0;font-size:13.5px;color:var(--mute)} .vcap a{text-underline-offset:3px}
+
 .meet{border-top:1px solid var(--ink);padding:36px 0 64px}
 .meet .mgrid{display:grid;grid-template-columns:1fr;gap:26px}
 .meet h2{font-size:clamp(32px,5vw,60px);font-stretch:75%;line-height:1;letter-spacing:-.015em}
@@ -136,6 +144,7 @@ footer{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)} footer 
 </div></div>
 <div class="pbody">
 <figure class="wmain"><img class="" src="https://experiencetokyo-mirai.com/wp-content/uploads/2025/03/newwall.png" alt="A family holding their finished manga pages in front of the MANGA DOJO Tokyo sign" loading="lazy" referrerpolicy="no-referrer"></figure>
+<div class="video"><button class="vplay" type="button" data-id="Hb_Qw95qhMM" aria-label="Play: Welcome to MANGA DOJO TOKYO, the school&#x27;s own video"><img src="https://i.ytimg.com/vi/Hb_Qw95qhMM/hqdefault.jpg" alt="" loading="lazy"><span class="vico"></span></button><p class="vcap">Welcome to MANGA DOJO TOKYO, the school&#x27;s own video · More short clips on Instagram, <a href="https://www.instagram.com/traveljapan_withme/" target="_blank" rel="noopener">@traveljapan_withme ↗</a></p></div>
 <div class="pics"><img class="" src="https://experiencetokyo-mirai.com/wp-content/uploads/2025/08/manga2-scaled.jpg" alt="Pencilling a character&#x27;s face at the workshop" loading="lazy" referrerpolicy="no-referrer"><img class="" src="https://experiencetokyo-mirai.com/wp-content/uploads/2025/03/S__106881028_0.jpg" alt="A finished page: a character on the left and a four panel comic on the right" loading="lazy" referrerpolicy="no-referrer"></div>
 <ol class="steps wsteps"><li><b>1</b><div><strong>A short talk</strong><span>Where manga comes from and how a page is made, from a working artist.</span></div></li><li><b>2</b><div><strong>Faces and chibi characters</strong><span>How to build a character from simple shapes, then shrink it into a chibi.</span></div></li><li><b>3</b><div><strong>Your own four panel comic</strong><span>Storyboard a short story. Many guests draw something that happened on their trip.</span></div></li><li><b>4</b><div><strong>Ink it and take it home</strong><span>Pen the final page with a G-pen. The pages go home with you.</span></div></li></ol>
 <div class="teacher"><img class="" src="https://experiencetokyo-mirai.com/wp-content/uploads/2026/08/%E5%89%8D%E5%B7%9D%E3%81%95%E3%82%93%E3%83%97%E3%83%AD%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E6%AD%A3%E6%96%B9%E5%BD%A2.png" alt="Kazuo Maekawa, head instructor" loading="lazy" referrerpolicy="no-referrer"><p><strong>Kazuo Maekawa</strong><span>Head instructor. Thirty years as a manga artist, creator of the Ace Attorney manga series. Which teacher runs your session is decided by the school.</span></p></div>
@@ -186,6 +195,8 @@ footer{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)} footer 
  var t=document.getElementById('tt');
  if('IntersectionObserver' in window){new IntersectionObserver(function(e,o){if(e[0].isIntersecting){t.classList.add('in');o.disconnect()}},{threshold:.15}).observe(t)}else{t.classList.add('in')}
  setTimeout(function(){t.classList.add('in')},3500);
+ var v=document.querySelector('.vplay');
+ if(v)v.addEventListener('click',function(){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+v.dataset.id+'?autoplay=1&rel=0';f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;f.title=v.getAttribute('aria-label').replace('Play: ','');v.replaceWith(f)});
 })();
 </script>
 <script>window.DEVBAR_FORCE=1</script><script src="devbar.js?v=3"></script></body></html>

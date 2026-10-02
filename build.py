@@ -88,6 +88,7 @@ def ws():
 </div></div>
 <div class="pbody">
 <figure class="wmain">{img(0)}</figure>
+<div class="video"><button class="vplay" type="button" data-id="{w['video'][0]}" aria-label="Play: {html.escape(w['video'][1])}"><img src="https://i.ytimg.com/vi/{w['video'][0]}/hqdefault.jpg" alt="" loading="lazy"><span class="vico"></span></button><p class="vcap">{html.escape(w['video'][1])} · More short clips on Instagram, <a href="{w['ig'][0]}" target="_blank" rel="noopener">{w['ig'][1]} ↗</a></p></div>
 <div class="pics">{img(1)}{img(2)}</div>
 <ol class="steps wsteps">{steps}</ol>
 <div class="teacher">{img(4)}<p><strong>Kazuo Maekawa</strong><span>Head instructor. Thirty years as a manga artist, creator of the Ace Attorney manga series. Which teacher runs your session is decided by the school.</span></p></div>
@@ -188,6 +189,14 @@ dl,dd,ol,ul{{margin:0;padding:0}} ol,ul{{list-style:none}}
 .teacher img{{width:96px;aspect-ratio:1;object-fit:cover;background:var(--seg)}} .teacher p{{margin:0;font-size:15px}} .teacher strong{{display:block;font-size:17px;margin-bottom:3px}} .teacher span{{color:var(--mute)}}
 .note{{margin:22px 0 0;padding:14px 16px;background:var(--seg);font-size:14.5px}}
 
+.video{{margin:8px 0 0}}
+.vplay{{display:block;position:relative;width:100%;aspect-ratio:16/9;padding:0;border:0;background:var(--ink);cursor:pointer;overflow:hidden}}
+.vplay img{{width:100%;height:100%;object-fit:cover;opacity:.92;transition:transform .6s,opacity .3s}} .vplay:hover img{{transform:scale(1.03);opacity:1}}
+.vico{{position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px 0 0 -38px;background:var(--red);border-radius:50%}}
+.vico::after{{content:"";position:absolute;left:31px;top:24px;border-left:22px solid var(--paper);border-top:14px solid transparent;border-bottom:14px solid transparent}}
+.video iframe{{display:block;width:100%;aspect-ratio:16/9;border:0;background:var(--ink)}}
+.vcap{{margin:8px 0 0;font-size:13.5px;color:var(--mute)}} .vcap a{{text-underline-offset:3px}}
+
 .meet{{border-top:1px solid var(--ink);padding:36px 0 64px}}
 .meet .mgrid{{display:grid;grid-template-columns:1fr;gap:26px}}
 .meet h2{{font-size:clamp(32px,5vw,60px);font-stretch:75%;line-height:1;letter-spacing:-.015em}}
@@ -243,6 +252,8 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
  var t=document.getElementById('tt');
  if('IntersectionObserver' in window){{new IntersectionObserver(function(e,o){{if(e[0].isIntersecting){{t.classList.add('in');o.disconnect()}}}},{{threshold:.15}}).observe(t)}}else{{t.classList.add('in')}}
  setTimeout(function(){{t.classList.add('in')}},3500);
+ var v=document.querySelector('.vplay');
+ if(v)v.addEventListener('click',function(){{var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+v.dataset.id+'?autoplay=1&rel=0';f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;f.title=v.getAttribute('aria-label').replace('Play: ','');v.replaceWith(f)}});
 }})();
 </script>
 {{DEVBAR}}</body></html>'''
