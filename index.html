@@ -81,7 +81,7 @@ dl,dd,ol,ul{margin:0;padding:0} ol,ul{list-style:none}
 .quote{margin:0;padding:18px 0 0;border-top:1px solid var(--line)}
 .quote blockquote{margin:0;font-size:clamp(22px,2.6vw,30px);font-weight:800;font-stretch:75%;line-height:1.1;letter-spacing:-.01em;text-wrap:balance}
 .quote figcaption{margin-top:10px;font-size:13.5px;color:var(--mute)}
-.wmain{margin:0 0 8px} .wmain img{width:100%;aspect-ratio:3/2;object-fit:cover;background:var(--seg)}
+.wmain{margin:0 0 8px} .print-only{display:none} .wmain img{width:100%;aspect-ratio:3/2;object-fit:cover;background:var(--seg)}
 .wsteps li{grid-template-columns:40px minmax(0,1fr)} .wsteps b{color:var(--red);font-size:22px;line-height:1;font-stretch:75%}
 .teacher{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start;margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
 .teacher img{width:96px;aspect-ratio:1;object-fit:cover;background:var(--seg)} .teacher p{margin:0;font-size:15px} .teacher strong{display:block;font-size:17px;margin-bottom:3px} .teacher span{color:var(--mute)}
@@ -122,7 +122,7 @@ footer{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)} footer 
  .mapbox,.video,.vico{display:none} .seg{transform:none!important;transition:none}
  .heroimg img{max-height:40vh} .pgrid,.mgrid,.cgrid{grid-template-columns:1fr;gap:18px} .ws .pics{display:none}
  .tt,.steps li,.teacher,.quote,.wfacts,img{break-inside:avoid} .plan,.meet,.compare,.ws{padding:24px 0 28px}
- .choose{display:none} a{color:inherit}
+ .choose{display:none} a{color:inherit} .screen-only{display:none} .print-only{display:block}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto} .seg{transform:none;transition:none}}
 </style></head><body>
@@ -150,7 +150,7 @@ footer{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)} footer 
 <figure class="quote"><blockquote>“this is a fantastic experience”</blockquote><figcaption>A guest from the U.S. who came with a 13 year old, in the reviews on the school&#x27;s website</figcaption></figure>
 </div></div>
 <div class="pbody">
-<figure class="wmain"><img class="" src="https://experiencetokyo-mirai.com/wp-content/uploads/2025/03/newwall.png" alt="A family holding their finished manga pages in front of the MANGA DOJO Tokyo sign" loading="lazy" referrerpolicy="no-referrer"></figure>
+<figure class="wmain"><img class="screen-only" src="https://experiencetokyo-mirai.com/wp-content/uploads/2025/03/newwall.png" alt="A family holding their finished manga pages in front of the MANGA DOJO Tokyo sign" loading="lazy" referrerpolicy="no-referrer"><img class="print-only" src="https://experiencetokyo-mirai.com/wp-content/uploads/2024/07/LINE_ALBUM_Manga-workshop_240708_2.jpg" alt="A family of four with their teacher, holding their pages" loading="lazy" referrerpolicy="no-referrer"></figure>
 <div class="video"><button class="vplay" type="button" data-id="Hb_Qw95qhMM" aria-label="Play: Welcome to MANGA DOJO TOKYO, the school&#x27;s own video"><img src="https://i.ytimg.com/vi/Hb_Qw95qhMM/hqdefault.jpg" alt="" loading="lazy"><span class="vico"></span></button><p class="vcap">Welcome to MANGA DOJO TOKYO, the school&#x27;s own video · More short clips on Instagram, <a href="https://www.instagram.com/traveljapan_withme/" target="_blank" rel="noopener">@traveljapan_withme ↗</a></p></div>
 <div class="pics"><img class="" src="https://experiencetokyo-mirai.com/wp-content/uploads/2025/08/manga2-scaled.jpg" alt="Pencilling a character&#x27;s face at the workshop" loading="lazy" referrerpolicy="no-referrer"><img class="" src="https://experiencetokyo-mirai.com/wp-content/uploads/2025/03/S__106881028_0.jpg" alt="A finished page: a character on the left and a four panel comic on the right" loading="lazy" referrerpolicy="no-referrer"></div>
 <ol class="steps wsteps"><li><b>1</b><div><strong>A short talk</strong><span>Where manga comes from and how a page is made, from a working artist.</span></div></li><li><b>2</b><div><strong>Faces and chibi characters</strong><span>How to build a character from simple shapes, then shrink it into a chibi.</span></div></li><li><b>3</b><div><strong>Your own four panel comic</strong><span>Storyboard a short story. Many guests draw something that happened on their trip.</span></div></li><li><b>4</b><div><strong>Ink it and take it home</strong><span>Pen the final page with a G-pen. The pages go home with you.</span></div></li></ol>

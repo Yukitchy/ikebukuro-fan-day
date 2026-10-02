@@ -90,7 +90,7 @@ def ws():
 <figure class="quote"><blockquote>“{html.escape(w['quote'])}”</blockquote><figcaption>{html.escape(w['quote_by'])}</figcaption></figure>
 </div></div>
 <div class="pbody">
-<figure class="wmain">{img(0)}</figure>
+<figure class="wmain">{img(0, 'screen-only')}{img(3, 'print-only')}</figure>
 <div class="video"><button class="vplay" type="button" data-id="{w['video'][0]}" aria-label="Play: {html.escape(w['video'][1])}"><img src="https://i.ytimg.com/vi/{w['video'][0]}/hqdefault.jpg" alt="" loading="lazy"><span class="vico"></span></button><p class="vcap">{html.escape(w['video'][1])} · More short clips on Instagram, <a href="{w['ig'][0]}" target="_blank" rel="noopener">{w['ig'][1]} ↗</a></p></div>
 <div class="pics">{img(1)}{img(2)}</div>
 <ol class="steps wsteps">{steps}</ol>
@@ -186,7 +186,7 @@ dl,dd,ol,ul{{margin:0;padding:0}} ol,ul{{list-style:none}}
 .quote{{margin:0;padding:18px 0 0;border-top:1px solid var(--line)}}
 .quote blockquote{{margin:0;font-size:clamp(22px,2.6vw,30px);font-weight:800;font-stretch:75%;line-height:1.1;letter-spacing:-.01em;text-wrap:balance}}
 .quote figcaption{{margin-top:10px;font-size:13.5px;color:var(--mute)}}
-.wmain{{margin:0 0 8px}} .wmain img{{width:100%;aspect-ratio:3/2;object-fit:cover;background:var(--seg)}}
+.wmain{{margin:0 0 8px}} .print-only{{display:none}} .wmain img{{width:100%;aspect-ratio:3/2;object-fit:cover;background:var(--seg)}}
 .wsteps li{{grid-template-columns:40px minmax(0,1fr)}} .wsteps b{{color:var(--red);font-size:22px;line-height:1;font-stretch:75%}}
 .teacher{{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start;margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}}
 .teacher img{{width:96px;aspect-ratio:1;object-fit:cover;background:var(--seg)}} .teacher p{{margin:0;font-size:15px}} .teacher strong{{display:block;font-size:17px;margin-bottom:3px}} .teacher span{{color:var(--mute)}}
@@ -227,7 +227,7 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
  .mapbox,.video,.vico{{display:none}} .seg{{transform:none!important;transition:none}}
  .heroimg img{{max-height:40vh}} .pgrid,.mgrid,.cgrid{{grid-template-columns:1fr;gap:18px}} .ws .pics{{display:none}}
  .tt,.steps li,.teacher,.quote,.wfacts,img{{break-inside:avoid}} .plan,.meet,.compare,.ws{{padding:24px 0 28px}}
- .choose{{display:none}} a{{color:inherit}}
+ .choose{{display:none}} a{{color:inherit}} .screen-only{{display:none}} .print-only{{display:block}}
 }}
 @media(prefers-reduced-motion:reduce){{html{{scroll-behavior:auto}} .seg{{transform:none;transition:none}}}}
 </style></head><body>
