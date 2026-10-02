@@ -51,7 +51,7 @@ def detail(c):
 <div><h3>The route</h3><div class="mapbox"><iframe src="{route_emb(c['stops'])}" loading="lazy" title="Route for course {c['id']}" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
 <p class="moves">{c['moves']} <a href="{route_link(c['stops'])}" target="_blank" rel="noopener">Open the route in Google Maps ↗</a></p></div>
 </div>
-<h3>Where we eat</h3><div class="eats">{fd}</div>
+{('<h3>Where we eat</h3><div class="eats">' + fd + '</div>') if fd else ''}
 <div class="notes"><p><b>Good for</b> {html.escape(c['good'])}</p><p><b>Keep in mind</b> {html.escape(c['mind'])}</p></div>
 <p class="links">{ln}</p>
 <a class="choose" href="mailto:icchan417@gmail.com?subject={html.escape(sub)}">Choose course {c['id']}</a>
