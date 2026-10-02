@@ -2,10 +2,10 @@
  {
   "id": "A",
   "name": "Workshop first, then the shops",
-  "tag": "Draw at 13:00, shop until 18:30",
+  "tag": "Draw at 13:00, shop until 18:30. The school's pick for families",
   "chips": [
    "Workshop 13:00",
-   "Sunshine City",
+   "School's pick",
    "Ends at the station"
   ],
   "why": "Start with the two hour manga workshop while everyone is fresh, then the shopping is the reward. The day ends at the station side, close to the trains for your dinner reservation.",
@@ -60,7 +60,7 @@
   "moves": "Everything is on foot. Workshop → Sunshine City about 8 min. Sunshine City → Animate about 5 min. Animate → PARCO about 5 min.",
   "food": [],
   "good": "A family that wants the hands-on part done first and a relaxed shopping run after.",
-  "mind": "The 13:00 workshop slot is requested, not yet confirmed. Shopping bags get heavy by the end, so the last two stops are short. Most stores have a tax free counter, so keep your passports with you.",
+  "mind": "The 13:00 class is open on December 20 and is the one the school recommends for families. Shopping bags get heavy by the end, so the last two stops are short. Most stores have a tax free counter, so keep your passports with you.",
   "links": [
    [
     "Mugiwara Store Ikebukuro (official)",
@@ -133,13 +133,13 @@
  {
   "id": "B",
   "name": "Shops first, then the workshop",
-  "tag": "Shop from 13:00, draw at 15:00",
+  "tag": "Shop from 13:00, draw at 15:15. The school's advanced class",
   "chips": [
-   "Workshop 15:00",
-   "Station side first",
+   "Workshop 15:15",
+   "Advanced class",
    "Sunshine City last"
   ],
-  "why": "Shopping near the station first, the workshop in the middle, and Sunshine City at the end. The One Piece store and the Pokémon Center close at 20:00, so there is still an hour and a half after the workshop.",
+  "why": "Shopping near the station first, the workshop in the middle, and Sunshine City at the end. The 15:15 session is the school's advanced class, aimed at people who already draw, so the school suggests the 13:00 class for a family. It is still open if you prefer the afternoon.",
   "steps": [
    [
     "13:00",
@@ -157,29 +157,29 @@
     "Nine floors, one of the biggest anime shops in Japan. New manga, figures and limited goods across every series. Open to 21:00."
    ],
    [
-    "14:15",
+    "14:20",
     "BOOKOFF Sunshine 60 Street",
     "Two floors of second hand manga, figures, anime goods and Pokémon cards. One Piece volumes in Japanese are everywhere. Open to 22:00."
    ],
    [
-    "14:50",
+    "15:05",
     "Walk to the workshop",
-    "About 5 minutes."
+    "About 5 minutes. Classes start exactly on time."
    ],
    [
-    "15:00",
-    "MANGA DOJO Tokyo workshop",
-    "Two hours of drawing manga with a working manga artist, English interpretation included. Nicholas draws his own character and takes the pages home."
+    "15:15",
+    "MANGA DOJO Tokyo workshop, advanced class",
+    "Two hours with a working manga artist, English interpretation included. This session goes deeper into panel layout, anatomy and expressions, and ends with career questions for the artist."
    ],
    [
-    "17:00",
+    "17:25",
     "Mugiwara Store and Pokémon Center Mega Tokyo",
     "Sunshine City, Alpa 2F. The official One Piece store and Japan's largest Pokémon Center are on the same floor. Open to 20:00 on Sunday."
    ],
    [
-    "18:00",
+    "18:05",
     "Gashapon Department Store and the One Piece Card Game shop",
-    "World Import Mart 3F, same building. Over 3,000 capsule toy machines, then Bandai Namco Cross Store with the official One Piece Card Game shop and Tamashii Nations figures. Open to 21:00."
+    "World Import Mart 3F, same building. A short run through 3,000 capsule toy machines and the official One Piece Card Game shop. Open to 21:00."
    ],
    [
     "18:30",
@@ -196,7 +196,7 @@
   "moves": "Everything is on foot. Station → PARCO is inside the building. PARCO → Animate about 5 min. Animate → workshop about 5 min. Workshop → Sunshine City about 8 min.",
   "food": [],
   "good": "A family that would rather warm up with the shops and keep the workshop as the main event.",
-  "mind": "The 15:00 workshop slot is requested, not yet confirmed. The day ends at Sunshine City, 8 minutes from the station. Most stores have a tax free counter, so keep your passports with you.",
+  "mind": "The 15:15 session is the school's advanced class and the school suggests 13:00 for families. The day ends at Sunshine City, 8 minutes from the station. Most stores have a tax free counter, so keep your passports with you.",
   "links": [
    [
     "Mugiwara Store Ikebukuro (official)",
@@ -236,30 +236,30 @@
    ],
    [
     40,
-    75,
+    80,
     "Animate",
     "s"
    ],
    [
-    75,
-    110,
+    80,
+    125,
     "BOOKOFF",
     "s"
    ],
    [
-    120,
-    240,
-    "Manga workshop",
+    135,
+    255,
+    "Manga workshop, advanced",
     "w"
    ],
    [
-    240,
-    300,
+    265,
+    305,
     "Pokémon Center and Mugiwara Store",
     "s"
    ],
    [
-    300,
+    305,
     330,
     "Gashapon and Cross Store",
     "s"
