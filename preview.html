@@ -118,11 +118,22 @@ footer{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)} footer 
 }
 @media(min-width:1100px){.wrap{padding:0 40px} :root{--gut:40px}}
 @media print{
- .nav{position:static;background:none;border-bottom:1px solid var(--ink)} .pin,.cside{position:static}
- .mapbox,.video,.vico{display:none} .seg{transform:none!important;transition:none}
- .heroimg img{max-height:40vh} .pgrid,.mgrid,.cgrid{grid-template-columns:1fr;gap:18px} .ws .pics{display:none}
- .tt,.steps li,.teacher,.quote,.wfacts,img{break-inside:avoid} .plan,.meet,.compare,.ws{padding:24px 0 28px}
- .choose{display:none} a{color:inherit} .screen-only{display:none} .print-only{display:block}
+ @page{margin:11mm 12mm}
+ html{scroll-behavior:auto} body{font-size:14.5px;line-height:1.45} .wrap{padding:0;max-width:none}
+ .nav,.mapbox,.video,.vico,.choose,.cred,.ws .pics,.plan .pics,.notes,.quote{display:none}
+ .screen-only{display:none} .print-only{display:block}
+ main{display:flex;flex-direction:column} .meet{order:-1}
+ .compare,.ws,.plan,.meet{break-before:page;border-top:0;padding:0} footer{break-before:avoid;border-top:1px solid var(--line);margin-top:18px} footer .wrap{padding:10px 0 0}
+ h1,h2,h3{break-after:avoid} .tt,.steps li,.teacher,.wfacts,.note,.legend,.heads,.seg{break-inside:avoid} p,dd{orphans:3;widows:3}
+ .facts{margin-top:6px} .mega{font-size:22vw;margin-top:10px} .heroimg{width:auto;margin:14px 0 0} .heroimg img{max-height:46vh} .pick{padding:22px 0 0;gap:6px} .pick h2{font-size:40px} .pick p{font-size:16px}
+ :root{--s:1.75px} .compare h2{font-size:32px} .legend{flex-direction:row;margin:10px 0 14px} .cgrid{display:block} .seg{transform:none!important;transition:none} .ctas{display:none}
+ .pgrid,.mgrid{display:block} .pin{position:static} .ws .pin h2,.plan h2,.meet h2{font-size:36px} .why{font-size:14.5px;margin:10px 0 14px;max-width:none}
+ .wfacts{gap:6px;margin-bottom:12px;padding-top:8px} .wfacts dd{font-size:14px} .wmain{margin:0 0 10px} .wmain img{max-height:21vh;object-fit:cover;width:100%} .ws .links{display:none} .ws .why{margin-bottom:10px}
+ .wsteps li,.steps li{padding:7px 0} .steps strong{font-size:14.5px} .steps span{font-size:13px} .wsteps b{font-size:18px}
+ .teacher{margin-top:10px;padding-top:10px;gap:12px} .teacher img{width:64px} .teacher p,.teacher strong{font-size:14px} .note{margin-top:10px;padding:9px 12px;font-size:12.5px}
+ .moves{font-size:13px;margin-top:10px} .links{margin-top:12px;font-size:13px;gap:4px 14px}
+ .meet p{max-width:none;font-size:16px} .meet .hint{font-size:14px}
+ a{color:inherit}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto} .seg{transform:none;transition:none}}
 </style></head><body>
