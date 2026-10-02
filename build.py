@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""コース選択ページ(course-pickerのテンプレ)。page.json と courses.json を編集して python3 build.py -> index.html"""
+"""コース選択ページ(エディトリアル版)。page.json と courses.json を編集して python3 build.py -> index.html
+COURSES / PAGE / PH の名前は course-picker の engine/extract.py が読むので変えない。"""
 import json, html
 
-# 写真は「ワクワク採点」で選ぶ。建物の外観でなく、そこで人が楽しんでいる絵を最優先。
-# 採点と選定理由は photos.json の score / note を見る。
 PH = json.load(open('photos.json'))
 gm = lambda q: 'https://www.google.com/maps/search/?api=1&query=' + q.replace(' ', '+')
-emb = lambda q: 'https://maps.google.com/maps?q=' + q.replace(' ', '+') + '&output=embed&z=12'
+emb = lambda q: 'https://maps.google.com/maps?q=' + q.replace(' ', '+') + '&output=embed&z=15'
 def route_emb(stops):
     s = [x.replace(' ', '+') for x in stops]
     return 'https://maps.google.com/maps?saddr=' + s[0] + '&daddr=' + '+to:'.join(s[1:]) + '&output=embed'
@@ -18,243 +17,194 @@ def route_link(stops):
 PAGE = json.load(open('page.json'))
 COURSES = json.load(open('courses.json'))
 for c in COURSES:
-    for k, d in (('chips', []), ('food', []), ('links', []), ('stops', []), ('steps', []), ('moves', ''), ('good', ''), ('mind', ''), ('tag', ''), ('why', '')):
+    for k, d in (('chips', []), ('food', []), ('links', []), ('stops', []), ('steps', []), ('bars', []), ('moves', ''), ('good', ''), ('mind', ''), ('tag', ''), ('why', '')):
         c.setdefault(k, d)
     PH.setdefault(c['id'], {}).setdefault('card', {'thumb': '', 'title': '', 'lic': ''})
     PH[c['id']].setdefault('detail', []); PH[c['id']].setdefault('food', [])
 
-def menu(c):
-    x = PH[c['id']]['card']
-    ch = ''.join(f'<li>{html.escape(t)}</li>' for t in c['chips'])
-    return f'''<button class="mcard" type="button" data-course="{c['id']}" aria-expanded="false" aria-controls="detail-{c['id']}">
-<img src="{x["thumb"]}" alt="{html.escape(x["title"])}" loading="lazy">
-<span class="mb"><span class="mk">Course {c['id']}</span><span class="mt">{html.escape(c['name'])}</span>
-<span class="mtag">{html.escape(c['tag'])}</span><ul class="mch">{ch}</ul><span class="mopen">See the plan</span></span></button>'''
+# 各プランの見出し下に置く2枚(ワクワク採点の高い、人や店が写っている絵)
+PICK = {'A': [('detail', 1), ('detail', 3)], 'B': [('card', None), ('detail', 3)]}
+def pics(c):
+    out = []
+    for kind, i in PICK.get(c['id'], []):
+        x = PH[c['id']][kind] if i is None else PH[c['id']][kind][i]
+        out.append(f'<img src="{x["thumb"]}" alt="{html.escape(x["title"])}" loading="lazy">')
+    return ''.join(out)
 
-def detail(c):
-    ph = ''.join(f'<img src="{x["thumb"]}" alt="{html.escape(x["title"])}" loading="lazy">' for x in PH[c['id']]['detail'])
-    st = ''.join(f'<li><b>{t}</b><div><strong>{h}</strong><span>{d}</span></div></li>' for t, h, d in c['steps'])
-    fd = ''.join(f'<a class="eat" href="{gm(q)}" target="_blank" rel="noopener">'
-                 f'<img src="{im["thumb"]}" alt="{html.escape(im["title"])}" loading="lazy">'
-                 f'<span class="eb"><strong>{n}</strong><em>{a}</em><span>{d}</span>'
-                 f'<i>Open in Google Maps ↗</i></span></a>'
-                 for (n, a, d, q), im in zip(c['food'], PH[c['id']]['food']))
-    ln = ' '.join(f'<a href="{u}" target="_blank" rel="noopener">{html.escape(t)} ↗</a>' for t, u in c['links'])
+def hm(m):
+    t = 13 * 60 + m
+    return f'{t // 60}:{t % 60:02d}'
+
+def col(c):
+    segs = ''
+    for a, b, name, kind in c['bars']:
+        two = (b - a) >= 30
+        tm = f'<i>{hm(a)} to {hm(b)}</i>' if two else ''
+        segs += f'<li class="seg {kind}" style="--a:{a};--b:{b}"><b>{html.escape(name)}</b>{tm}</li>'
+    return f'<ol class="track">{segs}</ol>'
+
+def head(c):
+    return (f'<a class="chead" href="#detail-{c["id"]}"><span class="cl">{c["id"]}</span>'
+            f'<span class="cn">{html.escape(c["name"])}</span></a>')
+
+def cta(c):
     sub = PAGE['subject'] + f' course {c["id"]} ({c["name"]})'
-    return f'''<section class="detail" id="detail-{c['id']}" hidden><div class="dwrap"><div class="dtop"></div>
-<div class="dhead"><div><p class="kicker">Course {c['id']} · {html.escape(c['tag'])}</p><h2>{html.escape(c['name'])}</h2></div>
-<button class="dclose" type="button" aria-label="Close">Close ✕</button></div>
+    return f'<a class="choose" href="mailto:icchan417@gmail.com?subject={html.escape(sub)}">Choose {c["id"]}</a>'
+
+def plan(c):
+    st = ''.join(f'<li><b>{t}</b><div><strong>{h}</strong><span>{d}</span></div></li>' for t, h, d in c['steps'])
+    ln = ''.join(f'<a href="{u}" target="_blank" rel="noopener">{html.escape(t)} ↗</a>' for t, u in c['links'])
+    return f'''<section class="plan" id="detail-{c['id']}"><div class="wrap pgrid">
+<div class="phead"><div class="pin">
+<span class="pl" aria-hidden="true">{c['id']}</span>
+<h2>{html.escape(c['name'])}</h2>
+<p class="ptag">{html.escape(c['tag'])}</p>
 <p class="why">{html.escape(c['why'])}</p>
-<div class="photos">{ph}</div>
-<div class="dgrid">
-<div><h3>The day</h3><ol class="steps">{st}</ol></div>
-<div><h3>The route</h3><div class="mapbox"><iframe src="{route_emb(c['stops'])}" loading="lazy" title="Route for course {c['id']}" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-<p class="moves">{c['moves']} <a href="{route_link(c['stops'])}" target="_blank" rel="noopener">Open the route in Google Maps ↗</a></p></div>
-</div>
-{('<h3>Where we eat</h3><div class="eats">' + fd + '</div>') if fd else ''}
-<div class="notes"><p><b>Good for</b> {html.escape(c['good'])}</p><p><b>Keep in mind</b> {html.escape(c['mind'])}</p></div>
+{cta(c)}
+</div></div>
+<div class="pbody">
+<div class="pics">{pics(c)}</div>
+<ol class="steps">{st}</ol>
+<div class="mapbox"><iframe src="{route_emb(c['stops'])}" loading="lazy" title="Route for course {c['id']}" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+<p class="moves">{c['moves']} <a href="{route_link(c['stops'])}" target="_blank" rel="noopener">Open the route in Google Maps ↗</a></p>
+<dl class="notes"><div><dt>Good for</dt><dd>{html.escape(c['good'])}</dd></div><div><dt>Keep in mind</dt><dd>{html.escape(c['mind'])}</dd></div></dl>
 <p class="links">{ln}</p>
-<a class="choose" href="mailto:icchan417@gmail.com?subject={html.escape(sub)}">Choose course {c['id']}</a>
-</div></section>'''
+</div></div></section>'''
 
-HERO_CSS = """
-.hpic{position:relative;background:#111;color:#fff}
-.slides{position:absolute;inset:0;overflow:hidden}
-.slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity 1.1s ease,transform 5s linear}
-.slides img.on{opacity:1;transform:scale(1)}
-.slides:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08) 30%,rgba(0,0,0,.74))}
-.hcap{position:relative;z-index:1;min-height:62vh;max-height:600px;display:flex;flex-direction:column;justify-content:flex-end;padding-top:48px;padding-bottom:22px}
-.hcap .kicker{color:#9ee3b8}
-.hcap h1{color:#fff;margin:0 0 14px;text-shadow:0 2px 14px rgba(0,0,0,.3)}
-.snav{display:flex;align-items:center;gap:10px}
-.slabel{font:inherit;font-size:12.5px;font-weight:600;color:#fff;background:rgba(0,0,0,.38);border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:7px 13px;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dots{display:flex;gap:7px;margin-left:auto;flex:none}
-.dots button{width:9px;height:9px;padding:0;border:none;border-radius:50%;background:rgba(255,255,255,.45);cursor:pointer}
-.dots button.on{background:#fff}
-.hbody{padding-top:22px;padding-bottom:26px}
-@media(prefers-reduced-motion:reduce){.slides img{transition:none;transform:none}}
-"""
-HERO_JS = """
- (function(){
-  var sl=[].slice.call(document.querySelectorAll('.slides img')),dots=[].slice.call(document.querySelectorAll('.dots button')),lab=document.querySelector('.slabel'),i=0,t;
-  function show(n){i=n;sl.forEach(function(x,k){x.classList.toggle('on',k===n)});dots.forEach(function(x,k){x.classList.toggle('on',k===n)});
-   lab.textContent='Course '+sl[n].dataset.course+' · '+sl[n].dataset.name;lab.dataset.course=sl[n].dataset.course}
-  function go(){clearInterval(t);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)t=setInterval(function(){show((i+1)%sl.length)},4000)}
-  dots.forEach(function(d,k){d.addEventListener('click',function(){show(k);go()})});
-  lab.addEventListener('click',function(){document.querySelector('.mcard[data-course="'+lab.dataset.course+'"]').click()});
-  show(0);go();
- })();
-"""
+credits = '; '.join(html.escape(x['title'].replace('File:', '')) + ' (' + x['lic'] + ')' for v in PH.values() for x in [v['card']] + v['detail'] + v['food'])
+facts = ''.join(f'<div><dt>{html.escape(k)}</dt><dd>{html.escape(v)}</dd></div>' for k, v in PAGE['facts'])
+A, B = COURSES[0], COURSES[1]
 
-credits = '; '.join(html.escape(x['title'].replace('File:','')) + ' (' + x['lic'] + ')' for v in PH.values() for x in [v['card']] + v['detail'] + v['food'])
 page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(PAGE['title'])}</title><meta name="robots" content="noindex"><meta name="description" content="{html.escape(PAGE['lead'])}">
+<meta name="theme-color" content="#f4f1ea">
 <meta property="og:title" content="{html.escape(PAGE['title'])}"><meta property="og:description" content="{html.escape(PAGE['lead'])}">
 <meta property="og:type" content="website"><meta property="og:url" content="https://yukitchy.github.io/ikebukuro-fan-day/">
 <meta property="og:image" content="https://yukitchy.github.io/ikebukuro-fan-day/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
 <style>
-:root{{--bg:#fffdf6;--card:#fff;--ink:#111;--mute:#767065;--line:#eae4d6;--acc:#1a5c3a;--r:10px}}
-*{{box-sizing:border-box;min-width:0}} html,body{{overflow-x:hidden;max-width:100%}} img{{max-width:100%}}
-body{{margin:0;font-family:Inter,-apple-system,"Hiragino Sans",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}}
-.wrap{{max-width:1080px;margin:0 auto;padding:0 20px}}
-.kicker{{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin:0 0 10px}}
-h1,h2,.mt{{text-wrap:balance}} .nb{{white-space:nowrap}}
-h1{{font-weight:800;font-size:clamp(34px,5.4vw,54px);line-height:1.06;letter-spacing:-.025em;margin:0 0 16px}}
-h2{{font-weight:800;font-size:clamp(30px,4.2vw,42px);line-height:1.06;letter-spacing:-.025em;margin:0}}
-h3{{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin:0 0 12px}}
-{HERO_CSS}
-header p{{font-size:18px;color:var(--mute);margin:0;max-width:620px}}
-.facts{{display:flex;flex-wrap:wrap;gap:6px 20px;margin:20px 0 0;padding:0;list-style:none;font-size:14px;color:var(--mute)}} .facts b{{color:var(--ink);font-weight:600}}
-.sechead{{display:flex;align-items:baseline;gap:14px;padding:26px 0 16px;border-top:1px solid var(--line)}}
-.sechead .n{{font-weight:800;font-size:26px;line-height:1;letter-spacing:-.02em;color:var(--acc)}}
-.sechead b{{font-size:19px;font-weight:600}} .sechead span{{font-size:14px;color:var(--mute)}}
-.menu{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}}
-.mcard{{display:flex;flex-direction:column;text-align:left;font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;padding:0;cursor:pointer;transition:transform .18s,box-shadow .18s,border-color .18s}}
-.mcard:hover{{transform:translateY(-3px);box-shadow:0 10px 24px rgba(34,31,27,.10)}}
-.menu.picked .mcard:not([aria-expanded=true]){{opacity:.42;filter:saturate(.45)}}
-.menu.picked .mcard:not([aria-expanded=true]):hover{{opacity:.75;filter:none}}
-.mcard[aria-expanded=true]{{border:2px solid var(--ink);box-shadow:0 12px 28px rgba(17,17,17,.16);transform:translateY(-3px)}}
-.mcard[aria-expanded=true] .mopen{{color:var(--acc);border-bottom-color:var(--acc)}}
-.mcard>img{{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#f0ebe0}}
-.mb{{display:flex;flex-direction:column;flex:1;padding:18px 20px 20px}}
-.mk{{display:block;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:6px}}
-.mt{{display:block;font-weight:800;font-size:26px;line-height:1.12;letter-spacing:-.025em;margin-bottom:6px}}
-.mtag{{display:block;font-size:15px;color:var(--mute);margin-bottom:12px}}
-.mch{{list-style:none;margin:auto 0 14px;padding:0;display:flex;flex-wrap:wrap;gap:6px}}
-.mch li{{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--line);border-radius:4px;padding:3px 8px;color:var(--mute)}}
-.mopen{{align-self:flex-start;display:inline-block;font-size:14px;font-weight:600;border-bottom:2px solid var(--acc);padding-bottom:1px}}
-.mcard[aria-expanded=true] .mopen::after{{content:" ▲"}} .mcard[aria-expanded=false] .mopen::after{{content:" ▾"}}
-.detail{{scroll-margin-top:12px;display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s ease;margin-top:14px;position:relative}}
-.detail[hidden]{{display:none}} .detail.open{{grid-template-rows:1fr}}
-.dwrap{{overflow:hidden;min-height:0;background:var(--card);border:2px solid var(--ink);border-radius:var(--r);position:relative}}
-.detail::before{{content:'';position:absolute;top:-11px;left:var(--arrow,50%);width:20px;height:20px;margin-left:-10px;background:var(--acc);border-left:2px solid var(--acc);border-top:2px solid var(--acc);transform:rotate(45deg);z-index:2;opacity:0;transition:opacity .2s .12s}}
-.detail.open::before{{opacity:1}}
-.dtop{{height:5px;background:var(--acc)}}
-.detail.open .dwrap{{overflow:visible}}
-.dwrap>*{{margin-left:26px;margin-right:26px}} .dwrap>.dtop{{margin:0}} .dwrap>.photos{{margin-left:26px;margin-right:26px}}
-.dhead{{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding-top:26px}}
-.dclose{{flex:none;font:inherit;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);background:none;border:1px solid var(--line);border-radius:6px;padding:8px 14px;cursor:pointer}}
-.dclose:hover{{color:var(--ink);border-color:var(--ink)}}
-.why{{font-size:17px;color:var(--mute);margin:10px 0 20px;max-width:640px}}
-.photos{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:26px}}
-.photos img{{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:8px;background:#f0ebe0}}
-.dgrid{{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-bottom:28px}}
-.steps{{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}}
-.steps li{{display:grid;grid-template-columns:60px minmax(0,1fr);gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}}
-.steps b{{font-variant-numeric:tabular-nums;color:var(--acc);font-weight:600;font-size:14px}} .steps strong{{display:block;font-weight:600;font-size:16px}} .steps span{{color:var(--mute);font-size:14px}}
-.mapbox{{border-radius:8px;overflow:hidden;background:#f0ebe0}} .mapbox iframe{{display:block;width:100%;height:300px;border:0}}
-.moves{{font-size:14px;color:var(--mute);margin:12px 0 0}} .moves a{{color:var(--ink);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}}
-.eats{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:26px}}
-.eat{{display:flex;flex-direction:column;text-decoration:none;color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:8px;overflow:hidden}}
-.eat>img{{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;background:#f0ebe0}}
-.eb{{display:flex;flex-direction:column;flex:1;padding:14px 16px 16px}}
-.eat:hover{{border-color:var(--ink)}}
-.eat strong{{display:block;font-weight:700;font-size:18px;line-height:1.2;letter-spacing:-.015em}}
-.eat em{{display:block;font-style:normal;font-size:11px;color:var(--acc);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin:5px 0 9px}}
-.eb>span{{display:block;font-size:14px;color:var(--mute)}} .eat i{{display:block;font-style:normal;font-size:12px;margin-top:auto;padding-top:10px;text-decoration:underline;text-underline-offset:3px}}
-.notes{{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;font-size:14px}} .notes p{{margin:0;padding:16px 18px;background:var(--bg);border:1px solid var(--line);border-radius:8px}} .notes b{{display:block;font-weight:600;margin-bottom:3px}}
-.links{{margin:0 0 22px;font-size:14px;display:flex;flex-wrap:wrap;gap:6px 18px}} .links a{{color:var(--ink);text-decoration:underline;text-underline-offset:3px}}
-.choose{{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;padding:16px 32px;border-radius:8px;font-size:16px;letter-spacing:-.01em;margin-bottom:28px}} .choose:hover{{background:#333}}
-.arrival{{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start;padding-bottom:40px}}
-.arrival p{{margin:0 0 10px;font-size:16px}} .arrival .hint{{color:var(--mute);font-size:15px}}
-.arrival .mapbox iframe{{height:260px}}
-footer.wrap{{padding:26px 20px 60px;font-size:13px;color:var(--mute);border-top:1px solid var(--line)}} footer p{{margin:0 0 6px}}
-.cred summary{{cursor:pointer;font-size:12px;color:var(--mute);opacity:.75;list-style:none;display:inline-block;text-decoration:underline;text-underline-offset:3px}}
-.cred summary::-webkit-details-marker{{display:none}} .cred p{{margin:8px 0 0;font-size:11.5px;line-height:1.6;opacity:.8}}
-@media(max-width:820px){{
- .menu{{grid-template-columns:1fr}} .mcard>img{{aspect-ratio:16/9}}
- .dgrid,.eats,.notes,.arrival,.photos{{grid-template-columns:1fr}}
- .dwrap>*{{margin-left:18px;margin-right:18px}} .mapbox iframe{{height:230px}}
+:root{{--paper:#f4f1ea;--ink:#111;--mute:#6a655b;--line:#d9d3c5;--seg:#e4dfd2;--red:#e60012;--s:1.9px;--gut:18px}}
+*{{box-sizing:border-box;min-width:0}} html{{scroll-behavior:smooth;scroll-padding-top:56px}}
+html,body{{overflow-x:hidden;max-width:100%}} img{{max-width:100%;display:block}}
+body{{margin:0;font-family:Archivo,-apple-system,"Hiragino Sans",sans-serif;font-stretch:100%;color:var(--ink);background:var(--paper);line-height:1.55;font-size:17px;-webkit-font-smoothing:antialiased}}
+.wrap{{max-width:1240px;margin:0 auto;padding:0 var(--gut)}}
+a{{color:inherit}}
+h1,h2,h3{{margin:0;font-weight:800;text-wrap:balance}}
+dl,dd,ol,ul{{margin:0;padding:0}} ol,ul{{list-style:none}}
+
+.nav{{position:sticky;top:0;z-index:10;background:rgba(244,241,234,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}}
+.nav .wrap{{display:flex;gap:22px;height:48px;align-items:center;font-size:14px;font-weight:600}}
+.nav a{{text-decoration:none}} .nav a:hover{{text-decoration:underline;text-underline-offset:4px}}
+.nav .sp{{margin-left:auto}}
+
+.facts{{margin-top:26px}}
+.facts{{display:flex;flex-wrap:wrap;gap:6px 36px}}
+.facts div{{display:flex;gap:10px;align-items:baseline;font-size:14px}}
+.facts dt{{color:var(--mute)}} .facts dd{{font-weight:600}}
+.mega{{font-size:min(22.4vw,284px);font-stretch:62%;font-weight:800;line-height:.86;letter-spacing:-.015em;text-transform:uppercase;margin:18px 0 0 -.03em;white-space:nowrap}}
+.heroimg{{margin:18px 0 0;width:100vw;margin-left:calc(50% - 50vw)}}
+.heroimg img{{width:100%;aspect-ratio:16/9;object-fit:cover;max-height:72vh}}
+.heroimg figcaption{{font-size:12.5px;color:var(--mute);max-width:1240px;margin:0 auto;padding:8px var(--gut) 0}}
+.pick{{display:grid;grid-template-columns:1fr;gap:12px;padding:42px 0 54px}}
+.pick h2{{font-size:clamp(34px,6vw,76px);font-stretch:75%;line-height:.98;letter-spacing:-.02em}}
+.pick p{{margin:0;font-size:19px;color:var(--mute);max-width:520px}}
+
+.compare{{border-top:1px solid var(--ink);padding:30px 0 60px}}
+.compare h2{{font-size:clamp(26px,4vw,44px);font-stretch:75%;line-height:1;letter-spacing:-.01em}}
+.legend{{display:flex;flex-wrap:wrap;gap:6px 22px;margin:16px 0 26px;font-size:14px;font-weight:600}}
+.legend span{{display:inline-flex;align-items:center;gap:8px}}
+.legend i{{width:14px;height:14px;display:inline-block}} .legend .w i{{background:var(--red)}} .legend .s i{{background:var(--seg)}}
+.cgrid{{display:grid;grid-template-columns:1fr;gap:6px}} .cside{{position:static}}
+.heads,.tracks,.ctas{{display:grid;grid-template-columns:46px 1fr 1fr;gap:0 8px}}
+.chead{{display:flex;align-items:baseline;gap:10px;text-decoration:none;padding:0 0 12px;border-bottom:2px solid var(--ink);margin-bottom:0}}
+.cl{{font-size:44px;font-weight:800;line-height:.9;font-stretch:75%;margin-right:4px}}
+.cn{{font-size:14px;font-weight:700;line-height:1.2}}
+.tracks{{height:calc(330 * var(--s));margin:0;background-image:linear-gradient(var(--line) 1px,transparent 1px);background-size:100% calc(60 * var(--s));background-repeat:repeat-y}}
+.axis{{position:relative}} .axis li{{position:absolute;left:0;transform:translateY(-.55em);font-size:12.5px;color:var(--mute);font-variant-numeric:tabular-nums;background:var(--paper);padding-right:4px;line-height:1}}
+.track{{position:relative}}
+.seg{{position:absolute;left:0;right:0;top:calc(var(--a) * var(--s) + 1px);height:calc((var(--b) - var(--a)) * var(--s) - 2px);background:var(--seg);padding:5px 8px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-start;transform-origin:top;transform:scaleY(0);transition:transform .7s cubic-bezier(.2,.7,.2,1)}}
+.seg.w{{background:var(--red);color:var(--paper)}}
+.seg b{{font-size:13px;line-height:1.2;font-weight:700}} .seg i{{font-style:normal;font-size:12.5px;line-height:1.3;opacity:.85;font-variant-numeric:tabular-nums;margin-top:2px}}
+.tt.in .seg{{transform:none}} .tt.in .track:nth-child(3) .seg{{transition-delay:.12s}}
+.ctas{{margin-top:18px}}
+.choose{{display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;font-weight:700;font-size:15px;padding:14px 22px;text-align:center;border:2px solid var(--ink);transition:background .15s,color .15s}}
+.choose:hover{{background:var(--paper);color:var(--ink)}}
+
+.plan{{border-top:1px solid var(--ink);padding:36px 0 64px;scroll-margin-top:48px}}
+.pgrid{{display:grid;grid-template-columns:1fr;gap:28px}}
+.pl{{display:block;font-size:min(34vw,200px);font-stretch:62%;font-weight:800;line-height:.8;margin-left:-.03em}}
+.plan h2{{font-size:clamp(30px,4vw,48px);font-stretch:75%;line-height:1;letter-spacing:-.015em;margin-top:18px}}
+.ptag{{margin:10px 0 0;font-size:15px;font-weight:600;color:var(--mute)}}
+.why{{margin:18px 0 24px;font-size:17px;max-width:460px}}
+.pics{{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:30px}}
+.pics img{{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--seg)}}
+.steps{{border-top:2px solid var(--ink)}}
+.steps li{{display:grid;grid-template-columns:62px minmax(0,1fr);gap:10px;padding:14px 0;border-bottom:1px solid var(--line)}}
+.steps b{{font-variant-numeric:tabular-nums;font-size:17px;font-weight:700}}
+.steps strong{{display:block;font-size:17px;font-weight:700;line-height:1.3}} .steps span{{display:block;color:var(--mute);font-size:15px;margin-top:3px}}
+.mapbox{{margin-top:34px;background:var(--seg)}} .mapbox iframe{{display:block;width:100%;height:300px;border:0}}
+.moves{{font-size:14px;color:var(--mute);margin:12px 0 0}} .moves a{{color:var(--ink);text-underline-offset:3px;white-space:nowrap}}
+.notes{{display:grid;grid-template-columns:1fr;gap:18px;margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}}
+.notes dt{{font-size:12.5px;font-weight:700;color:var(--mute);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}} .notes dd{{font-size:15px}}
+.links{{display:flex;flex-wrap:wrap;gap:6px 20px;margin:26px 0 0;font-size:14px}} .links a{{text-underline-offset:3px}}
+
+.meet{{border-top:1px solid var(--ink);padding:36px 0 64px}}
+.meet .mgrid{{display:grid;grid-template-columns:1fr;gap:26px}}
+.meet h2{{font-size:clamp(32px,5vw,60px);font-stretch:75%;line-height:1;letter-spacing:-.015em}}
+.meet p{{margin:14px 0 0;font-size:17px;max-width:520px}} .meet .hint{{color:var(--mute);font-size:15px}}
+.meet .mapbox{{margin:0}}
+footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} footer .wrap{{padding-top:22px;padding-bottom:56px}} footer p{{margin:0 0 8px}}
+.cred summary{{cursor:pointer;text-decoration:underline;text-underline-offset:3px;list-style:none;display:inline-block}} .cred summary::-webkit-details-marker{{display:none}}
+.cred p{{margin:8px 0 0;font-size:12.5px;line-height:1.6}}
+
+@media(min-width:760px){{
+ :root{{--gut:32px;--s:2.1px}}
+ .nav .wrap{{gap:30px}}
+ .pick{{grid-template-columns:7fr 5fr;gap:40px;align-items:end;padding:56px 0 72px}}
+ .heads,.tracks,.ctas{{grid-template-columns:58px 1fr 1fr;gap:0 14px}}
+ .seg{{padding:6px 12px}} .seg b{{font-size:15px}} .seg i{{font-size:13px}}
+ .cl{{font-size:64px}} .cn{{font-size:17px}}
+ .pgrid,.cgrid{{grid-template-columns:5fr 7fr;gap:56px}} .cside{{position:sticky;top:76px;align-self:start}} .legend{{flex-direction:column;gap:8px}}
+ .pin{{position:sticky;top:76px}}
+ .pics img{{aspect-ratio:3/2}}
+ .meet .mgrid{{grid-template-columns:5fr 7fr;gap:56px}} .mapbox iframe{{height:380px}}
 }}
-@media(max-width:560px){{
- .wrap{{padding:0 18px}}
- .hcap{{min-height:58vh;padding-bottom:18px}} .hbody{{padding-top:18px;padding-bottom:22px}} .kicker{{margin-bottom:12px}}
- h1{{font-size:33px;line-height:1.08;letter-spacing:-.03em;margin-bottom:14px}}
- header p{{font-size:16px;line-height:1.55;max-width:none}}
- .facts{{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;margin-top:16px;font-size:13px;line-height:1.5}}
- .facts li{{display:contents}} .facts b{{white-space:nowrap}}
- .sechead{{display:block;padding:22px 0 12px}}
- .sechead .n{{font-size:20px;margin-right:8px;display:inline}}
- .sechead b{{font-size:17px}} .sechead span{{display:block;font-size:13px;line-height:1.5;margin-top:2px}}
- .menu{{gap:12px}}
- .mb{{padding:15px 16px 16px}} .mt{{font-size:23px;line-height:1.15}} .mtag{{font-size:14px;margin-bottom:10px}}
- .mch{{gap:5px;margin-bottom:12px}} .mch li{{font-size:10.5px;padding:2px 7px}}
- .mopen{{font-size:13.5px}}
- h2{{font-size:26px;line-height:1.12}}
- .dhead{{padding-top:20px}} .why{{font-size:15.5px;line-height:1.55;margin:8px 0 16px}}
- .dwrap>*{{margin-left:16px;margin-right:16px}}
- .photos{{gap:8px;margin-bottom:20px}} .photos img{{aspect-ratio:3/2}}
- h3{{margin:22px 0 10px}} .dgrid{{gap:0;margin-bottom:0}}
- .steps li{{grid-template-columns:52px minmax(0,1fr);gap:10px;padding:10px 0}}
- .steps strong{{font-size:15.5px}} .steps span{{font-size:13.5px;line-height:1.5}}
- .eats{{gap:10px;margin-bottom:20px}} .eat>img{{aspect-ratio:16/9}} .eb{{padding:12px 14px 14px}}
- .notes{{gap:10px;margin-bottom:16px}} .notes p{{padding:14px 16px;font-size:13.5px}}
- .links{{font-size:13.5px;gap:4px 14px;margin-bottom:18px}}
- .choose{{display:block;text-align:center;padding:15px 0;margin-bottom:22px}}
- .arrival{{gap:16px;padding-bottom:32px}} .arrival p{{font-size:15.5px;line-height:1.55}} .arrival .hint{{font-size:14px}}
- .mapbox iframe{{height:210px}}
- footer.wrap{{padding:20px 18px 44px;font-size:11.5px;line-height:1.55}}
-}}
+@media(min-width:1100px){{.wrap{{padding:0 40px}} :root{{--gut:40px}}}}
+@media(prefers-reduced-motion:reduce){{html{{scroll-behavior:auto}} .seg{{transform:none;transition:none}}}}
 </style></head><body>
-<header class="hero">
-<div class="hpic"><div class="slides">{''.join(f'<img src="{PH[c["id"]]["card"]["thumb"]}" alt="{html.escape(c["name"])}" data-course="{c["id"]}" data-name="{html.escape(c["name"])}">' for c in COURSES)}</div>
-<div class="wrap hcap">
-<p class="kicker">{html.escape(PAGE['kicker'])}</p>
-<h1>{PAGE['h1']}</h1>
-<div class="snav"><button class="slabel" type="button"></button><div class="dots">{''.join(f'<button type="button" aria-label="Show course {c["id"]}"></button>' for c in COURSES)}</div></div>
-</div></div>
-<div class="wrap hbody">
-<p>{html.escape(PAGE['lead'])}</p>
-<ul class="facts">{''.join(f'<li><b>{html.escape(k)}</b> {html.escape(v)}</li>' for k, v in PAGE['facts'])}</ul>
-</div>
+<nav class="nav"><div class="wrap"><a href="#compare">Compare</a><a href="#detail-A">Plan A</a><a href="#detail-B">Plan B</a><a class="sp" href="#meet">Meeting point</a></div></nav>
+<header class="wrap hero">
+<dl class="facts">{facts}</dl>
+<h1 class="mega">{PAGE['h1']}</h1>
+<figure class="heroimg"><img src="{PAGE['hero_img']}" alt="{html.escape(PAGE['hero_alt'])}" referrerpolicy="no-referrer"><figcaption>{html.escape(PAGE['hero_cap'])}</figcaption></figure>
+<div class="pick"><h2>{html.escape(PAGE['pick'])}</h2><p>{html.escape(PAGE['lead'])}</p></div>
 </header>
-<div class="wrap">
-<div class="sechead"><span class="n">1</span><div><b>Pick a course</b> <span>Tap one to see the plan and the route.</span></div></div>
-<div class="menu">{''.join(menu(c) for c in COURSES)}</div>
-{''.join(detail(c) for c in COURSES)}
-<div class="sechead"><span class="n">2</span><div><b>Where we meet</b> <span>{html.escape(PAGE['meet_sub'])}</span></div></div>
-<div class="arrival">
-<div><p>{html.escape(PAGE['meet_text'])}</p>
-<p class="hint">{html.escape(PAGE['meet_hint'])}</p></div>
+<main>
+<section class="compare" id="compare"><div class="wrap">
+<div class="cgrid"><div class="cside"><h2>The same afternoon, in two orders</h2>
+<div class="legend"><span class="w"><i></i>Manga workshop, 2 hours</span><span class="s"><i></i>Shops</span></div></div>
+<div class="tt" id="tt">
+<div class="heads"><span></span>{head(A)}{head(B)}</div>
+<div class="tracks"><ul class="axis">{''.join(f'<li style="top:calc({h * 60} * var(--s))">{13 + h}:00</li>' for h in range(6))}</ul>{col(A)}{col(B)}</div>
+<div class="ctas"><span></span>{cta(A)}{cta(B)}</div>
+</div></div></div></section>
+{plan(A)}
+{plan(B)}
+<section class="meet" id="meet"><div class="wrap mgrid">
+<div><h2>{html.escape(PAGE['meet_sub'])}, 13:00</h2><p>{html.escape(PAGE['meet_text'])}</p><p class="hint">{html.escape(PAGE['meet_hint'])}</p></div>
 <div class="mapbox"><iframe src="{emb(PAGE['meet_place'])}" loading="lazy" title="{html.escape(PAGE['meet_place'])}" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-</div>
-</div>
-<footer class="wrap"><p>{html.escape(PAGE['footer'])}</p>
-<details class="cred"><summary>Photo credits</summary><p>{credits}, via Wikimedia Commons.</p></details></footer>
+</div></section>
+</main>
+<footer><div class="wrap"><p>{html.escape(PAGE['footer'])}</p>
+<details class="cred"><summary>Photo credits</summary><p>Hero: Pokémon Center Mega Tokyo, official website. {credits}, via Wikimedia Commons.</p></details></div></footer>
 <script>
 (function(){{
- var cards=[].slice.call(document.querySelectorAll('.mcard'));
- function close(id,now){{var d=document.getElementById('detail-'+id);d.classList.remove('open');document.querySelector('.menu').classList.remove('picked');if(now){{d.hidden=true;return}}setTimeout(function(){{if(!d.classList.contains('open'))d.hidden=true}},320);
-   document.querySelector('.mcard[data-course="'+id+'"]').setAttribute('aria-expanded','false')}}
- function land(id){{var d=document.getElementById('detail-'+id),done=false;function go(){{if(done)return;done=true;d.scrollIntoView({{behavior:'smooth',block:'start'}})}}
-   d.addEventListener('transitionend',function f(e){{if(e.target===d){{d.removeEventListener('transitionend',f);go()}}}});setTimeout(go,420)}}
- var menuEl=document.querySelector('.menu');
- function point(id){{var b=document.querySelector('.mcard[data-course="'+id+'"]'),d=document.getElementById('detail-'+id);
-   var r=b.getBoundingClientRect(),w=d.getBoundingClientRect();
-   d.style.setProperty('--arrow',(r.left+r.width/2-w.left)+'px')}}
- function open_(id){{var d=document.getElementById('detail-'+id);d.hidden=false;menuEl.classList.add('picked');
-   requestAnimationFrame(function(){{d.classList.add('open');point(id)}});
-   document.querySelector('.mcard[data-course="'+id+'"]').setAttribute('aria-expanded','true')}}
- window.addEventListener('resize',function(){{var o=document.querySelector('.mcard[aria-expanded=true]');if(o)point(o.dataset.course)}});
- var want=(location.hash.match(/^#detail-([A-Z])$/)||[])[1]||(location.search.match(/[?&]open=([A-Z])/)||[])[1];
- if(want){{open_(want);setTimeout(function(){{document.getElementById('detail-'+want).scrollIntoView()}},80)}}
- cards.forEach(function(b){{
-  b.addEventListener('click',function(){{
-   var id=b.dataset.course,was=b.getAttribute('aria-expanded')==='true';
-   cards.forEach(function(o){{if(o.getAttribute('aria-expanded')==='true')close(o.dataset.course,true)}});
-   if(was)return;
-   open_(id);history.replaceState(null,'','#detail-'+id);
-   land(id);
-  }});
- }});
- document.querySelectorAll('.dclose').forEach(function(x){{
-  x.addEventListener('click',function(){{var d=x.closest('.detail'),id=d.id.replace('detail-','');close(id);
-   document.querySelector('.mcard[data-course="'+id+'"]').scrollIntoView({{behavior:'smooth',block:'center'}})}});
- }});
+ var t=document.getElementById('tt');
+ if('IntersectionObserver' in window){{new IntersectionObserver(function(e,o){{if(e[0].isIntersecting){{t.classList.add('in');o.disconnect()}}}},{{threshold:.15}}).observe(t)}}else{{t.classList.add('in')}}
+ setTimeout(function(){{t.classList.add('in')}},3500);
 }})();
-{HERO_JS}
 </script>
 {{DEVBAR}}</body></html>'''
 open('index.html', 'w').write(page.replace('{DEVBAR}', ''))

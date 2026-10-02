@@ -90,6 +90,44 @@
     "JUMP SHOP Ikebukuro PARCO (official)",
     "https://en.ikebukuro.parco.jp/shop/detail/?cd=030637"
    ]
+  ],
+  "bars": [
+   [
+    0,
+    120,
+    "Manga workshop",
+    "w"
+   ],
+   [
+    130,
+    190,
+    "Pokémon Center and Mugiwara Store",
+    "s"
+   ],
+   [
+    190,
+    240,
+    "Gashapon Department Store and Cross Store",
+    "s"
+   ],
+   [
+    240,
+    280,
+    "BOOKOFF",
+    "s"
+   ],
+   [
+    280,
+    315,
+    "Animate",
+    "s"
+   ],
+   [
+    315,
+    330,
+    "JUMP SHOP",
+    "s"
+   ]
   ]
  },
  {
@@ -187,6 +225,44 @@
    [
     "JUMP SHOP Ikebukuro PARCO (official)",
     "https://en.ikebukuro.parco.jp/shop/detail/?cd=030637"
+   ]
+  ],
+  "bars": [
+   [
+    10,
+    40,
+    "JUMP SHOP",
+    "s"
+   ],
+   [
+    40,
+    75,
+    "Animate",
+    "s"
+   ],
+   [
+    75,
+    110,
+    "BOOKOFF",
+    "s"
+   ],
+   [
+    120,
+    240,
+    "Manga workshop",
+    "w"
+   ],
+   [
+    240,
+    300,
+    "Pokémon Center and Mugiwara Store",
+    "s"
+   ],
+   [
+    300,
+    330,
+    "Gashapon and Cross Store",
+    "s"
    ]
   ]
  }

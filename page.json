@@ -1,8 +1,8 @@
 {
  "title": "Tokyo, Sunday Dec 20: Ikebukuro for Nicholas and family",
  "kicker": "Tokyo · Sunday, December 20",
- "h1": "One Piece, Pokémon and a manga workshop, <span class=\"nb\">all in Ikebukuro.</span>",
- "lead": "Two ways to spend the afternoon. Same shops, same workshop, different order.",
+ "h1": "Ikebukuro",
+ "lead": "The same shops and the same two hour manga workshop. The only question is whether you draw first or shop first.",
  "facts": [
   [
    "Guide",
@@ -22,5 +22,9 @@
  "meet_text": "Both plans start at the East Exit of Ikebukuro Station at 13:00. Plan A walks 5 minutes to the workshop first; Plan B goes straight into PARCO next door.",
  "meet_hint": "Ikebukuro is on the JR Yamanote line and three subway lines. From most of central Tokyo it is one train.",
  "meet_place": "Ikebukuro Station East Exit",
- "footer": "Reply to Yuuki with the letter of the course you want. Times are approximate and can move on the day."
+ "footer": "Reply to Yuuki with the letter of the course you want. Times are approximate and can move on the day.",
+ "pick": "Pick the order of your afternoon.",
+ "hero_img": "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-megatokyo/images/mv-pokemoncenter-megatokyo-002.webp",
+ "hero_alt": "The entrance of Pokémon Center Mega Tokyo with a Mega Charizard display",
+ "hero_cap": "Pokémon Center Mega Tokyo, Sunshine City. Photo from the store's official website."
 }
