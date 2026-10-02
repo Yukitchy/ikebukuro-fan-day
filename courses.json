@@ -2,13 +2,13 @@
  {
   "id": "A",
   "name": "Workshop first, then the shops",
-  "tag": "Draw at 13:00, shop until 18:30. The school's pick for families",
+  "tag": "Draw at 13:00, shop until 18:30",
   "chips": [
    "Workshop 13:00",
    "School's pick",
    "Ends at the station"
   ],
-  "why": "Start with the two hour manga workshop while everyone is fresh, then the shopping is the reward. The day ends at the station side, close to the trains for your dinner reservation.",
+  "why": "Start with the two hour manga workshop while everyone is fresh, then the shopping is the reward. The day ends at the station side, close to the trains for your dinner reservation. The school recommends the 13:00 class for families.",
   "steps": [
    [
     "13:00",
@@ -126,142 +126,6 @@
     315,
     330,
     "JUMP SHOP",
-    "s"
-   ]
-  ]
- },
- {
-  "id": "B",
-  "name": "Shops first, then the workshop",
-  "tag": "Shop from 13:00, draw at 15:15. The school's advanced class",
-  "chips": [
-   "Workshop 15:15",
-   "Advanced class",
-   "Sunshine City last"
-  ],
-  "why": "Shopping near the station first, the workshop in the middle, and Sunshine City at the end. The 15:15 session is the school's advanced class, aimed at people who already draw, so the school suggests the 13:00 class for a family. It is still open if you prefer the afternoon.",
-  "steps": [
-   [
-    "13:00",
-    "Meet at Ikebukuro Station East Exit",
-    "Then straight down to JUMP SHOP in PARCO B2F."
-   ],
-   [
-    "13:10",
-    "JUMP SHOP Ikebukuro PARCO",
-    "B2F of PARCO, right at the East Exit. The official Weekly Shonen Jump store: One Piece next to Naruto and Dragon Ball, with items sold nowhere else. Open to 21:00."
-   ],
-   [
-    "13:40",
-    "Animate Ikebukuro flagship",
-    "Nine floors, one of the biggest anime shops in Japan. New manga, figures and limited goods across every series. Open to 21:00."
-   ],
-   [
-    "14:20",
-    "BOOKOFF Sunshine 60 Street",
-    "Two floors of second hand manga, figures, anime goods and Pokémon cards. One Piece volumes in Japanese are everywhere. Open to 22:00."
-   ],
-   [
-    "15:05",
-    "Walk to the workshop",
-    "About 5 minutes. Classes start exactly on time."
-   ],
-   [
-    "15:15",
-    "MANGA DOJO Tokyo workshop, advanced class",
-    "Two hours with a working manga artist, English interpretation included. This session goes deeper into panel layout, anatomy and expressions, and ends with career questions for the artist."
-   ],
-   [
-    "17:25",
-    "Mugiwara Store and Pokémon Center Mega Tokyo",
-    "Sunshine City, Alpa 2F. The official One Piece store and Japan's largest Pokémon Center are on the same floor. Open to 20:00 on Sunday."
-   ],
-   [
-    "18:05",
-    "Gashapon Department Store and the One Piece Card Game shop",
-    "World Import Mart 3F, same building. A short run through 3,000 capsule toy machines and the official One Piece Card Game shop. Open to 21:00."
-   ],
-   [
-    "18:30",
-    "Done",
-    "Sunshine City. About 8 minutes back to the station on foot."
-   ]
-  ],
-  "stops": [
-   "Ikebukuro Station East Exit",
-   "Ikebukuro PARCO",
-   "Animate Ikebukuro Flagship Store",
-   "Sunshine City Ikebukuro"
-  ],
-  "moves": "Everything is on foot. Station → PARCO is inside the building. PARCO → Animate about 5 min. Animate → workshop about 5 min. Workshop → Sunshine City about 8 min.",
-  "food": [],
-  "good": "A family that would rather warm up with the shops and keep the workshop as the main event.",
-  "mind": "The 15:15 session is the school's advanced class and the school suggests 13:00 for families. The day ends at Sunshine City, 8 minutes from the station. Most stores have a tax free counter, so keep your passports with you.",
-  "links": [
-   [
-    "Mugiwara Store Ikebukuro (official)",
-    "https://www.mugiwara-store.com/shop/ikebukuro/"
-   ],
-   [
-    "Pokémon Center Mega Tokyo (official)",
-    "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-megatokyo/"
-   ],
-   [
-    "Gashapon Department Store (official)",
-    "https://bandainamco-am.co.jp/others/capsule-toy-store/store/ikebukuro/special/"
-   ],
-   [
-    "Bandai Namco Cross Store Tokyo (official)",
-    "https://bandainamco-am.co.jp/crossstore/store/crossstore_tokyo/"
-   ],
-   [
-    "BOOKOFF Sunshine 60 Street (official)",
-    "https://www.bookoff.co.jp/shop/shop20422.html"
-   ],
-   [
-    "Animate Ikebukuro (official)",
-    "https://www.animate.co.jp/shop/ikebukuro/"
-   ],
-   [
-    "JUMP SHOP Ikebukuro PARCO (official)",
-    "https://en.ikebukuro.parco.jp/shop/detail/?cd=030637"
-   ]
-  ],
-  "bars": [
-   [
-    10,
-    40,
-    "JUMP SHOP",
-    "s"
-   ],
-   [
-    40,
-    80,
-    "Animate",
-    "s"
-   ],
-   [
-    80,
-    125,
-    "BOOKOFF",
-    "s"
-   ],
-   [
-    135,
-    255,
-    "Manga workshop, advanced",
-    "w"
-   ],
-   [
-    265,
-    305,
-    "Pokémon Center and Mugiwara Store",
-    "s"
-   ],
-   [
-    305,
-    330,
-    "Gashapon and Cross Store",
     "s"
    ]
   ]

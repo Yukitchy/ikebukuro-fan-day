@@ -2,7 +2,7 @@
  "title": "Tokyo, Sunday Dec 20: Ikebukuro for Nicholas and family",
  "kicker": "Tokyo · Sunday, December 20",
  "h1": "Ikebukuro",
- "lead": "The same shops and the same two hour manga workshop. The only question is whether you draw first or shop first. The school recommends drawing first.",
+ "lead": "Two hours at a manga artist's desk, then the One Piece and Pokémon shops of Sunshine City, Animate and JUMP SHOP. Everything on foot, done by 18:30.",
  "facts": [
   [
    "Guide",
@@ -17,13 +17,13 @@
    "Ikebukuro Station East Exit"
   ]
  ],
- "subject": "Dec 20 tour: I choose",
+ "subject": "Dec 20 tour: this works for us",
  "meet_sub": "Ikebukuro Station East Exit",
  "meet_text": "Both plans start at the East Exit of Ikebukuro Station at 13:00. Plan A walks 5 minutes to the workshop first; Plan B goes straight into PARCO next door.",
  "meet_hint": "Ikebukuro is on the JR Yamanote line and three subway lines. From most of central Tokyo it is one train.",
  "meet_place": "Ikebukuro Station East Exit",
- "footer": "Reply to Yuuki with the letter of the course you want. Times are approximate and can move on the day.",
- "pick": "Pick the order of your afternoon.",
+ "footer": "Reply to Yuuki if the plan works, or tell him what to change. Times are approximate and can move on the day.",
+ "pick": "Draw first, then shop.",
  "hero_img": "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-megatokyo/images/mv-pokemoncenter-megatokyo-002.webp",
  "hero_alt": "The entrance of Pokémon Center Mega Tokyo with a Mega Charizard display",
  "hero_cap": "Pokémon Center Mega Tokyo, Sunshine City. Photo from the store's official website.",
@@ -99,5 +99,7 @@
    "https://www.instagram.com/traveljapan_withme/",
    "@traveljapan_withme"
   ]
- }
+ },
+ "compare_h2": "The afternoon, hour by hour",
+ "cta": "This works for us"
 }

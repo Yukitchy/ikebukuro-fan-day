@@ -46,19 +46,22 @@ def col(c):
     return f'<ol class="track">{segs}</ol>'
 
 def head(c):
-    return (f'<a class="chead" href="#detail-{c["id"]}"><span class="cl">{c["id"]}</span>'
+    cl = '' if len(COURSES) == 1 else f'<span class="cl">{c["id"]}</span>'
+    return (f'<a class="chead" href="#detail-{c["id"]}">{cl}'
             f'<span class="cn">{html.escape(c["name"])}</span></a>')
 
 def cta(c):
-    sub = PAGE['subject'] + f' course {c["id"]} ({c["name"]})'
-    return f'<a class="choose" href="mailto:icchan417@gmail.com?subject={html.escape(sub)}">Choose {c["id"]}</a>'
+    one = len(COURSES) == 1
+    sub = PAGE['subject'] if one else PAGE['subject'] + f' course {c["id"]} ({c["name"]})'
+    label = PAGE.get('cta', 'Choose') if one else f'Choose {c["id"]}'
+    return f'<a class="choose" href="mailto:icchan417@gmail.com?subject={html.escape(sub)}">{html.escape(label)}</a>'
 
 def plan(c):
     st = ''.join(f'<li><b>{t}</b><div><strong>{h}</strong><span>{d}</span></div></li>' for t, h, d in c['steps'])
     ln = ''.join(f'<a href="{u}" target="_blank" rel="noopener">{html.escape(t)} ↗</a>' for t, u in c['links'])
     return f'''<section class="plan" id="detail-{c['id']}"><div class="wrap pgrid">
 <div class="phead"><div class="pin">
-<span class="pl" aria-hidden="true">{c['id']}</span>
+{'' if len(COURSES) == 1 else f'<span class="pl" aria-hidden="true">{c["id"]}</span>'}
 <h2>{html.escape(c['name'])}</h2>
 <p class="ptag">{html.escape(c['tag'])}</p>
 <p class="why">{html.escape(c['why'])}</p>
@@ -98,7 +101,7 @@ def ws():
 
 credits = '; '.join(html.escape(x['title'].replace('File:', '')) + ' (' + x['lic'] + ')' for v in PH.values() for x in [v['card']] + v['detail'] + v['food'])
 facts = ''.join(f'<div><dt>{html.escape(k)}</dt><dd>{html.escape(v)}</dd></div>' for k, v in PAGE['facts'])
-A, B = COURSES[0], COURSES[1]
+N = len(COURSES)
 
 page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(PAGE['title'])}</title><meta name="robots" content="noindex"><meta name="description" content="{html.escape(PAGE['lead'])}">
@@ -142,7 +145,7 @@ dl,dd,ol,ul{{margin:0;padding:0}} ol,ul{{list-style:none}}
 .legend span{{display:inline-flex;align-items:center;gap:8px}}
 .legend i{{width:14px;height:14px;display:inline-block}} .legend .w i{{background:var(--red)}} .legend .s i{{background:var(--seg)}}
 .cgrid{{display:grid;grid-template-columns:1fr;gap:6px}} .cside{{position:static}}
-.heads,.tracks,.ctas{{display:grid;grid-template-columns:46px 1fr 1fr;gap:0 8px}}
+.heads,.tracks,.ctas{{display:grid;grid-template-columns:46px repeat(var(--n,2),1fr);gap:0 8px}}
 .chead{{display:flex;align-items:baseline;gap:10px;text-decoration:none;padding:0 0 12px;border-bottom:2px solid var(--ink);margin-bottom:0}}
 .cl{{font-size:44px;font-weight:800;line-height:.9;font-stretch:75%;margin-right:4px}}
 .cn{{font-size:14px;font-weight:700;line-height:1.2}}
@@ -210,7 +213,7 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
  :root{{--gut:32px;--s:2.1px}}
  .nav .wrap{{gap:30px}}
  .pick{{grid-template-columns:7fr 5fr;gap:40px;align-items:end;padding:56px 0 72px}}
- .heads,.tracks,.ctas{{grid-template-columns:58px 1fr 1fr;gap:0 14px}}
+ .heads,.tracks,.ctas{{grid-template-columns:58px repeat(var(--n,2),1fr);gap:0 14px}}
  .seg{{padding:6px 12px}} .seg b{{font-size:15px}} .seg i{{font-size:13px}}
  .cl{{font-size:64px}} .cn{{font-size:17px}}
  .pgrid,.cgrid{{grid-template-columns:5fr 7fr;gap:56px}} .cside{{position:sticky;top:76px;align-self:start}} .legend{{flex-direction:column;gap:8px}}
@@ -221,7 +224,7 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
 @media(min-width:1100px){{.wrap{{padding:0 40px}} :root{{--gut:40px}}}}
 @media(prefers-reduced-motion:reduce){{html{{scroll-behavior:auto}} .seg{{transform:none;transition:none}}}}
 </style></head><body>
-<nav class="nav"><div class="wrap"><a href="#compare">Compare</a><a href="#workshop">Workshop</a><a href="#detail-A">Plan A</a><a href="#detail-B">Plan B</a><a class="sp" href="#meet">Meeting point</a></div></nav>
+<nav class="nav"><div class="wrap"><a href="#compare">{"Compare" if N > 1 else "The afternoon"}</a><a href="#workshop">Workshop</a>{"".join(f'<a href="#detail-{c["id"]}">{"Plan " + c["id"] if N > 1 else "The plan"}</a>' for c in COURSES)}<a class="sp" href="#meet">Meeting point</a></div></nav>
 <header class="wrap hero">
 <dl class="facts">{facts}</dl>
 <h1 class="mega">{PAGE['h1']}</h1>
@@ -230,16 +233,15 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
 </header>
 <main>
 <section class="compare" id="compare"><div class="wrap">
-<div class="cgrid"><div class="cside"><h2>The same afternoon, in two orders</h2>
+<div class="cgrid"><div class="cside"><h2>{html.escape(PAGE.get('compare_h2', 'The same afternoon, in two orders'))}</h2>
 <div class="legend"><span class="w"><i></i>Manga workshop, 2 hours</span><span class="s"><i></i>Shops</span></div></div>
-<div class="tt" id="tt">
-<div class="heads"><span></span>{head(A)}{head(B)}</div>
-<div class="tracks"><ul class="axis">{''.join(f'<li style="top:calc({h * 60} * var(--s))">{13 + h}:00</li>' for h in range(6))}</ul>{col(A)}{col(B)}</div>
-<div class="ctas"><span></span>{cta(A)}{cta(B)}</div>
+<div class="tt" id="tt" style="--n:{N}">
+<div class="heads"><span></span>{"".join(head(c) for c in COURSES)}</div>
+<div class="tracks"><ul class="axis">{''.join(f'<li style="top:calc({h * 60} * var(--s))">{13 + h}:00</li>' for h in range(6))}</ul>{''.join(col(c) for c in COURSES)}</div>
+<div class="ctas"><span></span>{"".join(cta(c) for c in COURSES)}</div>
 </div></div></div></section>
 {ws()}
-{plan(A)}
-{plan(B)}
+{''.join(plan(c) for c in COURSES)}
 <section class="meet" id="meet"><div class="wrap mgrid">
 <div><h2>{html.escape(PAGE['meet_sub'])}, 13:00</h2><p>{html.escape(PAGE['meet_text'])}</p><p class="hint">{html.escape(PAGE['meet_hint'])}</p></div>
 <div class="mapbox"><iframe src="{emb(PAGE['meet_place'])}" loading="lazy" title="{html.escape(PAGE['meet_place'])}" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
