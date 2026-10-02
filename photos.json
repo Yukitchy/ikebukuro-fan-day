@@ -1,0 +1,82 @@
+{
+ "A": {
+  "card": {
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Mega_Tokyo_Pok%C3%A9mon_Center_1.jpg/960px-Mega_Tokyo_Pok%C3%A9mon_Center_1.jpg",
+   "title": "Mega Tokyo Pokémon Center 1.jpg",
+   "lic": "CC BY 3.0",
+   "score": 9,
+   "note": "ポケモンセンターメガトウキョーの入口（ロゴ正面・明るい）"
+  },
+  "detail": [
+   {
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/28/Sunshine_City_Atrium_201206.jpg/960px-Sunshine_City_Atrium_201206.jpg",
+    "title": "Sunshine City Atrium 201206.jpg",
+    "lic": "CC BY 2.0",
+    "score": 8,
+    "note": "サンシャインシティ噴水広場の吹き抜け"
+   },
+   {
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Mega_Tokyo_Pok%C3%A9mon_Center_2.jpg/960px-Mega_Tokyo_Pok%C3%A9mon_Center_2.jpg",
+    "title": "Mega Tokyo Pokémon Center 2.jpg",
+    "lic": "CC BY 3.0",
+    "score": 8,
+    "note": "店内のリザードン像と客"
+   },
+   {
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Gashaponmachine.jpg",
+    "title": "Gashaponmachine.jpg",
+    "lic": "CC BY-SA 3.0",
+    "score": 7,
+    "note": "ガシャポンの列（一般例・池袋総本店の写真ではない）"
+   },
+   {
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Animate_store_in_Tokyo.jpg",
+    "title": "Animate store in Tokyo.jpg",
+    "lic": "CC BY-SA 2.0",
+    "score": 8,
+    "note": "アニメイト池袋本店の入口"
+   }
+  ],
+  "food": []
+ },
+ "B": {
+  "card": {
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/Ikebukuro_2008-12-01_%283273662522%29.jpg/960px-Ikebukuro_2008-12-01_%283273662522%29.jpg",
+   "title": "Ikebukuro 2008-12-01 (3273662522).jpg",
+   "lic": "CC BY-SA 2.0",
+   "score": 8,
+   "note": "サンシャイン60通りの人出（12月撮影・看板が賑やか）"
+  },
+  "detail": [
+   {
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Ikebukuro_Station_east_exit_close_up_2023_Jan_13_02PM.jpeg/960px-Ikebukuro_Station_east_exit_close_up_2023_Jan_13_02PM.jpeg",
+    "title": "Ikebukuro Station east exit close up 2023 Jan 13 02PM.jpeg",
+    "lic": "CC BY 4.0",
+    "score": 8,
+    "note": "池袋駅東口の看板（集合場所）"
+   },
+   {
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/JUMP_SHOP_%2852506239079%29.jpg/960px-JUMP_SHOP_%2852506239079%29.jpg",
+    "title": "JUMP SHOP (52506239079).jpg",
+    "lic": "CC BY 2.0",
+    "score": 7,
+    "note": "JUMP SHOPの店頭（別店舗の一般例）"
+   },
+   {
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/c/c5/ANIMATE-Ikebukuro.JPG",
+    "title": "ANIMATE-Ikebukuro.JPG",
+    "lic": "CC BY-SA 3.0",
+    "score": 8,
+    "note": "アニメイト池袋本店の外観"
+   },
+   {
+    "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Pokk%C3%A9n_near_Mega_Tokyo_Pok%C3%A9mon_Center_1.jpg/960px-Pokk%C3%A9n_near_Mega_Tokyo_Pok%C3%A9mon_Center_1.jpg",
+    "title": "Pokkén near Mega Tokyo Pokémon Center 1.jpg",
+    "lic": "CC BY 3.0",
+    "score": 8,
+    "note": "ピカチュウの前に集まるファン"
+   }
+  ],
+  "food": []
+ }
+}
