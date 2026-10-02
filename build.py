@@ -124,7 +124,7 @@ dl,dd,ol,ul{{margin:0;padding:0}} ol,ul{{list-style:none}}
 
 .nav{{position:sticky;top:0;z-index:10;background:rgba(244,241,234,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}}
 .nav .wrap{{display:flex;gap:22px;height:48px;align-items:center;font-size:14px;font-weight:600}}
-.nav a{{text-decoration:none}} .nav a:hover{{text-decoration:underline;text-underline-offset:4px}}
+.nav a{{text-decoration:none;white-space:nowrap}} .nav a:hover{{text-decoration:underline;text-underline-offset:4px}}
 .nav .sp{{margin-left:auto}}
 
 .facts{{margin-top:26px}}
@@ -224,7 +224,7 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
 @media(min-width:1100px){{.wrap{{padding:0 40px}} :root{{--gut:40px}}}}
 @media(prefers-reduced-motion:reduce){{html{{scroll-behavior:auto}} .seg{{transform:none;transition:none}}}}
 </style></head><body>
-<nav class="nav"><div class="wrap"><a href="#compare">{"Compare" if N > 1 else "The afternoon"}</a><a href="#workshop">Workshop</a>{"".join(f'<a href="#detail-{c["id"]}">{"Plan " + c["id"] if N > 1 else "The plan"}</a>' for c in COURSES)}<a class="sp" href="#meet">Meeting point</a></div></nav>
+<nav class="nav"><div class="wrap"><a href="#compare">{"Compare" if N > 1 else "Timeline"}</a><a href="#workshop">Workshop</a>{"".join(f'<a href="#detail-{c["id"]}">{"Plan " + c["id"] if N > 1 else "Plan"}</a>' for c in COURSES)}<a class="sp" href="#meet">Meeting point</a></div></nav>
 <header class="wrap hero">
 <dl class="facts">{facts}</dl>
 <h1 class="mega">{PAGE['h1']}</h1>
