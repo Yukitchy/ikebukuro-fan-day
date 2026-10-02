@@ -101,8 +101,10 @@ def ws():
 
 def sheet():
     w = PAGE['print']; A = COURSES[0]
-    rows = ''.join(f'<tr><td>{t}</td><td>{html.escape(h)}</td></tr>' for t, h, d in A['steps'])
-    dirs = ''.join(f'<li>{html.escape(x)}</li>' for x in w['directions'])
+    im = lambda u, alt, cls='': f'<img class="{cls}" src="{u}" alt="{html.escape(alt)}" referrerpolicy="no-referrer">'
+    photos = ''.join(f'<figure>{im(u, cap)}<figcaption>{html.escape(cap)}</figcaption></figure>' for u, cap in w['photos'])
+    route = ''.join(f'<li class="{k}"><b>{hm(a)}</b><span>{html.escape(n)}</span></li>' for a, b_, n, k in A['bars']) + f'<li class="end"><b>18:30</b><span>Done, station side</span></li>'
+    dirs = ''.join(f'<li><i>{i + 1}</i>{html.escape(x)}</li>' for i, x in enumerate(w['directions']))
     shops = ''.join(f'<tr><td>{html.escape(n)}</td><td>{html.escape(a)}</td><td>{html.escape(h)}</td></tr>' for n, a, h in w['shops'])
     ws = ''.join(f'<li>{html.escape(x)}</li>' for x in w['workshop'])
     contact = ' · '.join(f'{html.escape(k)} {html.escape(v)}' for k, v in w['contact'])
@@ -110,10 +112,11 @@ def sheet():
     addr = html.escape(PAGE.get('meet_addr', PAGE['meet_place']))
     return ('<section class="sheet" aria-hidden="true">'
         f'<header class="sh"><h1>{html.escape(w["title"])}</h1><p>{facts}</p></header>'
+        f'<div class="sphotos">{photos}</div>'
+        f'<ol class="sroute">{route}</ol>'
         f'<div class="sgrid"><div class="smeet"><h2>Meeting point, 13:00</h2><p class="saddr">{addr}</p><ol class="sdirs">{dirs}</ol></div>'
-        f'<div class="stime"><h2>{html.escape(A["name"])}</h2><table class="srows">{rows}</table></div></div>'
-        f'<div class="sgrid"><div class="sshops"><h2>The shops</h2><table class="sshop">{shops}</table></div>'
-        f'<div class="sws"><h2>The manga workshop</h2><ul>{ws}</ul><p class="snote">{html.escape(PAGE["workshop"]["note"])}</p></div></div>'
+        f'<div class="sws"><h2>The manga workshop</h2><div class="swsin">{im(w["ws_photo"][0], w["ws_photo"][1])}<ul>{ws}</ul></div><p class="snote">{html.escape(PAGE["workshop"]["note"])}</p></div></div>'
+        f'<div class="sshops"><h2>The shops</h2><table class="sshop">{shops}</table></div>'
         f'<footer class="sfoot">{contact} · {html.escape(PAGE["footer"])}</footer></section>')
 
 credits = '; '.join(html.escape(x['title'].replace('File:', '')) + ' (' + x['lic'] + ')' for v in PH.values() for x in [v['card']] + v['detail'] + v['food'])
@@ -142,7 +145,12 @@ dl,dd,ol,ul{{margin:0;padding:0}} ol,ul{{list-style:none}}
 .nav{{position:sticky;top:0;z-index:10;background:rgba(244,241,234,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}}
 .nav .wrap{{display:flex;gap:22px;height:48px;align-items:center;font-size:14px;font-weight:600}}
 .nav a{{text-decoration:none;white-space:nowrap}} .nav a:hover{{text-decoration:underline;text-underline-offset:4px}}
-.nav .sp{{margin-left:auto}} .sheet{{display:none}} .pdfbtn{{font:inherit;font-size:13px;font-weight:600;background:none;border:1px solid var(--ink);padding:5px 10px;cursor:pointer;color:inherit}} .pdfbtn:hover{{background:var(--ink);color:var(--paper)}}
+.nav .sp{{margin-left:auto}} .sheet{{display:none}}
+.pchoose{{position:fixed;inset:0;z-index:50;background:rgba(17,17,17,.55);display:flex;align-items:center;justify-content:center;padding:20px}} .pchoose[hidden]{{display:none}}
+.pbox{{background:var(--paper);width:min(420px,100%);padding:22px 22px 16px;display:grid;gap:10px}} .pbox>p{{margin:0 0 4px;font-weight:800;font-size:22px;font-stretch:75%}}
+.pbox button{{font:inherit;text-align:left;background:var(--paper);border:2px solid var(--ink);padding:12px 14px;cursor:pointer;color:inherit}} .pbox button:hover{{background:var(--ink);color:var(--paper)}}
+.pbox strong{{display:block;font-size:16px}} .pbox span{{display:block;font-size:13.5px;color:var(--mute)}} .pbox button:hover span{{color:inherit}}
+.pbox .pcancel{{border:0;padding:6px 0 0;font-size:13px;color:var(--mute);text-decoration:underline;text-underline-offset:3px;justify-self:start}} .pbox .pcancel:hover{{background:none;color:var(--ink)}} .pdfbtn{{font:inherit;font-size:13px;font-weight:600;background:none;border:1px solid var(--ink);padding:5px 10px;cursor:pointer;color:inherit}} .pdfbtn:hover{{background:var(--ink);color:var(--paper)}}
 
 .facts{{margin-top:26px}}
 .facts{{display:flex;flex-wrap:wrap;gap:6px 36px}}
@@ -240,20 +248,33 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
 }}
 @media(min-width:1100px){{.wrap{{padding:0 40px}} :root{{--gut:40px}}}}
 @media print{{
- @page{{size:A4;margin:10mm 11mm}}
- body>*:not(.sheet){{display:none!important}} .sheet{{display:block}}
- body{{background:#fff;color:#111;font-size:11.5pt;line-height:1.35}}
- .sh{{display:flex;justify-content:space-between;align-items:baseline;gap:12pt;border-bottom:2pt solid #111;padding-bottom:5pt;margin-bottom:9pt}}
- .sh h1{{font-size:20pt;font-stretch:75%;font-weight:800;letter-spacing:-.01em;margin:0;white-space:nowrap}} .sh p{{margin:0 0 0 auto;padding-left:18pt;font-size:10pt;font-weight:600;text-align:right}}
- .sheet h2{{font-size:12.5pt;font-weight:800;margin:0 0 4pt;letter-spacing:0}} .sshops h2,.sws h2{{margin-top:4pt}}
- .sgrid{{display:grid;grid-template-columns:1fr 1fr;gap:0 16pt;margin-bottom:10pt;break-inside:avoid}}
- .saddr{{margin:0 0 5pt;font-weight:700;font-size:11pt}} .sdirs{{margin:0;padding-left:14pt;font-size:10.5pt}} .sdirs li{{margin-bottom:3pt}}
- .sheet table{{border-collapse:collapse;width:100%;font-size:10.5pt}} .sheet td{{padding:2.5pt 4pt 2.5pt 0;border-bottom:.6pt solid #cfc9bb;vertical-align:top}}
- .srows td:first-child{{width:34pt;font-weight:700;font-variant-numeric:tabular-nums}}
- .sshops{{grid-column:1 / -1}} .sshop td:nth-child(1){{font-weight:700;width:40%}} .sshop td:nth-child(2){{width:42%}} .sshop td:nth-child(3){{white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}}
- .sws{{grid-column:1 / -1;display:grid;grid-template-columns:1fr 1fr;gap:0 16pt}} .sws h2{{grid-column:1 / -1}} .sws .snote{{margin:0}}
- .sws ul{{margin:0;padding-left:14pt;font-size:10.5pt}} .sws li{{margin-bottom:3pt}} .snote{{margin:6pt 0 0;padding:5pt 7pt;background:#eee8dc;font-size:9.5pt}}
- .sfoot{{border-top:1pt solid #111;padding-top:5pt;font-size:9.5pt;color:#444}}
+ @page{{size:A4;margin:9mm 10mm}}
+ body:not([data-print=full])>*:not(.sheet){{display:none!important}} body:not([data-print=full]) .sheet{{display:block}}
+ body{{background:#fff;color:#111;font-size:10.5pt;line-height:1.3}}
+ body[data-print=full]{{font-size:14px;line-height:1.45;--gut:0}} body[data-print=full] .wrap{{padding:0;max-width:none}}
+ body[data-print=full] .nav,body[data-print=full] .mapbox,body[data-print=full] .video,body[data-print=full] .choose,body[data-print=full] .cred,body[data-print=full] .pchoose,body[data-print=full] .ws .pics,body[data-print=full] .plan .pics,body[data-print=full] .notes,body[data-print=full] .quote,body[data-print=full] .pdfbtn{{display:none}}
+ body[data-print=full] .screen-only{{display:none}} body[data-print=full] .print-only{{display:block}}
+ body[data-print=full] main{{display:flex;flex-direction:column}} body[data-print=full] .meet{{order:-1}} body[data-print=full] .plan{{order:1}} body[data-print=full] .ws{{order:2}}
+ body[data-print=full] .compare,body[data-print=full] .ws,body[data-print=full] .plan,body[data-print=full] .meet{{break-before:page;border-top:0;padding:0}} body[data-print=full] footer{{break-before:avoid;border-top:1px solid var(--line);margin-top:18px}}
+ body[data-print=full] h1,body[data-print=full] h2,body[data-print=full] h3{{break-after:avoid}} body[data-print=full] .tt,body[data-print=full] .steps li,body[data-print=full] .teacher,body[data-print=full] .wfacts,body[data-print=full] .note,body[data-print=full] .heads,body[data-print=full] .seg,body[data-print=full] .pics{{break-inside:avoid}}
+ body[data-print=full] .mega{{font-size:22vw;margin-top:10px}} body[data-print=full] .heroimg{{width:auto;margin:14px 0 0}} body[data-print=full] .heroimg img{{max-height:46vh}} body[data-print=full] .pick{{padding:22px 0 0;gap:6px}} body[data-print=full] .pick h2{{font-size:40px}}
+ body[data-print=full]{{--s:1.75px}} body[data-print=full] .cgrid,body[data-print=full] .pgrid,body[data-print=full] .mgrid{{display:block}} body[data-print=full] .pin{{position:static}} body[data-print=full] .seg{{transform:none!important;transition:none}} body[data-print=full] .ctas{{display:none}} body[data-print=full] .legend{{flex-direction:row;margin:10px 0 14px}}
+ body[data-print=full] .ws .pin h2,body[data-print=full] .plan h2,body[data-print=full] .meet h2{{font-size:36px}} body[data-print=full] .why{{max-width:none;margin:10px 0 14px}} body[data-print=full] .wmain img{{max-height:22vh;object-fit:cover;width:100%}} body[data-print=full] .ws .links{{display:none}}
+ body[data-print=full] .steps li{{padding:6px 0}} body[data-print=full] .teacher{{margin-top:8px;padding-top:8px;gap:12px}} body[data-print=full] .teacher img{{width:60px}} body[data-print=full] .teacher p,body[data-print=full] .teacher strong{{font-size:13.5px}} body[data-print=full] .note{{margin-top:8px;padding:8px 12px;font-size:12.5px}} body[data-print=full] .pics img{{aspect-ratio:3/2}}
+ body[data-print=full] .wmain img{{max-height:17vh}} body[data-print=full] .wfacts{{gap:5px;margin-bottom:10px;padding-top:8px}} body[data-print=full] .wfacts dd{{font-size:13.5px}} body[data-print=full] .ws .why{{margin-bottom:8px;font-size:14px}} body[data-print=full] .wsteps li{{padding:5px 0}}
+ .sh{{display:flex;align-items:baseline;border-bottom:2pt solid #111;padding-bottom:4pt;margin-bottom:7pt}}
+ .sh h1{{font-size:20pt;font-stretch:75%;font-weight:800;letter-spacing:-.01em;margin:0;white-space:nowrap}} .sh p{{margin:0 0 0 auto;padding-left:18pt;font-size:9.5pt;font-weight:600;text-align:right}}
+ .sheet h2{{font-size:12pt;font-weight:800;margin:0 0 4pt;letter-spacing:0}}
+ .sphotos{{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:5pt;margin-bottom:7pt}} .sphotos figure{{margin:0}} .sphotos img{{width:100%;height:86pt;object-fit:cover;display:block}} .sphotos figcaption{{font-size:7.5pt;color:#555;margin-top:1.5pt}}
+ .sroute{{list-style:none;margin:0 0 9pt;padding:0;display:flex;align-items:stretch}} .sroute li{{flex:1;position:relative;background:#e4dfd2;padding:4pt 6pt 4pt 9pt;margin-right:7pt;clip-path:polygon(0 0,calc(100% - 6pt) 0,100% 50%,calc(100% - 6pt) 100%,0 100%,6pt 50%)}}
+ .sroute li.w{{background:#e60012;color:#fff;flex:1.6}} .sroute li.end{{background:#111;color:#fff;margin-right:0;flex:.9}} .sroute li:first-child{{clip-path:polygon(0 0,calc(100% - 6pt) 0,100% 50%,calc(100% - 6pt) 100%,0 100%);padding-left:6pt}}
+ .sroute b{{display:block;font-size:9.5pt;font-variant-numeric:tabular-nums}} .sroute span{{display:block;font-size:7.5pt;line-height:1.2;font-weight:600}}
+ .sgrid{{display:grid;grid-template-columns:1fr 1fr;gap:0 14pt;margin-bottom:8pt;break-inside:avoid}}
+ .saddr{{margin:0 0 5pt;font-weight:700;font-size:10.5pt}} .sdirs{{margin:0;padding:0;list-style:none;font-size:9.5pt}} .sdirs li{{display:flex;gap:6pt;margin-bottom:3pt}} .sdirs i{{flex:none;font-style:normal;font-weight:800;color:#fff;background:#e60012;width:13pt;height:13pt;border-radius:50%;text-align:center;line-height:13pt;font-size:8.5pt}}
+ .swsin{{display:grid;grid-template-columns:78pt 1fr;gap:7pt}} .swsin img{{width:78pt;height:78pt;object-fit:cover;object-position:center 30%}} .sws ul{{margin:0;padding-left:11pt;font-size:9.5pt}} .sws li{{margin-bottom:2pt}} .snote{{margin:5pt 0 0;padding:4pt 6pt;background:#eee8dc;font-size:8.5pt}}
+ .sheet table{{border-collapse:collapse;width:100%;font-size:9.5pt}} .sheet td{{padding:2pt 4pt 2pt 0;border-bottom:.6pt solid #cfc9bb;vertical-align:top}}
+ .sshop td:nth-child(1){{font-weight:700;width:40%}} .sshop td:nth-child(2){{width:42%}} .sshop td:nth-child(3){{white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}}
+ .sfoot{{border-top:1pt solid #111;margin-top:7pt;padding-top:4pt;font-size:8.5pt;color:#444}}
 }}
 @media(prefers-reduced-motion:reduce){{html{{scroll-behavior:auto}} .seg{{transform:none;transition:none}}}}
 </style></head><body>
@@ -292,6 +313,20 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
 }})();
 </script>
 {sheet()}
+<div class="pchoose" id="pchoose" hidden><div class="pbox"><p>Save as PDF</p>
+<button type="button" data-mode="sheet"><strong>One page summary</strong><span>Meeting point, times, shops. Good for printing.</span></button>
+<button type="button" data-mode="full"><strong>Full guide</strong><span>Everything on this page, with photos. Several pages.</span></button>
+<button type="button" class="pcancel" data-mode="">Cancel</button></div></div>
+<script>
+(function(){{
+ var box=document.getElementById('pchoose');
+ document.querySelectorAll('.pdfbtn').forEach(function(b){{b.addEventListener('click',function(){{box.hidden=false}})}});
+ box.addEventListener('click',function(e){{var m=e.target.closest('button');if(!m&&e.target!==box)return;box.hidden=true;if(!m||!m.dataset.mode||box.dataset.busy)return;
+   box.dataset.busy=1;document.body.dataset.print=m.dataset.mode;setTimeout(function(){{window.print();delete box.dataset.busy}},50)}});
+ window.addEventListener('afterprint',function(){{delete document.body.dataset.print}});
+ var q=(location.search.match(/[?&]print=(sheet|full)/)||[])[1];if(q)document.body.dataset.print=q;
+}})();
+</script>
 {{DEVBAR}}</body></html>'''
 open('index.html', 'w').write(page.replace('{DEVBAR}', ''))
 open('preview.html', 'w').write(page.replace(
