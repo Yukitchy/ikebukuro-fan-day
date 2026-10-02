@@ -102,5 +102,65 @@
  },
  "compare_h2": "The afternoon, hour by hour",
  "cta": "This works for us",
- "meet_addr": "MANGA DOJO Tokyo, Sansho Building 602, 1-31-6 Higashi-Ikebukuro, Toshima-ku, Tokyo 170-0013"
+ "meet_addr": "MANGA DOJO Tokyo, Sansho Building 602, 1-31-6 Higashi-Ikebukuro, Toshima-ku, Tokyo 170-0013",
+ "print": {
+  "title": "Ikebukuro, Sunday December 20",
+  "directions": [
+   "From the East Exit of Ikebukuro Station, walk along Sunshine 60 Street toward Sunshine City (about 5 minutes).",
+   "Sansho Building is 2 minutes from the Animate flagship store. The class is in room 602 on the 6th floor.",
+   "Please be at the door by 12:55. The class starts exactly on time."
+  ],
+  "contact": [
+   [
+    "Guide",
+    "Yuuki"
+   ],
+   [
+    "Email",
+    "icchan417@gmail.com"
+   ]
+  ],
+  "shops": [
+   [
+    "Mugiwara Store (One Piece)",
+    "Sunshine City, Alpa 2F",
+    "10:00 to 20:00 Sun"
+   ],
+   [
+    "Pokémon Center Mega Tokyo",
+    "Sunshine City, Alpa 2F",
+    "10:00 to 20:00 Sun"
+   ],
+   [
+    "Gashapon Department Store",
+    "Sunshine City, World Import Mart 3F",
+    "10:00 to 21:00"
+   ],
+   [
+    "Bandai Namco Cross Store (One Piece Card Game)",
+    "Sunshine City, World Import Mart 3F",
+    "10:00 to 21:00"
+   ],
+   [
+    "BOOKOFF Sunshine 60 Street",
+    "Sunshine 60 Street",
+    "10:00 to 22:00"
+   ],
+   [
+    "Animate Ikebukuro flagship",
+    "2 minutes from the school",
+    "10:00 to 21:00"
+   ],
+   [
+    "JUMP SHOP",
+    "Ikebukuro PARCO B2F, at the East Exit",
+    "11:00 to 21:00"
+   ]
+  ],
+  "workshop": [
+   "Two hours with a working manga artist, English interpreter in the room.",
+   "G-pens, ink, screen tone and manuscript paper are provided. Nothing to bring.",
+   "Nicholas draws his own character and a four panel comic, and takes the pages home."
+  ]
+ }
 }

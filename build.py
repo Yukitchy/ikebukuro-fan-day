@@ -99,6 +99,23 @@ def ws():
 <p class="links"><a href="{w['link'][1]}" target="_blank" rel="noopener">{html.escape(w['link'][0])} ↗</a></p>
 </div></div></section>'''
 
+def sheet():
+    w = PAGE['print']; A = COURSES[0]
+    rows = ''.join(f'<tr><td>{t}</td><td>{html.escape(h)}</td></tr>' for t, h, d in A['steps'])
+    dirs = ''.join(f'<li>{html.escape(x)}</li>' for x in w['directions'])
+    shops = ''.join(f'<tr><td>{html.escape(n)}</td><td>{html.escape(a)}</td><td>{html.escape(h)}</td></tr>' for n, a, h in w['shops'])
+    ws = ''.join(f'<li>{html.escape(x)}</li>' for x in w['workshop'])
+    contact = ' · '.join(f'{html.escape(k)} {html.escape(v)}' for k, v in w['contact'])
+    facts = ' · '.join(html.escape(k) + ' ' + html.escape(v) for k, v in PAGE['facts'])
+    addr = html.escape(PAGE.get('meet_addr', PAGE['meet_place']))
+    return ('<section class="sheet" aria-hidden="true">'
+        f'<header class="sh"><h1>{html.escape(w["title"])}</h1><p>{facts}</p></header>'
+        f'<div class="sgrid"><div class="smeet"><h2>Meeting point, 13:00</h2><p class="saddr">{addr}</p><ol class="sdirs">{dirs}</ol></div>'
+        f'<div class="stime"><h2>{html.escape(A["name"])}</h2><table class="srows">{rows}</table></div></div>'
+        f'<div class="sgrid"><div class="sshops"><h2>The shops</h2><table class="sshop">{shops}</table></div>'
+        f'<div class="sws"><h2>The manga workshop</h2><ul>{ws}</ul><p class="snote">{html.escape(PAGE["workshop"]["note"])}</p></div></div>'
+        f'<footer class="sfoot">{contact} · {html.escape(PAGE["footer"])}</footer></section>')
+
 credits = '; '.join(html.escape(x['title'].replace('File:', '')) + ' (' + x['lic'] + ')' for v in PH.values() for x in [v['card']] + v['detail'] + v['food'])
 facts = ''.join(f'<div><dt>{html.escape(k)}</dt><dd>{html.escape(v)}</dd></div>' for k, v in PAGE['facts'])
 N = len(COURSES)
@@ -125,7 +142,7 @@ dl,dd,ol,ul{{margin:0;padding:0}} ol,ul{{list-style:none}}
 .nav{{position:sticky;top:0;z-index:10;background:rgba(244,241,234,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}}
 .nav .wrap{{display:flex;gap:22px;height:48px;align-items:center;font-size:14px;font-weight:600}}
 .nav a{{text-decoration:none;white-space:nowrap}} .nav a:hover{{text-decoration:underline;text-underline-offset:4px}}
-.nav .sp{{margin-left:auto}}
+.nav .sp{{margin-left:auto}} .sheet{{display:none}} .pdfbtn{{font:inherit;font-size:13px;font-weight:600;background:none;border:1px solid var(--ink);padding:5px 10px;cursor:pointer;color:inherit}} .pdfbtn:hover{{background:var(--ink);color:var(--paper)}}
 
 .facts{{margin-top:26px}}
 .facts{{display:flex;flex-wrap:wrap;gap:6px 36px}}
@@ -223,26 +240,24 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
 }}
 @media(min-width:1100px){{.wrap{{padding:0 40px}} :root{{--gut:40px}}}}
 @media print{{
- @page{{margin:11mm 12mm}}
- html{{scroll-behavior:auto}} body{{font-size:14.5px;line-height:1.45}} .wrap{{padding:0;max-width:none}}
- .nav,.mapbox,.video,.vico,.choose,.cred,.ws .pics,.plan .pics,.notes,.quote{{display:none}}
- .screen-only{{display:none}} .print-only{{display:block}}
- main{{display:flex;flex-direction:column}} .meet{{order:-1}} .plan{{order:1}} .ws{{order:2}}
- .compare,.ws,.plan,.meet{{break-before:page;border-top:0;padding:0}} footer{{break-before:avoid;border-top:1px solid var(--line);margin-top:18px}} footer .wrap{{padding:10px 0 0}}
- h1,h2,h3{{break-after:avoid}} .tt,.steps li,.teacher,.wfacts,.note,.legend,.heads,.seg{{break-inside:avoid}} p,dd{{orphans:3;widows:3}}
- .facts{{margin-top:6px}} .mega{{font-size:22vw;margin-top:10px}} .heroimg{{width:auto;margin:14px 0 0}} .heroimg img{{max-height:46vh}} .pick{{padding:22px 0 0;gap:6px}} .pick h2{{font-size:40px}} .pick p{{font-size:16px}}
- :root{{--s:1.75px}} .compare h2{{font-size:32px}} .legend{{flex-direction:row;margin:10px 0 14px}} .cgrid{{display:block}} .seg{{transform:none!important;transition:none}} .ctas{{display:none}}
- .pgrid,.mgrid{{display:block}} .pin{{position:static}} .ws .pin h2,.plan h2,.meet h2{{font-size:36px}} .why{{font-size:14.5px;margin:10px 0 14px;max-width:none}}
- .wfacts{{gap:6px;margin-bottom:12px;padding-top:8px}} .wfacts dd{{font-size:14px}} .wmain{{margin:0 0 10px}} .wmain img{{max-height:21vh;object-fit:cover;width:100%}} .ws .links{{display:none}} .ws .why{{margin-bottom:10px}}
- .wsteps li,.steps li{{padding:7px 0}} .steps strong{{font-size:14.5px}} .steps span{{font-size:13px}} .wsteps b{{font-size:18px}}
- .teacher{{margin-top:10px;padding-top:10px;gap:12px}} .teacher img{{width:64px}} .teacher p,.teacher strong{{font-size:14px}} .note{{margin-top:10px;padding:9px 12px;font-size:12.5px}}
- .moves{{font-size:13px;margin-top:10px}} .links{{margin-top:12px;font-size:13px;gap:4px 14px}}
- .meet p{{max-width:none;font-size:16px}} .meet .hint{{font-size:14px}}
- a{{color:inherit}}
+ @page{{size:A4;margin:10mm 11mm}}
+ body>*:not(.sheet){{display:none!important}} .sheet{{display:block}}
+ body{{background:#fff;color:#111;font-size:11.5pt;line-height:1.35}}
+ .sh{{display:flex;justify-content:space-between;align-items:baseline;gap:12pt;border-bottom:2pt solid #111;padding-bottom:5pt;margin-bottom:9pt}}
+ .sh h1{{font-size:20pt;font-stretch:75%;font-weight:800;letter-spacing:-.01em;margin:0;white-space:nowrap}} .sh p{{margin:0;font-size:10pt;font-weight:600;text-align:right}}
+ .sheet h2{{font-size:12.5pt;font-weight:800;margin:0 0 4pt;letter-spacing:0}}
+ .sgrid{{display:grid;grid-template-columns:1fr 1fr;gap:0 16pt;margin-bottom:10pt;break-inside:avoid}}
+ .saddr{{margin:0 0 5pt;font-weight:700;font-size:11pt}} .sdirs{{margin:0;padding-left:14pt;font-size:10.5pt}} .sdirs li{{margin-bottom:3pt}}
+ .sheet table{{border-collapse:collapse;width:100%;font-size:10.5pt}} .sheet td{{padding:2.5pt 4pt 2.5pt 0;border-bottom:.6pt solid #cfc9bb;vertical-align:top}}
+ .srows td:first-child{{width:34pt;font-weight:700;font-variant-numeric:tabular-nums}}
+ .sshops{{grid-column:1 / -1}} .sshop td:nth-child(1){{font-weight:700;width:40%}} .sshop td:nth-child(2){{width:42%}} .sshop td:nth-child(3){{white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}}
+ .sws{{grid-column:1 / -1;display:grid;grid-template-columns:1fr 1fr;gap:0 16pt}} .sws h2{{grid-column:1 / -1}} .sws .snote{{margin:0}}
+ .sws ul{{margin:0;padding-left:14pt;font-size:10.5pt}} .sws li{{margin-bottom:3pt}} .snote{{margin:6pt 0 0;padding:5pt 7pt;background:#eee8dc;font-size:9.5pt}}
+ .sfoot{{border-top:1pt solid #111;padding-top:5pt;font-size:9.5pt;color:#444}}
 }}
 @media(prefers-reduced-motion:reduce){{html{{scroll-behavior:auto}} .seg{{transform:none;transition:none}}}}
 </style></head><body>
-<nav class="nav"><div class="wrap"><a href="#compare">{"Compare" if N > 1 else "Timeline"}</a><a href="#workshop">Workshop</a>{"".join(f'<a href="#detail-{c["id"]}">{"Plan " + c["id"] if N > 1 else "Plan"}</a>' for c in COURSES)}<a class="sp" href="#meet">Meeting point</a></div></nav>
+<nav class="nav"><div class="wrap"><a href="#compare">{"Compare" if N > 1 else "Timeline"}</a><a href="#workshop">Workshop</a>{"".join(f'<a href="#detail-{c["id"]}">{"Plan " + c["id"] if N > 1 else "Plan"}</a>' for c in COURSES)}<a class="sp" href="#meet">Meeting point</a><button class="pdfbtn" type="button" onclick="window.print()">Save as PDF</button></div></nav>
 <header class="wrap hero">
 <dl class="facts">{facts}</dl>
 <h1 class="mega">{PAGE['h1']}</h1>
@@ -265,7 +280,7 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
 <div class="mapbox"><iframe src="{emb(PAGE['meet_place'])}" loading="lazy" title="{html.escape(PAGE['meet_place'])}" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
 </div></section>
 </main>
-<footer><div class="wrap"><p>{html.escape(PAGE['footer'])}</p>
+<footer><div class="wrap"><p>{html.escape(PAGE['footer'])} <button class="pdfbtn" type="button" onclick="window.print()">Save as PDF</button></p>
 <details class="cred"><summary>Photo credits</summary><p>Hero: Pokémon Center Mega Tokyo, official website. Workshop photos: MANGA DOJO Tokyo, official website. {credits}, via Wikimedia Commons.</p></details></div></footer>
 <script>
 (function(){{
@@ -276,6 +291,7 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
  if(v)v.addEventListener('click',function(){{var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+v.dataset.id+'?autoplay=1&rel=0';f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;f.title=v.getAttribute('aria-label').replace('Play: ','');v.replaceWith(f)}});
 }})();
 </script>
+{sheet()}
 {{DEVBAR}}</body></html>'''
 open('index.html', 'w').write(page.replace('{DEVBAR}', ''))
 open('preview.html', 'w').write(page.replace(
