@@ -73,6 +73,20 @@ dl,dd,ol,ul{margin:0;padding:0} ol,ul{list-style:none}
 .notes dt{font-size:12.5px;font-weight:700;color:var(--mute);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px} .notes dd{font-size:15px}
 .links{display:flex;flex-wrap:wrap;gap:6px 20px;margin:26px 0 0;font-size:14px} .links a{text-underline-offset:3px}
 
+.seg.w a{display:flex;flex-direction:column;height:100%;color:inherit;text-decoration:none}
+.seg .more{margin-top:auto;font-size:12.5px;opacity:.9;text-decoration:underline;text-underline-offset:3px}
+.ws .pin h2{margin-top:0;font-size:clamp(34px,5vw,64px)}
+.wfacts{display:grid;gap:14px;margin:0 0 26px;padding-top:18px;border-top:2px solid var(--ink)}
+.wfacts dt{font-size:13px;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px} .wfacts dd{font-size:16px}
+.quote{margin:0;padding:18px 0 0;border-top:1px solid var(--line)}
+.quote blockquote{margin:0;font-size:clamp(22px,2.6vw,30px);font-weight:800;font-stretch:75%;line-height:1.1;letter-spacing:-.01em;text-wrap:balance}
+.quote figcaption{margin-top:10px;font-size:13.5px;color:var(--mute)}
+.wmain{margin:0 0 8px} .wmain img{width:100%;aspect-ratio:3/2;object-fit:cover;background:var(--seg)}
+.wsteps li{grid-template-columns:40px minmax(0,1fr)} .wsteps b{color:var(--red);font-size:22px;line-height:1;font-stretch:75%}
+.teacher{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start;margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
+.teacher img{width:96px;aspect-ratio:1;object-fit:cover;background:var(--seg)} .teacher p{margin:0;font-size:15px} .teacher strong{display:block;font-size:17px;margin-bottom:3px} .teacher span{color:var(--mute)}
+.note{margin:22px 0 0;padding:14px 16px;background:var(--seg);font-size:14.5px}
+
 .meet{border-top:1px solid var(--ink);padding:36px 0 64px}
 .meet .mgrid{display:grid;grid-template-columns:1fr;gap:26px}
 .meet h2{font-size:clamp(32px,5vw,60px);font-stretch:75%;line-height:1;letter-spacing:-.015em}
@@ -91,13 +105,13 @@ footer{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)} footer 
  .cl{font-size:64px} .cn{font-size:17px}
  .pgrid,.cgrid{grid-template-columns:5fr 7fr;gap:56px} .cside{position:sticky;top:76px;align-self:start} .legend{flex-direction:column;gap:8px}
  .pin{position:sticky;top:76px}
- .pics img{aspect-ratio:3/2}
+ .pics img{aspect-ratio:3/2} .ws .pics img:nth-child(2){object-position:center 20%}
  .meet .mgrid{grid-template-columns:5fr 7fr;gap:56px} .mapbox iframe{height:380px}
 }
 @media(min-width:1100px){.wrap{padding:0 40px} :root{--gut:40px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto} .seg{transform:none;transition:none}}
 </style></head><body>
-<nav class="nav"><div class="wrap"><a href="#compare">Compare</a><a href="#detail-A">Plan A</a><a href="#detail-B">Plan B</a><a class="sp" href="#meet">Meeting point</a></div></nav>
+<nav class="nav"><div class="wrap"><a href="#compare">Compare</a><a href="#workshop">Workshop</a><a href="#detail-A">Plan A</a><a href="#detail-B">Plan B</a><a class="sp" href="#meet">Meeting point</a></div></nav>
 <header class="wrap hero">
 <dl class="facts"><div><dt>Guide</dt><dd>Yuuki</dd></div><div><dt>Time</dt><dd>13:00 to 18:30</dd></div><div><dt>Start</dt><dd>Ikebukuro Station East Exit</dd></div></dl>
 <h1 class="mega">Ikebukuro</h1>
@@ -110,9 +124,24 @@ footer{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)} footer 
 <div class="legend"><span class="w"><i></i>Manga workshop, 2 hours</span><span class="s"><i></i>Shops</span></div></div>
 <div class="tt" id="tt">
 <div class="heads"><span></span><a class="chead" href="#detail-A"><span class="cl">A</span><span class="cn">Workshop first, then the shops</span></a><a class="chead" href="#detail-B"><span class="cl">B</span><span class="cn">Shops first, then the workshop</span></a></div>
-<div class="tracks"><ul class="axis"><li style="top:calc(0 * var(--s))">13:00</li><li style="top:calc(60 * var(--s))">14:00</li><li style="top:calc(120 * var(--s))">15:00</li><li style="top:calc(180 * var(--s))">16:00</li><li style="top:calc(240 * var(--s))">17:00</li><li style="top:calc(300 * var(--s))">18:00</li></ul><ol class="track"><li class="seg w" style="--a:0;--b:120"><b>Manga workshop</b><i>13:00 to 15:00</i></li><li class="seg s" style="--a:130;--b:190"><b>Pokémon Center and Mugiwara Store</b><i>15:10 to 16:10</i></li><li class="seg s" style="--a:190;--b:240"><b>Gashapon Department Store and Cross Store</b><i>16:10 to 17:00</i></li><li class="seg s" style="--a:240;--b:280"><b>BOOKOFF</b><i>17:00 to 17:40</i></li><li class="seg s" style="--a:280;--b:315"><b>Animate</b><i>17:40 to 18:15</i></li><li class="seg s" style="--a:315;--b:330"><b>JUMP SHOP</b></li></ol><ol class="track"><li class="seg s" style="--a:10;--b:40"><b>JUMP SHOP</b><i>13:10 to 13:40</i></li><li class="seg s" style="--a:40;--b:75"><b>Animate</b><i>13:40 to 14:15</i></li><li class="seg s" style="--a:75;--b:110"><b>BOOKOFF</b><i>14:15 to 14:50</i></li><li class="seg w" style="--a:120;--b:240"><b>Manga workshop</b><i>15:00 to 17:00</i></li><li class="seg s" style="--a:240;--b:300"><b>Pokémon Center and Mugiwara Store</b><i>17:00 to 18:00</i></li><li class="seg s" style="--a:300;--b:330"><b>Gashapon and Cross Store</b><i>18:00 to 18:30</i></li></ol></div>
+<div class="tracks"><ul class="axis"><li style="top:calc(0 * var(--s))">13:00</li><li style="top:calc(60 * var(--s))">14:00</li><li style="top:calc(120 * var(--s))">15:00</li><li style="top:calc(180 * var(--s))">16:00</li><li style="top:calc(240 * var(--s))">17:00</li><li style="top:calc(300 * var(--s))">18:00</li></ul><ol class="track"><li class="seg w" style="--a:0;--b:120"><a href="#workshop"><b>Manga workshop</b><i>13:00 to 15:00</i><i class="more">What happens inside ↓</i></a></li><li class="seg s" style="--a:130;--b:190"><b>Pokémon Center and Mugiwara Store</b><i>15:10 to 16:10</i></li><li class="seg s" style="--a:190;--b:240"><b>Gashapon Department Store and Cross Store</b><i>16:10 to 17:00</i></li><li class="seg s" style="--a:240;--b:280"><b>BOOKOFF</b><i>17:00 to 17:40</i></li><li class="seg s" style="--a:280;--b:315"><b>Animate</b><i>17:40 to 18:15</i></li><li class="seg s" style="--a:315;--b:330"><b>JUMP SHOP</b></li></ol><ol class="track"><li class="seg s" style="--a:10;--b:40"><b>JUMP SHOP</b><i>13:10 to 13:40</i></li><li class="seg s" style="--a:40;--b:75"><b>Animate</b><i>13:40 to 14:15</i></li><li class="seg s" style="--a:75;--b:110"><b>BOOKOFF</b><i>14:15 to 14:50</i></li><li class="seg w" style="--a:120;--b:240"><a href="#workshop"><b>Manga workshop</b><i>15:00 to 17:00</i><i class="more">What happens inside ↓</i></a></li><li class="seg s" style="--a:240;--b:300"><b>Pokémon Center and Mugiwara Store</b><i>17:00 to 18:00</i></li><li class="seg s" style="--a:300;--b:330"><b>Gashapon and Cross Store</b><i>18:00 to 18:30</i></li></ol></div>
 <div class="ctas"><span></span><a class="choose" href="mailto:icchan417@gmail.com?subject=Dec 20 tour: I choose course A (Workshop first, then the shops)">Choose A</a><a class="choose" href="mailto:icchan417@gmail.com?subject=Dec 20 tour: I choose course B (Shops first, then the workshop)">Choose B</a></div>
 </div></div></div></section>
+<section class="plan ws" id="workshop"><div class="wrap pgrid">
+<div class="phead"><div class="pin">
+<h2>Two hours at a manga artist&#x27;s desk</h2>
+<p class="why">MANGA DOJO Tokyo is a small manga school a few minutes from the station. The teachers are working manga artists, an interpreter sits in the room, and the school hands you the real tools: G-pens, ink, screen tone and manga manuscript paper. Nicholas leaves with his own character and a four panel comic.</p>
+<dl class="wfacts"><div><dt>The teachers</dt><dd>Working manga artists. The school&#x27;s head instructor, Kazuo Maekawa, drew the Ace Attorney manga series.</dd></div><div><dt>The tools</dt><dd>G-pens, ink, screen tone and official manuscript paper are on the desk. Nothing to bring.</dd></div><div><dt>Who it suits</dt><dd>Beginners are welcome and the school takes children from age five. Adults draw at the same table.</dd></div></dl>
+<figure class="quote"><blockquote>“this is a fantastic experience”</blockquote><figcaption>A guest from the U.S. who came with a 13 year old, in the reviews on the school&#x27;s website</figcaption></figure>
+</div></div>
+<div class="pbody">
+<figure class="wmain"><img class="" src="https://experiencetokyo-mirai.com/wp-content/uploads/2025/03/newwall.png" alt="A family holding their finished manga pages in front of the MANGA DOJO Tokyo sign" loading="lazy" referrerpolicy="no-referrer"></figure>
+<div class="pics"><img class="" src="https://experiencetokyo-mirai.com/wp-content/uploads/2025/08/manga2-scaled.jpg" alt="Pencilling a character&#x27;s face at the workshop" loading="lazy" referrerpolicy="no-referrer"><img class="" src="https://experiencetokyo-mirai.com/wp-content/uploads/2025/03/S__106881028_0.jpg" alt="A finished page: a character on the left and a four panel comic on the right" loading="lazy" referrerpolicy="no-referrer"></div>
+<ol class="steps wsteps"><li><b>1</b><div><strong>A short talk</strong><span>Where manga comes from and how a page is made, from a working artist.</span></div></li><li><b>2</b><div><strong>Faces and chibi characters</strong><span>How to build a character from simple shapes, then shrink it into a chibi.</span></div></li><li><b>3</b><div><strong>Your own four panel comic</strong><span>Storyboard a short story. Many guests draw something that happened on their trip.</span></div></li><li><b>4</b><div><strong>Ink it and take it home</strong><span>Pen the final page with a G-pen. The pages go home with you.</span></div></li></ol>
+<div class="teacher"><img class="" src="https://experiencetokyo-mirai.com/wp-content/uploads/2026/08/%E5%89%8D%E5%B7%9D%E3%81%95%E3%82%93%E3%83%97%E3%83%AD%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E6%AD%A3%E6%96%B9%E5%BD%A2.png" alt="Kazuo Maekawa, head instructor" loading="lazy" referrerpolicy="no-referrer"><p><strong>Kazuo Maekawa</strong><span>Head instructor. Thirty years as a manga artist, creator of the Ace Attorney manga series. Which teacher runs your session is decided by the school.</span></p></div>
+<p class="note">The slot is requested and not yet confirmed by the school. Classes start exactly on time, so we arrive five minutes early.</p>
+<p class="links"><a href="https://experiencetokyo-mirai.com/shibuya/" target="_blank" rel="noopener">MANGA DOJO Tokyo, 1 Day Manga Class (official) ↗</a></p>
+</div></div></section>
 <section class="plan" id="detail-A"><div class="wrap pgrid">
 <div class="phead"><div class="pin">
 <span class="pl" aria-hidden="true">A</span>
@@ -151,7 +180,7 @@ footer{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)} footer 
 </div></section>
 </main>
 <footer><div class="wrap"><p>Reply to Yuuki with the letter of the course you want. Times are approximate and can move on the day.</p>
-<details class="cred"><summary>Photo credits</summary><p>Hero: Pokémon Center Mega Tokyo, official website. Mega Tokyo Pokémon Center 1.jpg (CC BY 3.0); Sunshine City Atrium 201206.jpg (CC BY 2.0); Mega Tokyo Pokémon Center 2.jpg (CC BY 3.0); Gashaponmachine.jpg (CC BY-SA 3.0); Animate store in Tokyo.jpg (CC BY-SA 2.0); Ikebukuro 2008-12-01 (3273662522).jpg (CC BY-SA 2.0); Ikebukuro Station east exit close up 2023 Jan 13 02PM.jpeg (CC BY 4.0); JUMP SHOP (52506239079).jpg (CC BY 2.0); ANIMATE-Ikebukuro.JPG (CC BY-SA 3.0); Pokkén near Mega Tokyo Pokémon Center 1.jpg (CC BY 3.0), via Wikimedia Commons.</p></details></div></footer>
+<details class="cred"><summary>Photo credits</summary><p>Hero: Pokémon Center Mega Tokyo, official website. Workshop photos: MANGA DOJO Tokyo, official website. Mega Tokyo Pokémon Center 1.jpg (CC BY 3.0); Sunshine City Atrium 201206.jpg (CC BY 2.0); Mega Tokyo Pokémon Center 2.jpg (CC BY 3.0); Gashaponmachine.jpg (CC BY-SA 3.0); Animate store in Tokyo.jpg (CC BY-SA 2.0); Ikebukuro 2008-12-01 (3273662522).jpg (CC BY-SA 2.0); Ikebukuro Station east exit close up 2023 Jan 13 02PM.jpeg (CC BY 4.0); JUMP SHOP (52506239079).jpg (CC BY 2.0); ANIMATE-Ikebukuro.JPG (CC BY-SA 3.0); Pokkén near Mega Tokyo Pokémon Center 1.jpg (CC BY 3.0), via Wikimedia Commons.</p></details></div></footer>
 <script>
 (function(){
  var t=document.getElementById('tt');

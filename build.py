@@ -40,7 +40,9 @@ def col(c):
     for a, b, name, kind in c['bars']:
         two = (b - a) >= 30
         tm = f'<i>{hm(a)} to {hm(b)}</i>' if two else ''
-        segs += f'<li class="seg {kind}" style="--a:{a};--b:{b}"><b>{html.escape(name)}</b>{tm}</li>'
+        inner = f'<b>{html.escape(name)}</b>{tm}'
+        if kind == 'w': inner = f'<a href="#workshop">{inner}<i class="more">What happens inside ↓</i></a>'
+        segs += f'<li class="seg {kind}" style="--a:{a};--b:{b}">{inner}</li>'
     return f'<ol class="track">{segs}</ol>'
 
 def head(c):
@@ -69,6 +71,28 @@ def plan(c):
 <p class="moves">{c['moves']} <a href="{route_link(c['stops'])}" target="_blank" rel="noopener">Open the route in Google Maps ↗</a></p>
 <dl class="notes"><div><dt>Good for</dt><dd>{html.escape(c['good'])}</dd></div><div><dt>Keep in mind</dt><dd>{html.escape(c['mind'])}</dd></div></dl>
 <p class="links">{ln}</p>
+</div></div></section>'''
+
+def ws():
+    w = PAGE['workshop']
+    ph = w['photos']
+    img = lambda i, cls='': f'<img class="{cls}" src="{ph[i][0]}" alt="{html.escape(ph[i][1])}" loading="lazy" referrerpolicy="no-referrer">'
+    facts = ''.join(f'<div><dt>{html.escape(k)}</dt><dd>{html.escape(v)}</dd></div>' for k, v in w['facts'])
+    steps = ''.join(f'<li><b>{i + 1}</b><div><strong>{html.escape(h)}</strong><span>{html.escape(d)}</span></div></li>' for i, (h, d) in enumerate(w['steps']))
+    return f'''<section class="plan ws" id="workshop"><div class="wrap pgrid">
+<div class="phead"><div class="pin">
+<h2>{html.escape(w['h2'])}</h2>
+<p class="why">{html.escape(w['lead'])}</p>
+<dl class="wfacts">{facts}</dl>
+<figure class="quote"><blockquote>“{html.escape(w['quote'])}”</blockquote><figcaption>{html.escape(w['quote_by'])}</figcaption></figure>
+</div></div>
+<div class="pbody">
+<figure class="wmain">{img(0)}</figure>
+<div class="pics">{img(1)}{img(2)}</div>
+<ol class="steps wsteps">{steps}</ol>
+<div class="teacher">{img(4)}<p><strong>Kazuo Maekawa</strong><span>Head instructor. Thirty years as a manga artist, creator of the Ace Attorney manga series. Which teacher runs your session is decided by the school.</span></p></div>
+<p class="note">{html.escape(w['note'])}</p>
+<p class="links"><a href="{w['link'][1]}" target="_blank" rel="noopener">{html.escape(w['link'][0])} ↗</a></p>
 </div></div></section>'''
 
 credits = '; '.join(html.escape(x['title'].replace('File:', '')) + ' (' + x['lic'] + ')' for v in PH.values() for x in [v['card']] + v['detail'] + v['food'])
@@ -150,6 +174,20 @@ dl,dd,ol,ul{{margin:0;padding:0}} ol,ul{{list-style:none}}
 .notes dt{{font-size:12.5px;font-weight:700;color:var(--mute);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}} .notes dd{{font-size:15px}}
 .links{{display:flex;flex-wrap:wrap;gap:6px 20px;margin:26px 0 0;font-size:14px}} .links a{{text-underline-offset:3px}}
 
+.seg.w a{{display:flex;flex-direction:column;height:100%;color:inherit;text-decoration:none}}
+.seg .more{{margin-top:auto;font-size:12.5px;opacity:.9;text-decoration:underline;text-underline-offset:3px}}
+.ws .pin h2{{margin-top:0;font-size:clamp(34px,5vw,64px)}}
+.wfacts{{display:grid;gap:14px;margin:0 0 26px;padding-top:18px;border-top:2px solid var(--ink)}}
+.wfacts dt{{font-size:13px;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}} .wfacts dd{{font-size:16px}}
+.quote{{margin:0;padding:18px 0 0;border-top:1px solid var(--line)}}
+.quote blockquote{{margin:0;font-size:clamp(22px,2.6vw,30px);font-weight:800;font-stretch:75%;line-height:1.1;letter-spacing:-.01em;text-wrap:balance}}
+.quote figcaption{{margin-top:10px;font-size:13.5px;color:var(--mute)}}
+.wmain{{margin:0 0 8px}} .wmain img{{width:100%;aspect-ratio:3/2;object-fit:cover;background:var(--seg)}}
+.wsteps li{{grid-template-columns:40px minmax(0,1fr)}} .wsteps b{{color:var(--red);font-size:22px;line-height:1;font-stretch:75%}}
+.teacher{{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start;margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}}
+.teacher img{{width:96px;aspect-ratio:1;object-fit:cover;background:var(--seg)}} .teacher p{{margin:0;font-size:15px}} .teacher strong{{display:block;font-size:17px;margin-bottom:3px}} .teacher span{{color:var(--mute)}}
+.note{{margin:22px 0 0;padding:14px 16px;background:var(--seg);font-size:14.5px}}
+
 .meet{{border-top:1px solid var(--ink);padding:36px 0 64px}}
 .meet .mgrid{{display:grid;grid-template-columns:1fr;gap:26px}}
 .meet h2{{font-size:clamp(32px,5vw,60px);font-stretch:75%;line-height:1;letter-spacing:-.015em}}
@@ -168,13 +206,13 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
  .cl{{font-size:64px}} .cn{{font-size:17px}}
  .pgrid,.cgrid{{grid-template-columns:5fr 7fr;gap:56px}} .cside{{position:sticky;top:76px;align-self:start}} .legend{{flex-direction:column;gap:8px}}
  .pin{{position:sticky;top:76px}}
- .pics img{{aspect-ratio:3/2}}
+ .pics img{{aspect-ratio:3/2}} .ws .pics img:nth-child(2){{object-position:center 20%}}
  .meet .mgrid{{grid-template-columns:5fr 7fr;gap:56px}} .mapbox iframe{{height:380px}}
 }}
 @media(min-width:1100px){{.wrap{{padding:0 40px}} :root{{--gut:40px}}}}
 @media(prefers-reduced-motion:reduce){{html{{scroll-behavior:auto}} .seg{{transform:none;transition:none}}}}
 </style></head><body>
-<nav class="nav"><div class="wrap"><a href="#compare">Compare</a><a href="#detail-A">Plan A</a><a href="#detail-B">Plan B</a><a class="sp" href="#meet">Meeting point</a></div></nav>
+<nav class="nav"><div class="wrap"><a href="#compare">Compare</a><a href="#workshop">Workshop</a><a href="#detail-A">Plan A</a><a href="#detail-B">Plan B</a><a class="sp" href="#meet">Meeting point</a></div></nav>
 <header class="wrap hero">
 <dl class="facts">{facts}</dl>
 <h1 class="mega">{PAGE['h1']}</h1>
@@ -190,6 +228,7 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
 <div class="tracks"><ul class="axis">{''.join(f'<li style="top:calc({h * 60} * var(--s))">{13 + h}:00</li>' for h in range(6))}</ul>{col(A)}{col(B)}</div>
 <div class="ctas"><span></span>{cta(A)}{cta(B)}</div>
 </div></div></div></section>
+{ws()}
 {plan(A)}
 {plan(B)}
 <section class="meet" id="meet"><div class="wrap mgrid">
@@ -198,7 +237,7 @@ footer{{border-top:1px solid var(--ink);font-size:13px;color:var(--mute)}} foote
 </div></section>
 </main>
 <footer><div class="wrap"><p>{html.escape(PAGE['footer'])}</p>
-<details class="cred"><summary>Photo credits</summary><p>Hero: Pokémon Center Mega Tokyo, official website. {credits}, via Wikimedia Commons.</p></details></div></footer>
+<details class="cred"><summary>Photo credits</summary><p>Hero: Pokémon Center Mega Tokyo, official website. Workshop photos: MANGA DOJO Tokyo, official website. {credits}, via Wikimedia Commons.</p></details></div></footer>
 <script>
 (function(){{
  var t=document.getElementById('tt');

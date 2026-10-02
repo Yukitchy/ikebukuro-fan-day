@@ -26,5 +26,70 @@
  "pick": "Pick the order of your afternoon.",
  "hero_img": "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-megatokyo/images/mv-pokemoncenter-megatokyo-002.webp",
  "hero_alt": "The entrance of Pokémon Center Mega Tokyo with a Mega Charizard display",
- "hero_cap": "Pokémon Center Mega Tokyo, Sunshine City. Photo from the store's official website."
+ "hero_cap": "Pokémon Center Mega Tokyo, Sunshine City. Photo from the store's official website.",
+ "workshop": {
+  "h2": "Two hours at a manga artist's desk",
+  "lead": "MANGA DOJO Tokyo is a small manga school a few minutes from the station. The teachers are working manga artists, an interpreter sits in the room, and the school hands you the real tools: G-pens, ink, screen tone and manga manuscript paper. Nicholas leaves with his own character and a four panel comic.",
+  "facts": [
+   [
+    "The teachers",
+    "Working manga artists. The school's head instructor, Kazuo Maekawa, drew the Ace Attorney manga series."
+   ],
+   [
+    "The tools",
+    "G-pens, ink, screen tone and official manuscript paper are on the desk. Nothing to bring."
+   ],
+   [
+    "Who it suits",
+    "Beginners are welcome and the school takes children from age five. Adults draw at the same table."
+   ]
+  ],
+  "quote": "this is a fantastic experience",
+  "quote_by": "A guest from the U.S. who came with a 13 year old, in the reviews on the school's website",
+  "steps": [
+   [
+    "A short talk",
+    "Where manga comes from and how a page is made, from a working artist."
+   ],
+   [
+    "Faces and chibi characters",
+    "How to build a character from simple shapes, then shrink it into a chibi."
+   ],
+   [
+    "Your own four panel comic",
+    "Storyboard a short story. Many guests draw something that happened on their trip."
+   ],
+   [
+    "Ink it and take it home",
+    "Pen the final page with a G-pen. The pages go home with you."
+   ]
+  ],
+  "note": "The slot is requested and not yet confirmed by the school. Classes start exactly on time, so we arrive five minutes early.",
+  "photos": [
+   [
+    "https://experiencetokyo-mirai.com/wp-content/uploads/2025/03/newwall.png",
+    "A family holding their finished manga pages in front of the MANGA DOJO Tokyo sign"
+   ],
+   [
+    "https://experiencetokyo-mirai.com/wp-content/uploads/2025/08/manga2-scaled.jpg",
+    "Pencilling a character's face at the workshop"
+   ],
+   [
+    "https://experiencetokyo-mirai.com/wp-content/uploads/2025/03/S__106881028_0.jpg",
+    "A finished page: a character on the left and a four panel comic on the right"
+   ],
+   [
+    "https://experiencetokyo-mirai.com/wp-content/uploads/2024/07/LINE_ALBUM_Manga-workshop_240708_2.jpg",
+    "A family of four with their teacher, holding their pages"
+   ],
+   [
+    "https://experiencetokyo-mirai.com/wp-content/uploads/2026/08/%E5%89%8D%E5%B7%9D%E3%81%95%E3%82%93%E3%83%97%E3%83%AD%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E6%AD%A3%E6%96%B9%E5%BD%A2.png",
+    "Kazuo Maekawa, head instructor"
+   ]
+  ],
+  "link": [
+   "MANGA DOJO Tokyo, 1 Day Manga Class (official)",
+   "https://experiencetokyo-mirai.com/shibuya/"
+  ]
+ }
 }
