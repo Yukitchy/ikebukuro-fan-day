@@ -211,7 +211,7 @@ footer.wrap{{padding:26px 20px 60px;font-size:13px;color:var(--mute);border-top:
 </div>
 </header>
 <div class="wrap">
-<div class="sechead"><span class="n">1</span><div><b>Pick a course</b> <span>Tap one to see the plan, the route and where we eat.</span></div></div>
+<div class="sechead"><span class="n">1</span><div><b>Pick a course</b> <span>Tap one to see the plan and the route.</span></div></div>
 <div class="menu">{''.join(menu(c) for c in COURSES)}</div>
 {''.join(detail(c) for c in COURSES)}
 <div class="sechead"><span class="n">2</span><div><b>Where we meet</b> <span>{html.escape(PAGE['meet_sub'])}</span></div></div>
