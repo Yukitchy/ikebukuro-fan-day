@@ -6,22 +6,29 @@
 <title>The Hunt List — Check Off What You Want</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,"Hiragino Sans",sans-serif;background:#f7f3ea;color:#221d15}
-  .wrap{max-width:640px;margin:0 auto;padding:28px 20px 56px}
+  body{font-family:-apple-system,"Hiragino Sans",sans-serif;background:#f7f3ea;color:#221d15;padding-bottom:86px}
+  .wrap{max-width:640px;margin:0 auto;padding:28px 20px 40px}
   .kicker{color:#b3312a;font-size:11px;letter-spacing:.22em;font-weight:800}
   h1{font-size:32px;line-height:1.2;margin:8px 0 6px}
   .made{font-size:13px;color:#6d6353}
   .intro{font-size:15.5px;line-height:1.75;margin:16px 0 4px}
   h2{font-size:13px;letter-spacing:.16em;color:#b3312a;margin:32px 0 12px;text-transform:uppercase}
-  .want{background:#fff;border:1px solid #e0d7c3;border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start}
+  .panel{display:none}
+  .panel.on{display:block}
+  .want{background:#fff;border:1px solid #e0d7c3;border-radius:12px;margin-bottom:12px;overflow:hidden}
+  .want img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+  .want .bd{padding:12px 16px 14px;display:flex;gap:12px;align-items:flex-start}
   .box{flex:0 0 24px;height:24px;border:2.5px solid #221d15;border-radius:6px;margin-top:2px}
   .box.on{background:#b3312a;border-color:#b3312a;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px}
   .want b{font-size:15.5px;display:block}
   .want .d{font-size:13px;color:#6d6353;line-height:1.55;margin-top:2px}
-  .want .p{font-size:14px;font-weight:800;margin-top:5px}
+  .want .p{font-size:14.5px;font-weight:800;margin-top:5px}
   .want .p span{color:#b3312a}
+  .want .ex{font-size:12.5px;margin-top:4px}
+  .want .ex a{color:#b3312a;font-weight:700}
+  .more{font-size:13px;margin:2px 0 6px}
+  .more a{color:#b3312a;font-weight:700}
   .asof{font-size:11.5px;color:#8a7f6a}
-  .steps{display:flex;flex-direction:column;gap:0}
   .step{display:flex;gap:12px;padding:11px 0;border-bottom:1px dashed #d8cfb6;font-size:14.5px;line-height:1.6}
   .step:last-child{border-bottom:none}
   .n{flex:0 0 26px;height:26px;border-radius:50%;background:#221d15;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:13px}
@@ -32,7 +39,10 @@
   .btn{display:block;width:100%;margin-top:18px;background:#b3312a;color:#fff;border:none;border-radius:10px;padding:15px;font-size:16px;font-weight:800}
   .honest{font-size:14px;line-height:1.8}
   .honest li{margin:0 0 8px 20px}
-  .foot{font-size:12px;color:#8a7f6a;margin-top:34px}
+  .foot{font-size:12px;color:#8a7f6a;margin-top:32px}
+  .tabbar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:2px solid #221d15;display:flex;z-index:10}
+  .tabbar button{flex:1;background:none;border:none;color:#6d6353;font-size:13.5px;font-weight:700;padding:16px 4px 20px;cursor:pointer}
+  .tabbar button.on{color:#b3312a;box-shadow:inset 0 3px 0 #b3312a}
 </style>
 </head>
 <body>
@@ -40,22 +50,37 @@
   <div class="kicker">ANIME SENSEI · PERSONAL SHOPPING</div>
   <h1>The Hunt List</h1>
   <div class="made">Made for the Ferrucho family · your Ikebukuro day, Sun Dec 20 · guide: Yuuki</div>
-  <p class="intro">Nicholas already told us what he loves. Before the tour, check off the hunts below — or add your own — and we will check the real price on <b>Mercari</b>, Japan's biggest second-hand marketplace, and buy it for you only with your approval. Hand-over is on Dec 20.</p>
+  <p class="intro">Nicholas already told us what he loves. Browse the catalogue with the tabs at the bottom — every item has a real Mercari photo and price — then send us your list with a max budget. We buy only with your approval, and hand it over on Dec 20.</p>
 
-  <h2>The hunts — with real Mercari prices</h2>
-  <div class="want"><div class="box on">✓</div><div><b>Charizard ex SAR — Pokémon Card 151 (Japanese)</b><div class="d">The big one from the 151 set. Raw copies move fast; graded ones hold value.</div><div class="p">Raw <span>¥35,000–70,000</span> · PSA 10 from <span>¥93,000</span></div></div></div>
-  <div class="want"><div class="box on">✓</div><div><b>Monkey D. Luffy SEC OP05-119 — One Piece Card (Japanese)</b><div class="d">Gear 5 Luffy. The standard secret is a bargain; the parallel art is the collector version.</div><div class="p">From <span>¥1,000</span> · Secret Parallel <span>¥9,000–25,000</span></div></div></div>
-  <div class="want"><div class="box"></div><div><b>Pokémon Red — Game Boy, 1996 (boxed)</b><div class="d">The original, with box and manual. Cartridge-only copies are much cheaper.</div><div class="p">Boxed <span>¥7,000–18,500</span> · cartridge from <span>¥1,800</span></div></div></div>
-  <div class="want"><div class="box"></div><div><b>Your own hunt</b><div class="d">Blue Lock goods, figures, gachapon, manga art supplies — write it in the form below.</div><div class="p">We price it and report back</div></div></div>
-  <div class="asof">Real listings checked Nov 19, 2026. Prices move daily — the price we send you is always the live one.</div>
+  <h2 id="catalogue">The catalogue — checked Nov 19, 2026</h2>
+
+  <div class="panel on" id="panel-cards">
+    <div class="want"><img src="https://static.mercdn.net/item/detail/orig/photos/m36425879874_1.jpg" alt="Charizard ex SAR card"><div class="bd"><div class="box on">✓</div><div><b>Charizard ex SAR — Pokémon Card 151</b><div class="d">The big one from the 151 set. Raw copies move fast; graded ones hold value.</div><div class="p">Raw <span>¥35,000–70,000</span> · PSA 10 from <span>¥93,000</span></div><div class="ex">Live example ¥40,200 — <a href="https://jp.mercari.com/item/m36425879874">view listing</a></div></div></div></div>
+    <div class="want"><img src="https://static.mercdn.net/item/detail/orig/photos/m14043988340_1.jpg" alt="Luffy SEC card"><div class="bd"><div class="box on">✓</div><div><b>Luffy SEC OP05-119 — One Piece Card</b><div class="d">Gear 5 Luffy. The standard secret is a bargain; the parallel art is the collector version.</div><div class="p">From <span>¥1,000</span> · Parallel <span>¥9,000–25,000</span></div><div class="ex">Live example ¥3,300 — <a href="https://jp.mercari.com/item/m14043988340">view listing</a></div></div></div></div>
+    <div class="want"><img src="https://static.mercdn.net/item/detail/orig/photos/m17630640437_1.jpg" alt="Pokémon Card 151 sealed box"><div class="bd"><div class="box"></div><div><b>Pokémon Card 151 — Sealed Box</b><div class="d">Shrink-wrapped Japanese box. Open it together on the day, or keep it sealed.</div><div class="p"><span>¥39,000–60,000</span></div><div class="ex">Live example ¥39,800 — <a href="https://jp.mercari.com/item/m17630640437">view listing</a></div></div></div></div>
+    <div class="more">More: <a href="https://jp.mercari.com/search?keyword=%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%82%AB%E3%83%BC%E3%83%89%20151%20%E3%83%AA%E3%82%B6%E3%83%BC%E3%83%89%E3%83%B3ex%20SAR">Charizard</a> · <a href="https://jp.mercari.com/search?keyword=%E3%83%AF%E3%83%B3%E3%83%94%E3%83%BC%E3%82%B9%E3%82%AB%E3%83%BC%E3%83%89%20%E3%83%AB%E3%83%95%E3%82%A3%20%E3%82%B7%E3%83%BC%E3%82%AF%E3%83%AC%E3%83%83%E3%83%88%20OP05">Luffy SEC</a> · <a href="https://jp.mercari.com/search?keyword=%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%82%AB%E3%83%BC%E3%83%89%20151%20BOX%20%E6%9C%AA%E9%96%8B%E5%B0%81%20%E3%82%B7%E3%83%A5%E3%83%AA%E3%83%B3%E3%82%AF%E4%BB%98%E3%81%8D">151 boxes</a> on Mercari</div>
+  </div>
+
+  <div class="panel" id="panel-figures">
+    <div class="want"><img src="https://static.mercdn.net/item/detail/orig/photos/m25932299194_1.jpg" alt="Luffy Gear 5 figure"><div class="bd"><div class="box on">✓</div><div><b>Luffy Gear 5 — P.O.P WA-MAXIMUM</b><div class="d">MegaHouse's flagship One Piece line. Big, heavy, boxed.</div><div class="p"><span>¥13,000–28,000</span></div><div class="ex">Live example ¥13,500 — <a href="https://jp.mercari.com/item/m25932299194">view listing</a></div></div></div></div>
+    <div class="want"><img src="https://static.mercdn.net/item/detail/orig/photos/m48700980297_1.jpg" alt="Zoro Asura figure"><div class="bd"><div class="box"></div><div><b>Zoro “Asura” — P.O.P WA-MAXIMUM</b><div class="d">The nine-sword pose. One of the most wanted Zoro figures.</div><div class="p"><span>¥19,000–30,000</span></div><div class="ex">Live example ¥19,400 — <a href="https://jp.mercari.com/item/m48700980297">view listing</a></div></div></div></div>
+    <div class="want"><img src="https://static.mercdn.net/item/detail/orig/photos/m69113118184_1.jpg" alt="Nagi Seishiro Nendoroid"><div class="bd"><div class="box"></div><div><b>Nagi Seishiro — Nendoroid 2056</b><div class="d">Blue Lock's genius striker, pocket-size. Prize figures are the budget route.</div><div class="p">Nendoroid <span>¥6,600</span> · prize <span>¥1,100–3,800</span></div><div class="ex">Live example ¥6,666 — <a href="https://jp.mercari.com/item/m69113118184">view listing</a></div></div></div></div>
+    <div class="more">More: <a href="https://jp.mercari.com/search?keyword=%E3%83%AF%E3%83%B3%E3%83%94%E3%83%BC%E3%82%B9%20%E3%83%AB%E3%83%95%E3%82%A3%20%E3%82%AE%E3%82%A25%20%E3%83%95%E3%82%A3%E3%82%AE%E3%83%A5%E3%82%A2%20POP">Gear 5</a> · <a href="https://jp.mercari.com/search?keyword=%E3%83%AF%E3%83%B3%E3%83%94%E3%83%BC%E3%82%B9%20%E3%82%BE%E3%83%AD%20%E3%83%95%E3%82%A3%E3%82%AE%E3%83%A5%E3%82%A2%20POP%20MAXIMUM">Zoro</a> · <a href="https://jp.mercari.com/search?keyword=%E3%83%96%E3%83%AB%E3%83%BC%E3%83%AD%E3%83%83%E3%82%AF%20%E5%87%AA%E8%AA%A0%E5%A3%AB%E9%83%8E%20%E3%83%95%E3%82%A3%E3%82%AE%E3%83%A5%E3%82%A2">Blue Lock</a> on Mercari</div>
+  </div>
+
+  <div class="panel" id="panel-retro">
+    <div class="want"><img src="https://static.mercdn.net/item/detail/orig/photos/m75254338953_1.jpg" alt="Pokémon Red boxed"><div class="bd"><div class="box on">✓</div><div><b>Pokémon Red — Game Boy, 1996</b><div class="d">The original, boxed with manual. Cartridge-only copies are much cheaper.</div><div class="p">Boxed <span>¥7,000–18,500</span> · cart. from <span>¥1,800</span></div><div class="ex">Live example ¥9,500 — <a href="https://jp.mercari.com/item/m75254338953">view listing</a></div></div></div></div>
+    <div class="want"><img src="https://static.mercdn.net/item/detail/orig/photos/m84542502513_1.jpg" alt="Pokémon Crystal boxed"><div class="bd"><div class="box"></div><div><b>Pokémon Crystal — Game Boy Color</b><div class="d">The enhanced Gold/Silver, boxed complete. The collector favourite of the three.</div><div class="p">Boxed <span>¥9,000–18,000</span> · cart. from <span>¥2,900</span></div><div class="ex">Live example ¥14,599 — <a href="https://jp.mercari.com/item/m84542502513">view listing</a></div></div></div></div>
+    <div class="want"><img src="https://static.mercdn.net/item/detail/orig/photos/m35783849029_1.jpg" alt="Game Boy Color clear"><div class="bd"><div class="box"></div><div><b>Game Boy Color — Clear</b><div class="d">The see-through shell, tested working. You need one to play the cartridges above.</div><div class="p"><span>¥6,500–13,000</span></div><div class="ex">Live example ¥8,480 — <a href="https://jp.mercari.com/item/m35783849029">view listing</a></div></div></div></div>
+    <div class="more">More: <a href="https://jp.mercari.com/search?keyword=%E3%83%9D%E3%82%B1%E3%83%83%E3%83%88%E3%83%A2%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%BC%20%E8%B5%A4%20%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%9C%E3%83%BC%E3%82%A4%20%E7%AE%B1%E4%BB%98%E3%81%8D">Pokémon Red</a> · <a href="https://jp.mercari.com/search?keyword=%E3%83%9D%E3%82%B1%E3%83%83%E3%83%88%E3%83%A2%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%BC%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%82%BF%E3%83%AB%20%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%9C%E3%83%BC%E3%82%A4%20%E7%AE%B1%E4%BB%98%E3%81%8D">Crystal</a> · <a href="https://jp.mercari.com/search?keyword=%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%9C%E3%83%BC%E3%82%A4%E3%82%AB%E3%83%A9%E3%83%BC%20%E6%9C%AC%E4%BD%93%20%E3%82%AF%E3%83%AA%E3%82%A2">Game Boy Color</a> on Mercari</div>
+  </div>
+  <div class="asof">Prices move daily — the price we send you is always the live one.</div>
 
   <h2>How it works</h2>
-  <div class="steps">
-    <div class="step"><div class="n">1</div><p><b>Tell us</b> the item and your max budget in the form below.</p></div>
-    <div class="step"><div class="n">2</div><p><b>We send the exact listing</b> — link, photos and the full total (price + domestic shipping).</p></div>
-    <div class="step"><div class="n">3</div><p><b>You approve &amp; pay</b> by secure card link. Nothing is bought before your OK.</p></div>
-    <div class="step"><div class="n">4</div><p><b>We buy it</b> and hand it over on Dec 20. Sold out? We say so — never a silent substitute.</p></div>
-  </div>
+  <div class="step"><div class="n">1</div><p><b>Tell us</b> the item and your max budget in the form below.</p></div>
+  <div class="step"><div class="n">2</div><p><b>We send the exact listing</b> — link, photos and the full total (price + domestic shipping).</p></div>
+  <div class="step"><div class="n">3</div><p><b>You approve &amp; pay</b> by secure card link. Nothing is bought before your OK.</p></div>
+  <div class="step"><div class="n">4</div><p><b>We buy it</b> and hand it over on Dec 20. Sold out? We say so — never a silent substitute.</p></div>
 
   <h2>Send us the hunt list</h2>
   <div class="form">
@@ -75,5 +100,19 @@
   </ul>
   <div class="foot">Questions? Message Yuuki any time. See you on Dec 20.</div>
 </div>
+
+<nav class="tabbar">
+  <button class="on" data-cat="cards" onclick="go('cards')">Cards</button>
+  <button data-cat="figures" onclick="go('figures')">Figures</button>
+  <button data-cat="retro" onclick="go('retro')">Retro Games</button>
+</nav>
+<script>
+function go(cat){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('panel-'+cat).classList.add('on');
+  document.querySelectorAll('.tabbar button').forEach(b=>b.classList.toggle('on', b.dataset.cat===cat));
+  document.getElementById('catalogue').scrollIntoView({behavior:'smooth'});
+}
+</script>
 </body>
 </html>

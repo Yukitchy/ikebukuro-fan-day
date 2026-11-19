@@ -6,30 +6,34 @@
 <title>The Hunt List — Real Mercari Prices</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,"Hiragino Sans",sans-serif;background:#eef0f4;color:#141a26}
+  body{font-family:-apple-system,"Hiragino Sans",sans-serif;background:#eef0f4;color:#141a26;padding-bottom:84px}
   .hero{background:#14213d;color:#fff;padding:30px 20px 26px}
   .hero .in{max-width:640px;margin:0 auto}
   .kicker{color:#fca311;font-size:11px;letter-spacing:.22em;font-weight:800}
   h1{font-size:31px;line-height:1.2;margin:8px 0 6px}
   .made{font-size:13px;color:#b9c2d4}
   .hero p{font-size:15.5px;line-height:1.75;margin-top:14px;color:#e6eaf2}
-  .wrap{max-width:640px;margin:0 auto;padding:24px 20px 56px}
+  .wrap{max-width:640px;margin:0 auto;padding:24px 20px 40px}
   h2{font-size:13px;letter-spacing:.16em;color:#14213d;margin:30px 0 12px;text-transform:uppercase}
-  .board{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 14px rgba(20,33,61,.08)}
-  .row{display:flex;justify-content:space-between;gap:14px;padding:16px;border-bottom:1px solid #edf0f5}
-  .row:last-child{border-bottom:none}
+  .panel{display:none}
+  .panel.on{display:block}
+  .item{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 14px rgba(20,33,61,.08);margin-bottom:12px}
+  .item img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+  .item .bd{padding:13px 16px 15px;display:flex;justify-content:space-between;gap:12px}
   .item b{font-size:15.5px;display:block}
-  .item span{font-size:12.5px;color:#67707f}
+  .item .s{font-size:12.5px;color:#67707f}
+  .item .ex{font-size:12.5px;margin-top:7px}
+  .item .ex a{color:#b8860b;font-weight:700}
   .pr{text-align:right}
-  .pr .big{font-size:17px;font-weight:800;color:#14213d;white-space:nowrap}
-  .pr .small{font-size:12px;color:#67707f;white-space:nowrap}
-  .asof{font-size:11.5px;color:#8a93a3;margin-top:8px}
+  .pr .big{font-size:16.5px;font-weight:800;color:#14213d;white-space:nowrap}
+  .pr .small{font-size:11.5px;color:#67707f;white-space:nowrap}
+  .more{font-size:13px;margin:2px 0 6px}
+  .more a{color:#14213d;font-weight:700}
+  .asof{font-size:11.5px;color:#8a93a3;margin-top:6px}
   .steps{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .st{background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 10px rgba(20,33,61,.06)}
   .st .n{color:#fca311;font-weight:800;font-size:13px}
   .st p{font-size:13.5px;line-height:1.6;margin-top:4px}
-  .chips{display:flex;flex-wrap:wrap;gap:8px}
-  .chip{background:#14213d;color:#fff;border-radius:999px;padding:6px 13px;font-size:13px;font-weight:600}
   .form{background:#fff;border-radius:14px;padding:18px;box-shadow:0 2px 14px rgba(20,33,61,.08)}
   .form label{display:block;font-size:11.5px;font-weight:700;letter-spacing:.05em;margin:14px 0 5px;color:#67707f}
   .form label:first-child{margin-top:0}
@@ -37,7 +41,10 @@
   .btn{display:block;width:100%;margin-top:18px;background:#fca311;color:#14213d;border:none;border-radius:10px;padding:15px;font-size:16px;font-weight:800}
   .honest{font-size:14px;line-height:1.8;color:#333c4d}
   .honest li{margin:0 0 8px 20px}
-  .foot{font-size:12px;color:#8a93a3;margin-top:34px}
+  .foot{font-size:12px;color:#8a93a3;margin-top:32px}
+  .tabbar{position:fixed;left:0;right:0;bottom:0;background:#14213d;display:flex;z-index:10}
+  .tabbar button{flex:1;background:none;border:none;color:#8fa0bd;font-size:13.5px;font-weight:700;padding:16px 4px 20px;cursor:pointer}
+  .tabbar button.on{color:#14213d;background:#fca311}
 </style>
 </head>
 <body>
@@ -45,14 +52,30 @@
   <div class="kicker">ANIME SENSEI · PERSONAL SHOPPING</div>
   <h1>The Hunt List</h1>
   <div class="made">Made for the Ferrucho family · your Ikebukuro day, Sun Dec 20 · guide: Yuuki</div>
-  <p>Tell us what Nicholas is hunting for <b>before</b> the tour. We check the real price on Mercari — Japan's biggest second-hand marketplace — send you the exact listing, and buy it only with your approval. You receive it on Dec 20.</p>
+  <p>Tell us what Nicholas is hunting for <b>before</b> the tour. We check the real price on Mercari — Japan's biggest second-hand marketplace — send you the exact listing, and buy it only with your approval. Switch categories with the tabs at the bottom.</p>
 </div></div>
 <div class="wrap">
-  <h2>Real Mercari prices — checked Nov 19, 2026</h2>
-  <div class="board">
-    <div class="row"><div class="item"><b>Charizard ex SAR</b><span>Pokémon Card 151 · Japanese</span></div><div class="pr"><div class="big">¥35,000–70,000</div><div class="small">PSA 10 from ¥93,000</div></div></div>
-    <div class="row"><div class="item"><b>Monkey D. Luffy SEC</b><span>One Piece Card OP05-119 · Japanese</span></div><div class="pr"><div class="big">from ¥1,000</div><div class="small">Secret Parallel ¥9,000–25,000</div></div></div>
-    <div class="row"><div class="item"><b>Pokémon Red</b><span>Game Boy · 1996 · boxed</span></div><div class="pr"><div class="big">¥7,000–18,500</div><div class="small">cartridge only from ¥1,800</div></div></div>
+  <h2 id="catalogue">Catalogue — checked Nov 19, 2026</h2>
+
+  <div class="panel on" id="panel-cards">
+    <div class="item"><img src="https://static.mercdn.net/item/detail/orig/photos/m36425879874_1.jpg" alt="Charizard ex SAR card"><div class="bd"><div><b>Charizard ex SAR</b><span class="s">Pokémon Card 151 · Japanese</span><div class="ex">Live example ¥40,200 — <a href="https://jp.mercari.com/item/m36425879874">view listing</a></div></div><div class="pr"><div class="big">¥35,000–70,000</div><div class="small">PSA 10 from ¥93,000</div></div></div></div>
+    <div class="item"><img src="https://static.mercdn.net/item/detail/orig/photos/m14043988340_1.jpg" alt="Luffy SEC card"><div class="bd"><div><b>Monkey D. Luffy SEC</b><span class="s">One Piece Card OP05-119 · Japanese</span><div class="ex">Live example ¥3,300 — <a href="https://jp.mercari.com/item/m14043988340">view listing</a></div></div><div class="pr"><div class="big">from ¥1,000</div><div class="small">Parallel ¥9,000–25,000</div></div></div></div>
+    <div class="item"><img src="https://static.mercdn.net/item/detail/orig/photos/m17630640437_1.jpg" alt="Pokémon Card 151 sealed box"><div class="bd"><div><b>Pokémon Card 151 Box</b><span class="s">Sealed, shrink-wrapped · Japanese</span><div class="ex">Live example ¥39,800 — <a href="https://jp.mercari.com/item/m17630640437">view listing</a></div></div><div class="pr"><div class="big">¥39,000–60,000</div><div class="small">unopened only</div></div></div></div>
+    <div class="more">More: <a href="https://jp.mercari.com/search?keyword=%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%82%AB%E3%83%BC%E3%83%89%20151%20%E3%83%AA%E3%82%B6%E3%83%BC%E3%83%89%E3%83%B3ex%20SAR">Charizard</a> · <a href="https://jp.mercari.com/search?keyword=%E3%83%AF%E3%83%B3%E3%83%94%E3%83%BC%E3%82%B9%E3%82%AB%E3%83%BC%E3%83%89%20%E3%83%AB%E3%83%95%E3%82%A3%20%E3%82%B7%E3%83%BC%E3%82%AF%E3%83%AC%E3%83%83%E3%83%88%20OP05">Luffy SEC</a> · <a href="https://jp.mercari.com/search?keyword=%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%82%AB%E3%83%BC%E3%83%89%20151%20BOX%20%E6%9C%AA%E9%96%8B%E5%B0%81%20%E3%82%B7%E3%83%A5%E3%83%AA%E3%83%B3%E3%82%AF%E4%BB%98%E3%81%8D">151 boxes</a> on Mercari</div>
+  </div>
+
+  <div class="panel" id="panel-figures">
+    <div class="item"><img src="https://static.mercdn.net/item/detail/orig/photos/m25932299194_1.jpg" alt="Luffy Gear 5 figure"><div class="bd"><div><b>Luffy Gear 5 P.O.P</b><span class="s">WA-MAXIMUM · MegaHouse</span><div class="ex">Live example ¥13,500 — <a href="https://jp.mercari.com/item/m25932299194">view listing</a></div></div><div class="pr"><div class="big">¥13,000–28,000</div><div class="small">boxed</div></div></div></div>
+    <div class="item"><img src="https://static.mercdn.net/item/detail/orig/photos/m48700980297_1.jpg" alt="Zoro Asura figure"><div class="bd"><div><b>Zoro “Asura” P.O.P</b><span class="s">WA-MAXIMUM · MegaHouse</span><div class="ex">Live example ¥19,400 — <a href="https://jp.mercari.com/item/m48700980297">view listing</a></div></div><div class="pr"><div class="big">¥19,000–30,000</div><div class="small">boxed</div></div></div></div>
+    <div class="item"><img src="https://static.mercdn.net/item/detail/orig/photos/m69113118184_1.jpg" alt="Nagi Seishiro Nendoroid"><div class="bd"><div><b>Nagi Seishiro Nendoroid</b><span class="s">No. 2056 · Blue Lock</span><div class="ex">Live example ¥6,666 — <a href="https://jp.mercari.com/item/m69113118184">view listing</a></div></div><div class="pr"><div class="big">¥6,600</div><div class="small">prize figs ¥1,100–3,800</div></div></div></div>
+    <div class="more">More: <a href="https://jp.mercari.com/search?keyword=%E3%83%AF%E3%83%B3%E3%83%94%E3%83%BC%E3%82%B9%20%E3%83%AB%E3%83%95%E3%82%A3%20%E3%82%AE%E3%82%A25%20%E3%83%95%E3%82%A3%E3%82%AE%E3%83%A5%E3%82%A2%20POP">Gear 5</a> · <a href="https://jp.mercari.com/search?keyword=%E3%83%AF%E3%83%B3%E3%83%94%E3%83%BC%E3%82%B9%20%E3%82%BE%E3%83%AD%20%E3%83%95%E3%82%A3%E3%82%AE%E3%83%A5%E3%82%A2%20POP%20MAXIMUM">Zoro</a> · <a href="https://jp.mercari.com/search?keyword=%E3%83%96%E3%83%AB%E3%83%BC%E3%83%AD%E3%83%83%E3%82%AF%20%E5%87%AA%E8%AA%A0%E5%A3%AB%E9%83%8E%20%E3%83%95%E3%82%A3%E3%82%AE%E3%83%A5%E3%82%A2">Blue Lock</a> on Mercari</div>
+  </div>
+
+  <div class="panel" id="panel-retro">
+    <div class="item"><img src="https://static.mercdn.net/item/detail/orig/photos/m75254338953_1.jpg" alt="Pokémon Red boxed"><div class="bd"><div><b>Pokémon Red</b><span class="s">Game Boy · 1996 · boxed</span><div class="ex">Live example ¥9,500 — <a href="https://jp.mercari.com/item/m75254338953">view listing</a></div></div><div class="pr"><div class="big">¥7,000–18,500</div><div class="small">cart. only from ¥1,800</div></div></div></div>
+    <div class="item"><img src="https://static.mercdn.net/item/detail/orig/photos/m84542502513_1.jpg" alt="Pokémon Crystal boxed"><div class="bd"><div><b>Pokémon Crystal</b><span class="s">Game Boy Color · boxed</span><div class="ex">Live example ¥14,599 — <a href="https://jp.mercari.com/item/m84542502513">view listing</a></div></div><div class="pr"><div class="big">¥9,000–18,000</div><div class="small">cart. from ¥2,900</div></div></div></div>
+    <div class="item"><img src="https://static.mercdn.net/item/detail/orig/photos/m35783849029_1.jpg" alt="Game Boy Color clear"><div class="bd"><div><b>Game Boy Color</b><span class="s">Clear shell · tested working</span><div class="ex">Live example ¥8,480 — <a href="https://jp.mercari.com/item/m35783849029">view listing</a></div></div><div class="pr"><div class="big">¥6,500–13,000</div><div class="small">console only</div></div></div></div>
+    <div class="more">More: <a href="https://jp.mercari.com/search?keyword=%E3%83%9D%E3%82%B1%E3%83%83%E3%83%88%E3%83%A2%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%BC%20%E8%B5%A4%20%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%9C%E3%83%BC%E3%82%A4%20%E7%AE%B1%E4%BB%98%E3%81%8D">Pokémon Red</a> · <a href="https://jp.mercari.com/search?keyword=%E3%83%9D%E3%82%B1%E3%83%83%E3%83%88%E3%83%A2%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%BC%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%82%BF%E3%83%AB%20%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%9C%E3%83%BC%E3%82%A4%20%E7%AE%B1%E4%BB%98%E3%81%8D">Crystal</a> · <a href="https://jp.mercari.com/search?keyword=%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%9C%E3%83%BC%E3%82%A4%E3%82%AB%E3%83%A9%E3%83%BC%20%E6%9C%AC%E4%BD%93%20%E3%82%AF%E3%83%AA%E3%82%A2">Game Boy Color</a> on Mercari</div>
   </div>
   <div class="asof">Prices move daily — the price we send you is always the live one.</div>
 
@@ -63,9 +86,6 @@
     <div class="st"><div class="n">STEP 3</div><p><b>You approve &amp; pay</b> by secure card link. Nothing is bought before your OK.</p></div>
     <div class="st"><div class="n">STEP 4</div><p><b>We buy it</b> and hand it over on Dec 20. Sold out? We say so — never a silent substitute.</p></div>
   </div>
-
-  <h2>From Nicholas's list</h2>
-  <div class="chips"><span class="chip">One Piece</span><span class="chip">Blue Lock</span><span class="chip">Pokémon cards</span><span class="chip">Retro games</span><span class="chip">Figures</span><span class="chip">Gachapon</span><span class="chip">Manga art supplies</span></div>
 
   <h2>Send us the hunt list</h2>
   <div class="form">
@@ -85,5 +105,19 @@
   </ul>
   <div class="foot">Questions? Message Yuuki any time. See you on Dec 20.</div>
 </div>
+
+<nav class="tabbar">
+  <button class="on" data-cat="cards" onclick="go('cards')">Cards</button>
+  <button data-cat="figures" onclick="go('figures')">Figures</button>
+  <button data-cat="retro" onclick="go('retro')">Retro Games</button>
+</nav>
+<script>
+function go(cat){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('panel-'+cat).classList.add('on');
+  document.querySelectorAll('.tabbar button').forEach(b=>b.classList.toggle('on', b.dataset.cat===cat));
+  document.getElementById('catalogue').scrollIntoView({behavior:'smooth'});
+}
+</script>
 </body>
 </html>
