@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Hunt List — Arcade Edition</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Hiragino Sans",sans-serif;background:#0d0d12;color:#e8e8f0}
+  .wrap{max-width:640px;margin:0 auto;padding:28px 20px 56px}
+  .kicker{color:#ff3860;font-size:11px;letter-spacing:.24em;font-weight:800}
+  h1{font-size:34px;line-height:1.15;margin:8px 0 6px;text-shadow:0 0 18px rgba(255,56,96,.45)}
+  .made{font-size:13px;color:#9a9ab0}
+  .intro{font-size:15.5px;line-height:1.8;margin:16px 0 4px;color:#c9c9da}
+  h2{font-size:12.5px;letter-spacing:.18em;color:#00e5ff;margin:32px 0 12px;text-transform:uppercase}
+  .card{background:#16161f;border:1px solid #2a2a3a;border-radius:12px;padding:16px;margin-bottom:10px}
+  .card b{font-size:16px;display:block}
+  .card .s{font-size:12.5px;color:#9a9ab0;margin-top:2px}
+  .card .p{margin-top:9px;font-size:19px;font-weight:800;color:#ffe95e}
+  .card .p small{font-size:12px;color:#9a9ab0;font-weight:600}
+  .asof{font-size:11.5px;color:#6d6d85}
+  .steps{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .st{background:#16161f;border:1px solid #2a2a3a;border-radius:12px;padding:14px}
+  .st .n{color:#ff3860;font-weight:800;font-size:12px;letter-spacing:.1em}
+  .st p{font-size:13.5px;line-height:1.6;margin-top:4px;color:#c9c9da}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{border:1.5px solid #00e5ff;color:#00e5ff;border-radius:999px;padding:6px 13px;font-size:13px;font-weight:700}
+  .form{background:#16161f;border:1px solid #2a2a3a;border-radius:12px;padding:18px}
+  .form label{display:block;font-size:11.5px;font-weight:700;letter-spacing:.05em;margin:14px 0 5px;color:#9a9ab0}
+  .form label:first-child{margin-top:0}
+  .form input,.form textarea{width:100%;border:1px solid #2a2a3a;border-radius:8px;padding:11px;font-size:15px;background:#0d0d12;color:#e8e8f0}
+  .btn{display:block;width:100%;margin-top:18px;background:#ff3860;color:#fff;border:none;border-radius:10px;padding:15px;font-size:16px;font-weight:800}
+  .honest{font-size:14px;line-height:1.8;color:#c9c9da}
+  .honest li{margin:0 0 8px 20px}
+  .foot{font-size:12px;color:#6d6d85;margin-top:34px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">ANIME SENSEI · PERSONAL SHOPPING</div>
+  <h1>The Hunt List</h1>
+  <div class="made">Made for the Ferrucho family · your Ikebukuro day, Sun Dec 20 · guide: Yuuki</div>
+  <p class="intro">Rare Japanese cards and retro games don't sit in shop windows — they live on <b>Mercari</b>, Japan's biggest second-hand marketplace. Tell us the target before the tour, we check the live price, and we buy it only with your approval. Hand-over on Dec 20.</p>
+
+  <h2>Price check — live Mercari, Nov 19 2026</h2>
+  <div class="card"><b>Charizard ex SAR</b><div class="s">Pokémon Card 151 · Japanese</div><div class="p">¥35,000–70,000 <small>raw · PSA 10 from ¥93,000</small></div></div>
+  <div class="card"><b>Monkey D. Luffy SEC OP05-119</b><div class="s">One Piece Card · Japanese</div><div class="p">from ¥1,000 <small>· Secret Parallel ¥9,000–25,000</small></div></div>
+  <div class="card"><b>Pokémon Red</b><div class="s">Game Boy · 1996 · boxed</div><div class="p">¥7,000–18,500 <small>· cartridge only from ¥1,800</small></div></div>
+  <div class="asof">Prices move daily — the price we send you is always the live one.</div>
+
+  <h2>How it works</h2>
+  <div class="steps">
+    <div class="st"><div class="n">STEP 1</div><p><b>Tell us</b> the item and your max budget in the form below.</p></div>
+    <div class="st"><div class="n">STEP 2</div><p><b>We send the exact listing</b> — link, photos, full total.</p></div>
+    <div class="st"><div class="n">STEP 3</div><p><b>You approve &amp; pay</b> by secure card link. No OK, no buy.</p></div>
+    <div class="st"><div class="n">STEP 4</div><p><b>We buy it</b> and hand it over on Dec 20.</p></div>
+  </div>
+
+  <h2>From Nicholas's list</h2>
+  <div class="chips"><span class="chip">One Piece</span><span class="chip">Blue Lock</span><span class="chip">Pokémon cards</span><span class="chip">Retro games</span><span class="chip">Figures</span><span class="chip">Gachapon</span><span class="chip">Manga art supplies</span></div>
+
+  <h2>Send us the hunt list</h2>
+  <div class="form">
+    <label>ITEM YOU WANT</label><input placeholder="e.g. Charizard ex SAR, Pokémon Card 151">
+    <label>SERIES / TITLE</label><input placeholder="e.g. One Piece Card, Game Boy games">
+    <label>MAX BUDGET (¥)</label><input placeholder="e.g. 50,000">
+    <label>SECOND-HAND OK?</label><input placeholder="Yes / Only graded / Only sealed">
+    <label>NOTES</label><textarea rows="3" placeholder="Anything that helps us find the right one"></textarea>
+    <button class="btn">Send the hunt list</button>
+  </div>
+
+  <h2>The honest part</h2>
+  <ul class="honest">
+    <li>Mercari is second-hand. Condition varies, so we always send photos of the exact listing before buying.</li>
+    <li>No service fee for our tour guests — you pay the item price plus domestic shipping (usually ¥200–700).</li>
+    <li>Popular items sell fast. The sooner the list reaches us, the better the chance.</li>
+  </ul>
+  <div class="foot">Questions? Message Yuuki any time. See you on Dec 20.</div>
+</div>
+</body>
+</html>
