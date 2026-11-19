@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#FF0211">
+<title>The Hunt List — for the Ferrucho family</title>
+<link rel="stylesheet" href="base.css">
+<style>
+body{background:var(--bg)}
+.app{max-width:560px;margin:0 auto;background:#fff;min-height:100vh;padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+.head{background:var(--red);color:#fff;padding:12px 12px 14px;position:sticky;top:0;z-index:5}
+.head .row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.head h1{font-size:20px;letter-spacing:-.01em}
+.head small{font-size:12px;opacity:.9}
+.search{display:flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:8px;background:#fff;color:var(--sub);font-size:15px}
+.search svg{width:18px;height:18px;fill:none;stroke:#666;stroke-width:2}
+.hello{padding:16px 12px;font-size:14px}
+.hello b{display:block;font-size:17px;margin-bottom:4px}
+#tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:4px 12px 16px}
+.tab{display:grid;justify-items:center;gap:6px;font-size:13px;color:var(--sub)}
+.tab i{width:64px;height:64px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 1px var(--line);display:block}
+.tab i img{width:100%;height:100%;object-fit:cover}
+.tab.on{color:var(--ink);font-weight:700}
+.tab.on i{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--red)}
+.banner{margin:0 12px 20px;border-radius:12px;padding:14px 16px;background:#fff0f0;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center}
+.banner b{width:48px;height:48px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-size:13px}
+.banner p{font-size:14px}
+.feedhead{display:flex;justify-content:space-between;align-items:baseline;padding:0 12px 10px}
+.feedhead h2{font-size:17px}
+.feedhead small{font-size:12px;color:var(--sub)}
+.feed{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.cell{min-width:0}
+.ph{position:relative;aspect-ratio:1;background:#eee;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover}
+.cell h3{font-size:12px;font-weight:400;line-height:1.4;padding:6px 6px 14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ranges{margin:4px 12px 0;border:1px solid var(--line);border-radius:8px;font-size:13px}
+.ranges div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:10px;padding:10px 12px;border-top:1px solid var(--line)}
+.ranges div:first-child{border-top:0}
+.ranges span:last-child{color:var(--sub)}
+@media (max-width:359px){.pill{font-size:13px}.tab i{width:56px;height:56px}.ranges div{grid-template-columns:1fr}}
+.sec{padding:24px 12px;border-top:8px solid var(--bg);margin-top:20px}
+.sec+.sec{margin-top:0}
+.sec h2{font-size:17px;margin-bottom:14px}
+.steps b{background:var(--red)}
+.honest{font-size:14px}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:#fff;border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.tabbar nav{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);align-items:end}
+.tabbar a{display:grid;justify-items:center;gap:2px;padding:8px 0 6px;font-size:12px;color:#555}
+.tabbar svg{width:24px;height:24px;fill:none;stroke:#333;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+.tabbar a.on{color:var(--red);font-weight:700}
+.tabbar a.on svg{stroke:var(--red);fill:var(--red)}
+.tabbar .fab span{width:48px;height:48px;margin-top:-18px;border-radius:50%;background:var(--red);display:grid;place-items:center;box-shadow:0 2px 8px rgba(255,2,17,.35)}
+.tabbar .fab svg{stroke:#fff}
+</style>
+</head>
+<body>
+<div class="app" id="top">
+  <header class="head">
+    <div class="row"><h1>The Hunt List</h1><small>Ikebukuro · Dec 20</small></div>
+    <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>What should we find for you?</div>
+  </header>
+
+  <div class="hello"><b>Hi, Ferrucho family</b><span data-slot="intro"></span></div>
+  <div id="tabs"></div>
+  <div class="banner"><b>¥0</b><p data-slot="fee"></p></div>
+
+  <div class="feedhead" id="items"><h2 id="feedtitle">Picked for Nicholas</h2><small>Nov 19, 2026</small></div>
+  <div class="feed" id="feed"></div>
+  <div class="ranges" id="ranges"></div>
+
+  <section class="sec" id="how"><h2>How it works</h2><div data-slot="steps"></div></section>
+  <section class="sec" id="honest"><h2>The honest part</h2><div data-slot="honest"></div></section>
+  <section class="sec" id="ask"><h2>Send the hunt list</h2><div data-slot="form"></div></section>
+</div>
+
+<div class="tabbar"><nav>
+  <a href="#top" class="on"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg>Home</a>
+  <a href="#items"><svg viewBox="0 0 24 24"><path d="M12 20.3s-7.6-4.6-9.3-9.2C1.6 8 3.4 4.6 6.8 4.3c2.1-.2 3.9 1 5.2 2.8 1.3-1.8 3.1-3 5.2-2.8 3.4.3 5.2 3.7 4.1 6.8-1.7 4.6-9.3 9.2-9.3 9.2z"/></svg>Picks</a>
+  <a href="#ask" class="fab"><span><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>Ask</a>
+  <a href="#how"><svg viewBox="0 0 24 24"><path d="M5 5h14M5 12h14M5 19h9"/></svg>How</a>
+  <a href="#honest"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v6M12 7.5v.5"/></svg>Honest</a>
+</nav></div>
+
+<script src="hunt.js"></script>
+<script>
+huntCommon();
+const firstImg = c => ITEMS.find(it => it.cat === c).img;
+huntTabs(document.getElementById('tabs'), (list, cat) => {
+  document.getElementById('feedtitle').textContent = cat + ' picked for Nicholas';
+  document.getElementById('feed').innerHTML = list.map(it => `
+    <a class="cell" href="${it.url}" target="_blank" rel="noopener">
+      <div class="ph"><img src="${it.img}" alt="${it.alt}" loading="lazy"><span class="pill">${it.price}</span><span class="heart">${HEART}</span></div>
+      <h3>${it.name}</h3>
+    </a>`).join('');
+  document.getElementById('ranges').innerHTML = list.map(it =>
+    `<div><span>${it.title}</span><span>${it.range}</span></div>`).join('');
+}, c => `<i><img src="${firstImg(c)}" alt=""></i>${c}`);
+</script>
+</body>
+</html>

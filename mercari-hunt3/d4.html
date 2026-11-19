@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Yuuki's Hunt Shop — The Hunt List</title>
+<link rel="stylesheet" href="base.css">
+<style>
+body{background:var(--bg)}
+.app{max-width:760px;margin:0 auto;background:#fff;min-height:100vh}
+.topbar{display:flex;align-items:center;justify-content:space-between;height:48px;padding:0 16px;border-bottom:1px solid var(--line);font-size:14px}
+.topbar b{font-size:16px}
+.topbar span{color:var(--sub);font-size:13px}
+.cover{display:grid;grid-template-columns:repeat(3,1fr);height:132px;overflow:hidden}
+.cover img{width:100%;height:100%;object-fit:cover;filter:saturate(.9)}
+.shop{padding:0 16px 16px;display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:end}
+.avatar{width:72px;height:72px;margin-top:-28px;border-radius:50%;background:#fff;border:3px solid #fff;box-shadow:0 0 0 1px var(--line);display:grid;place-items:center;font-size:30px;font-weight:800;color:var(--red)}
+.shop h1{font-size:20px;line-height:1.25;padding-top:10px}
+.shop p{font-size:13px;color:var(--sub)}
+.shopbtns{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.shopbtns a{min-height:40px;font-size:14px}
+.desc{padding:0 16px 16px;font-size:14px}
+.desc strong{display:block;font-size:17px;margin-bottom:4px}
+.campaign{margin:0 16px 20px;border-radius:8px;background:var(--red);color:#fff;padding:16px;display:grid;gap:4px}
+.campaign small{font-size:12px;font-weight:700;letter-spacing:.08em;opacity:.9}
+.campaign b{font-size:22px;line-height:1.2}
+.campaign span{font-size:14px}
+#tabs{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;z-index:5}
+.tab{height:46px;font-size:14px;color:var(--sub);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab.on{color:var(--ink);font-weight:700;border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 8px;padding:16px 12px 8px}
+.card{min-width:0}
+.ph{position:relative;aspect-ratio:1;border-radius:4px;overflow:hidden;background:#eee}
+.ph img{width:100%;height:100%;object-fit:cover}
+.card h3{font-size:13px;font-weight:400;line-height:1.4;margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .p{font-size:16px;font-weight:700;margin-top:2px}
+.card .r{font-size:12px;color:var(--sub);line-height:1.4;margin-top:2px}
+.asof{padding:0 16px 20px;font-size:12px;color:var(--sub)}
+.sec{padding:24px 16px;border-top:8px solid var(--bg)}
+.sec h2{font-size:17px;margin-bottom:14px}
+.honest{font-size:14px}
+@media (min-width:600px){.cover{height:180px}.grid{gap:20px 16px;padding:20px 16px 8px}.ask{max-width:520px}}
+@media (max-width:359px){.card .p{font-size:14px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar"><b>Mercari Shops</b><span>Ferrucho family</span></div>
+  <div class="cover"><img src="img/m36425879874.jpg" alt=""><img src="img/m25932299194.jpg" alt=""><img src="img/m84542502513.jpg" alt=""></div>
+  <div class="shop">
+    <div class="avatar">Y</div>
+    <div><h1>Yuuki's Hunt Shop</h1><p>Ikebukuro, Tokyo · Hand-over Dec 20</p></div>
+    <div class="shopbtns"><a class="btn-line" href="#how">How it works</a><a class="btn-red" href="#ask">Ask</a></div>
+  </div>
+  <div class="desc"><strong>The Hunt List</strong><span data-slot="intro"></span></div>
+  <div class="campaign"><small>TOUR GUEST CAMPAIGN</small><b>Free for tour guests</b><span data-slot="fee"></span></div>
+
+  <div id="tabs"></div>
+  <div class="grid" id="items"></div>
+  <p class="asof">Example prices from real Mercari listings, Nov 19, 2026. Tap an item to see it on Mercari.</p>
+
+  <section class="sec" id="how"><h2>How it works</h2><div data-slot="steps"></div></section>
+  <section class="sec"><h2>The honest part</h2><div data-slot="honest"></div></section>
+  <section class="sec" id="ask"><h2>Send the hunt list</h2><div class="ask" data-slot="form"></div></section>
+</div>
+
+<script src="hunt.js"></script>
+<script>
+huntCommon();
+huntTabs(document.getElementById('tabs'), list => {
+  document.getElementById('items').innerHTML = list.map(it => `
+    <a class="card" href="${it.url}" target="_blank" rel="noopener">
+      <div class="ph"><img src="${it.img}" alt="${it.alt}" loading="lazy"><span class="heart">${HEART}</span></div>
+      <h3>${it.name}</h3>
+      <p class="p">${it.price}</p>
+      <p class="r">${it.range}</p>
+    </a>`).join('');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+/* Shared base for d1–d5: Mercari-like system type, red, form. */
+:root{--red:#FF0211;--ink:#222;--sub:#666;--line:#e6e6e6;--bg:#f5f5f5;--pill:rgba(0,0,0,.55)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Hiragino Sans",Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.5;font-size:15px;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+svg{display:block}
+
+.btn-red{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px;padding:12px 16px;border-radius:8px;background:var(--red);color:#fff;font-weight:700;font-size:16px}
+.btn-red:active{opacity:.85}
+.btn-line{display:flex;align-items:center;justify-content:center;width:100%;min-height:44px;padding:10px 16px;border-radius:8px;border:1px solid var(--line);font-weight:700;font-size:15px;color:var(--ink)}
+
+.steps{list-style:none;display:grid;gap:14px}
+.steps li{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start}
+.steps b{width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:14px}
+.steps span{padding-top:3px}
+.honest{list-style:none;display:grid;gap:8px}
+.honest li{padding-left:16px;position:relative}
+.honest li::before{content:"";position:absolute;left:2px;top:.65em;width:6px;height:6px;border-radius:50%;background:var(--sub)}
+
+.hunt-form{display:grid;gap:14px}
+.hunt-form label{display:grid;gap:6px;font-size:14px;font-weight:700}
+.hunt-form input,.hunt-form textarea{font:inherit;font-size:16px;font-weight:400;width:100%;padding:12px;border:1px solid #ccc;border-radius:6px;background:#fff;color:var(--ink)}
+.hunt-form input:focus,.hunt-form textarea:focus{outline:2px solid var(--ink);outline-offset:-1px;border-color:transparent}
+.form-note{font-size:13px;color:var(--sub);text-align:center}
+
+/* price pill on photo, as in Mercari search results */
+.pill{position:absolute;left:0;bottom:8px;padding:1px 10px 1px 6px;border-radius:0 999px 999px 0;background:var(--pill);color:#fff;font-weight:700;font-size:15px;letter-spacing:.01em}
+.heart{position:absolute;top:6px;right:6px;width:30px;height:30px}
+.heart svg{width:30px;height:30px;fill:rgba(0,0,0,.18);stroke:#fff;stroke-width:1.6}
