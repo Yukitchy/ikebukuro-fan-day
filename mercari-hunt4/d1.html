@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Hunt List — for the Ferrucho family</title>
+<link rel="stylesheet" href="base.css">
+<style>
+.head{background:var(--red);padding:12px 12px 14px;color:#fff}
+.head .row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.head h1{font-size:20px;font-weight:800;letter-spacing:-.01em}
+.head small{font-size:12px;opacity:.9}
+.head .search{background:#fff}
+.hello{padding:16px 12px 4px;font-size:14px;color:var(--ink)}
+.hello b{display:block;font-size:16px;color:var(--black);margin-bottom:4px}
+.feed{display:grid;grid-template-columns:1fr 1fr;gap:16px 8px;padding:0 12px 20px}
+.cell .ph{position:relative;aspect-ratio:1;border-radius:4px;overflow:hidden;background:#eee}
+.cell img{width:100%;height:100%;object-fit:cover}
+.cell .cell-title{margin-top:6px}
+.cell .range{font-size:12px;color:var(--sub);margin-top:2px;line-height:1.35}
+</style>
+</head>
+<body>
+<div class="app" id="top">
+  <header class="head">
+    <div class="row"><h1>The Hunt List</h1><small>Ikebukuro · Dec&nbsp;20</small></div>
+    <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.3-4.3"/></svg>Search Mercari items</div>
+  </header>
+  <div class="chips" id="tabs"></div>
+  <p class="hello"><b>Hi, Ferrucho family</b><span data-slot="intro"></span></p>
+  <h2 class="apphead" id="items">Recommended for Nicholas</h2>
+  <div class="feed" id="feed"></div>
+
+  <section class="sec" id="how"><h2>How it works</h2><div data-slot="steps"></div><p class="fee" data-slot="fee"></p></section>
+  <section class="sec" id="honest"><h2>The honest part</h2><div data-slot="honest"></div><div data-slot="sold"></div></section>
+  <section class="sec" id="ask"><h2>Send the hunt list</h2><div data-slot="form"></div></section>
+</div>
+<script src="hunt.js"></script>
+<script>
+huntCommon(); huntSoldDemo(); huntTabbar();
+huntTabs(document.getElementById('tabs'), list => {
+  document.getElementById('feed').innerHTML = list.map(it => `
+    <a class="cell" href="${it.url}" target="_blank" rel="noopener">
+      <div class="ph"><img src="${it.img}" alt="${it.alt}" loading="lazy"><span class="pill">${it.price}</span><span class="heart" role="button" aria-label="Like" aria-pressed="false">${HEART}</span></div>
+      <h3 class="cell-title">${it.name}</h3>
+      <p class="range">${it.range}</p>
+    </a>`).join('');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Hunt List — for the Ferrucho family</title>
+<link rel="stylesheet" href="base.css">
+<style>
+.top{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line)}
+.top .bar{display:flex;align-items:center;height:46px;padding:0 12px}
+.top .bar svg{width:22px;height:22px;fill:none;stroke:var(--black);stroke-width:2;stroke-linecap:round}
+.top .bar strong{flex:1;text-align:center;font-size:16px;color:var(--black);margin-right:22px}
+.top .s{padding:0 12px}
+.top .chips{padding:10px 12px}
+.intro{padding:16px 16px 4px;font-size:14px}
+.intro h1{font-size:20px;color:var(--black)}
+.intro .for{font-size:12px;color:var(--sub);margin-bottom:6px}
+.rows{list-style:none;padding-bottom:12px}
+.row{display:grid;grid-template-columns:88px minmax(0,1fr) 32px;gap:12px;padding:12px 12px 12px 16px;border-bottom:1px solid var(--line);align-items:start}
+.row .th{width:88px;height:88px;border-radius:4px;overflow:hidden;background:#eee}
+.row .th img{width:100%;height:100%;object-fit:cover}
+.row h3{font-size:14px;font-weight:400;color:var(--black);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.row .p{font-size:18px;font-weight:700;color:var(--black);margin-top:4px;font-variant-numeric:tabular-nums}
+.row .r{font-size:12px;color:var(--sub);line-height:1.35;margin-top:2px}
+.row .ask{margin-top:8px;font-size:13px;font-weight:700;color:var(--red)}
+.row .heart{position:static;width:32px;height:32px}
+.row .heart svg{width:26px;height:26px;margin:3px;fill:none;stroke:var(--sub);stroke-width:1.7}
+.row .heart.liked svg{fill:var(--red);stroke:var(--red)}
+</style>
+</head>
+<body>
+<div class="app" id="top">
+  <div class="top">
+    <div class="bar"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><strong>Likes</strong></div>
+    <div class="s"><div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.3-4.3"/></svg>Search Mercari items</div></div>
+    <div class="chips" id="tabs"></div>
+  </div>
+  <div class="intro"><h1>The Hunt List</h1><p class="for">For the Ferrucho family · Ikebukuro tour, Dec&nbsp;20</p><p data-slot="intro"></p></div>
+  <h2 class="apphead" id="items">Liked for Nicholas</h2>
+  <ul class="rows" id="rows"></ul>
+
+  <section class="sec" id="how"><h2>How it works</h2><div data-slot="steps"></div><p class="fee" data-slot="fee"></p></section>
+  <section class="sec" id="honest"><h2>The honest part</h2><div data-slot="honest"></div><div data-slot="sold"></div></section>
+  <section class="sec" id="ask"><h2>Send the hunt list</h2><div data-slot="form"></div></section>
+</div>
+<script src="hunt.js"></script>
+<script>
+huntCommon(); huntSoldDemo(); huntTabbar();
+huntTabs(document.getElementById('tabs'), list => {
+  document.getElementById('rows').innerHTML = list.map(it => `
+    <li class="row">
+      <a class="th" href="${it.url}" target="_blank" rel="noopener"><img src="${it.img}" alt="${it.alt}" loading="lazy"></a>
+      <div>
+        <a href="${it.url}" target="_blank" rel="noopener"><h3>${it.name}</h3></a>
+        <p class="p">${it.price}</p>
+        <p class="r">${it.range}</p>
+        <button class="ask" type="button" onclick="huntAsk('${it.id}')">Ask Yuuki to buy</button>
+      </div>
+      <span class="heart liked" role="button" aria-label="Like" aria-pressed="true">${HEART}</span>
+    </li>`).join('');
+});
+</script>
+</body>
+</html>
